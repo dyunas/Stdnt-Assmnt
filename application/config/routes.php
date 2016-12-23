@@ -53,13 +53,28 @@ $route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// Login Routes
+/*---Login Routes---*/
 $route['login'] = 'Login/Index';
 $route['login/auth_login'] = 'Login/Auth_login';
+/*---End Login Routes---*/
 
-// Logout Route
+/*---Logout Routes---*/
 $route['logout'] = 'Logout/Index';
+/*---End Lougout Routes---*/
 
-// Admin Routes
+/*---Admin Routes---*/
+//Dashboard
 $route['admin/dashboard'] = 'Admin_Dboard/Dashboard/Index';
+
+//Account Manager
 $route['admin/acct_mngr'] = 'Account_Manager/Account_manager/Index';
+
+//Course Manager
+$route['admin/course_mngr'] = 'Course_Manager/Course_manager/Index';
+
+//Student Record
+$route['admin/student_rcrd'] = 'Student_Records/Student_records/Index';
+
+//School Year and Semester
+$route['admin/school_year'] = 'Yr_Semester/School_year/Index';
+/*---End Admin Routes---*/

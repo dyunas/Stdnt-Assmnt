@@ -1,0 +1,32 @@
+- Admin
+	- Account Manager
+		- Add New Account
+		- Edit Account
+		- Delete Account
+		- View Account
+
+	- Course Editor
+		- Add New Course
+		- Edit Course
+		- Delete Course
+		- View Course
+
+	- Student Record
+		- View Student Record
+		- Edit Student Record
+
+	- S.Y Manager
+		- Update School Year
+
+	- Payment Manager
+	- Pre-Enrollment
+
+- Student
+	- Student Profile
+	- Payment History
+	- Assessment
+	- Subjects
+-------------------------------------------
+
+tbl_accounts -> tbl_student_rcrd on tbl_accounts.user_id = tbl_student_rcrd if user_data is student
+tbl_accounts -> tbl_admin_info on tbl_accounts.user_id = tbl_admin_info if user_data is admin
