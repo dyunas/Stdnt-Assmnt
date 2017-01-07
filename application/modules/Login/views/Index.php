@@ -23,29 +23,12 @@
           					  <i class="ace-icon fa fa-sign-in red"></i>
           					  Log-in here
           					</h4>
-                    <?php if($this->session->flashdata('error')): ?>
-                    <span class="help-block">
-			      	      <?php echo '<div class="alert alert-success">
-			      	  			<button type="button" class="close" data-dismiss="alert">
-						  					<i class="ace-icon fa fa-times"></i>
-											</button>
-											<strong>
-						  					<i class="ace-icon fa fa-check"></i>
-						  					Success!
-											</strong>
-											'.$this->session->flashdata('error').'</div><!-- alert -->'; ?>
-			      	      </span>
-                    <?php endif; ?>
                     <?php if($this->session->flashdata('error_2')): ?>
                     <span class="help-block">
                     <?php echo '<div class="alert alert-danger">
 			      	  			<button type="button" class="close" data-dismiss="alert">
 						  					<i class="ace-icon fa fa-times"></i>
 											</button>
-											<strong>
-						  					<i class="ace-icon fa fa-times"></i>
-						  					Ooops!
-											</strong>
 											'.$this->session->flashdata('error_2').'</div><!-- alert -->'; ?>
       			      	</span>
                     <?php endif; ?>

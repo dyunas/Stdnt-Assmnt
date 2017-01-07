@@ -1,9 +1,9 @@
  		<div class="main-content">
 			<div class="main-content-inner">
 				<div class="breadcrumbs" id="breadcrumbs">
-					<script type="text/javascript">
+					<!-- <script type="text/javascript">
 						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-					</script>
+					</script> -->
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
@@ -34,7 +34,74 @@
 
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-xs-12">
-								<h1></h1>
+								<table id="account_tbl" class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th>User ID</th>
+											<th>First Name</th>
+											<th>Middle Name</th>
+											<th>Last Name</th>
+											<th>User Type</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach($accts as $item): ?>
+											<tr>
+												<td><?php echo $item->user_id; ?></td>
+												<td><?php echo $item->fname; ?></td>
+												<td><?php echo $item->mname; ?></td>
+												<td><?php echo $item->lname; ?></td>
+												<td><?php echo $item->user_type; ?></td>
+												<td>
+													<div class="hidden-sm hidden-xs action-buttons">
+														<a class="blue" href="#">
+															<i class="ace-icon fa fa-search-plus bigger-130"></i>
+														</a>
+														<a class="green" href="#">
+															<i class="ace-icon fa fa-pencil bigger-130"></i>
+														</a>
+														<a class="red" href="#">
+															<i class="ace-icon fa fa-trash-o bigger-130"></i>
+														</a>
+													</div>
+
+													<div class="hidden-md hidden-lg">
+														<div class="inline pos-rel">
+															<button class="btn btn-minier btn-danger dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+															</button>
+
+															<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																<li>
+																	<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																		<span class="blue">
+																			<i class="ace-icon fa fa-search-plus bigger-120"></i>
+																		</span>
+																	</a>
+																</li>
+																<li>
+																	<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																		<span class="green">
+																			<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																		</span>
+																	</a>
+																</li>
+																<li>
+																	<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																		<span class="red">
+																			<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																		</span>
+																	</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div><!-- page-content -->
@@ -84,4 +151,14 @@
 	<!-- ace scripts -->
 	<script src="<?php echo base_url('assets/js/ace-elements.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/ace.min.js'); ?>"></script>
+
+	<!-- dataTables scripts -->
+	<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/dataTables.bootstrap.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/dataTables.min.js'); ?>"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#account_tbl').dataTable();
+		});
+	</script>
 </body>

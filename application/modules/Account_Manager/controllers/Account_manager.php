@@ -1,33 +1,28 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Account_manager extends MX_Controller {
+class Account_manager extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Login/Login_model');
+		$this->load->model('Login/Login_model', 'login');
+		$this->load->model('Account_manager/Account_manager_model', 'acct_mngr');
 	}
 
 	public function Index()
 	{
-		if ($this->session->userdata('is_in'))
+		if ($this->session->userdata('user_type') != 'Admin')
 		{
-			if (!$this->session->userdata('user_type') == 'Admin')
-			{
-				redirect('/student');
-			}
-			else
-			{
-				$data = array(
-					'title' => 'Account Manager',
-					'usr' => $this->Login_model->get_user_info()
-					);
-
-				$this->template->load($data, null, 'Index', 'Account_Manager');
-			}
+			redirect(site_url());
 		}
 		else
 		{
-			redirect('/login');
+			$data = array(
+				'title' => 'Account Manager',
+				'usr' => $this->login->get_user_info(),
+				'accts' => $this->acct_mngr->get_accounts_tbl(),
+			);
+
+			$this->template->load($data, null, 'Index', 'Account_Manager');
 		}
 	}
 }

@@ -35,48 +35,50 @@
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-xs-12">
 								<div class="row">
-									<div class="col-xs-12 col-sm-6 widget-container-col">
-										<div class="widget-box">
-											<div class="widget-header">
-												<h5 class="widget-title">School Year</h5>
-												<div class="widget-toolbar">
-													<!-- <a href="#" data-action="reload">
-														<i class="ace-icon fa fa-refresh"></i>
-													</a> -->
-													<a href="<?php echo site_url('admin/school_year/schl_yr/edit'); ?>">
-														<i class="ace-icon fa fa-pencil"></i>
-													</a>
+									<div class="col-lg-3 col-md-6">
+										<div class="panel panel-red">
+											<div class="panel-heading">
+												<div class="row">
+													<div class="col-xs-3">
+                          	<i class="fa fa-calendar fa-5x"></i>
+                          </div>
+                          <div class="col-xs-9 text-right">
+                            <div class="huge"><?php echo $schl_yr->school_yr; ?></div>
+                            <div style="font-size: 16px;">School Year</div>
+                          </div>
 												</div>
-											</div><!-- /.widget-header -->
-
-											<div class="widget-body">
-												<div class="widget-main">
-													<h2 style="text-align:center;"><?php echo $schl_yr->school_yr; ?></h2>
-												</div><!-- /.widget-main -->
-											</div><!-- /.widget-body -->
-										</div><!-- /.widget-box -->
-									</div><!-- /.col-xs-12 col-sm-6 widget-container-col -->
-									<div class="col-xs-12 col-sm-6 widget-container-col">
-										<div class="widget-box">
-											<div class="widget-header">
-												<h5 class="widget-title">Semester</h5>
-												<div class="widget-toolbar">
-													<!-- <a href="#" data-action="reload">
-														<i class="ace-icon fa fa-refresh"></i>
-													</a> -->
-													<a href="<?php echo site_url('admin/school_year/smstr/edit'); ?>">
-														<i class="ace-icon fa fa-pencil"></i>
-													</a>
+											</div>
+											<a href="#" data-toggle="modal" data-target="#chngeSY">
+												<div class="panel-footer">
+	                        <span class="pull-left">Change Settings</span>
+	                        <span class="pull-right"><i class="fa fa-cog"></i></span>
+	                        <div class="clearfix"></div>
+	                      </div>
+	                    </a>	
+										</div>
+									</div><!-- /.col-lg-3 col-md-6 -->
+									<div class="col-lg-3 col-md-6">
+										<div class="panel panel-red">
+											<div class="panel-heading">
+												<div class="row">
+													<div class="col-xs-3">
+                          	<i class="fa fa-calendar fa-5x"></i>
+                          </div>
+                          <div class="col-xs-9 text-right">
+                            <div class="huge"><?php echo $smstr->semester; ?></div>
+                            <div style="font-size: 16px;">Semester</div>
+                          </div>
 												</div>
-											</div><!-- /.widget-header -->
-
-											<div class="widget-body">
-												<div class="widget-main">
-													<h2 style="text-align:center;"><?php echo $smstr->semester; ?></h2>
-												</div><!-- /.widget-main -->
-											</div><!-- /.widget-body -->
-										</div><!-- /.widget-box -->
-									</div><!-- /.col-xs-12 col-sm-6 widget-container-col -->
+											</div><!-- /.col-lg-3 col-md-6 -->
+											 <a href="#" data-toggle="modal" data-target="#chngeSem">
+												<div class="panel-footer">
+	                        <span class="pull-left">Change Settings</span>
+	                        <span class="pull-right"><i class="fa fa-cog"></i></span>
+	                        <div class="clearfix"></div>
+	                      </div>
+	                    </a>	
+										</div>
+									</div><!-- /.col-lg-3 col-md-6 -->
 								</div><!-- /.row -->
 							</div><!-- /.col-lg-12 col-md-12 col-xs-12 -->
 						</div><!-- /.row -->
@@ -89,6 +91,77 @@
 			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 		</a>
 	</div><!-- /.main-container -->
+
+	<!-- MODALS -->
+	<div class="modal fade bs-example-modal-md" id="chngeSem" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="moda-body">
+        <div class='row'>
+          <div class='col-md-4'></div>
+            <div class='col-md-4'>
+              <h4>Change Semester</h4>
+            </div>
+          <div class='col-md-4'></div>
+        </div>
+
+        <div class='row' style="margin:20px">
+          <div class='col-md-4'>
+            <label for='sem'>Semester:</label>
+          </div>
+          <div class='col-md-4'>
+            <select id='sem'>
+              <option value="1st">1st Sem</option>
+              <option value="2nd">2nd Sem</option>
+            </select>
+          </div>
+          <div class='col-md-4'></div>
+        </div>
+        <div class='row' style="margin:20px">
+          <div class='col-md-12 text-right' style=''>
+            <button class='btn btn-md btn-danger' id="cnfChngeSem"><i class="ace-icon fa fa-check"></i> Update</button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bs-example-modal-md" id="chngeSY" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="moda-body">
+        <div class='row'>
+          <div class='col-md-4'></div>
+            <div class='col-md-4'>
+              <h4>Change School Year</h4>
+            </div>
+          <div class='col-md-4'></div>
+        </div>
+
+        <div class='row' style="margin:20px">
+          <div class='col-md-4'>
+            <label for='sy'>School Year:</label>
+          </div>
+          <div class='col-md-4'>
+            <select id='sem'>
+              <option value="2016-2017">2016-2017</option>
+              <option value="2015-2016">2015-2016</option>
+              <option value="2014-2015">2014-2015</option>
+            </select>
+          </div>
+          <div class='col-md-4'></div>
+        </div>
+        <div class='row' style="margin:20px">
+          <div class='col-md-12 text-right' style=''>
+            <button class='btn btn-md btn-danger' id="cnfChngeSem"><i class="ace-icon fa fa-check"></i> Update</button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 	<!-- basic scripts -->
 
@@ -117,6 +190,7 @@
 	</script>
 	
 	<script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/bootbox.min.js'); ?>"></script>
 
 	<!--[if lte IE 8]>
 	  <script src="assets/js/excanvas.min.js"></script>
@@ -127,4 +201,15 @@
 	<!-- ace scripts -->
 	<script src="<?php echo base_url('assets/js/ace-elements.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/ace.min.js'); ?>"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#cnfChngeSem').click(function(e){
+        var status = $('#sem').val();
+
+        $.get("<?php echo site_url();?>",{code:status},function(data){    
+          });
+        location.reload();
+      })
+		});
+	</script>
 </body>

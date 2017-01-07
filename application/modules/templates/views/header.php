@@ -13,10 +13,13 @@
 		<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url("assets/css/jquery.orgchart.css"); ?>">
 		
 		<!-- ace styles -->
-		<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url("assets/css/ace.min.css"); ?>">
+		<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url("assets/css/ace.css"); ?>">
 
 		<!-- text fonts -->
 		<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url("assets/fonts/fonts.googleapis.com.css"); ?>">
+
+		<!-- dataTables -->
+		<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url("assets/css/dataTables.bootstrap.css"); ?>">
 
 		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="assets/css/ace-part2.min.css" />

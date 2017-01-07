@@ -7,8 +7,9 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
-							<a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a>
+							<a href="<?php echo site_url('admin/dashboard'); ?>">Dashboard</a>
 						</li>
+						<li>Fee Manager</li>
 					</ul><!-- /.breadcrumb -->
 
 					<!-- <div class="nav-search" id="nav-search">
@@ -24,7 +25,7 @@
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								Dashboard
+								Fee Manager
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
 								</small>
@@ -34,50 +35,7 @@
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-xs-12">
 								<div class="row">
-									<div class="col-lg-3 col-md-6">
-										<div class="panel panel-red">
-											<div class="panel-heading">
-												<div class="row">
-													<div class="col-xs-3">
-                          	<i class="fa fa-calendar fa-5x"></i>
-                          </div>
-                          <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo $schl_yr->school_yr; ?></div>
-                            <div style="font-size: 16px;">School Year</div>
-                          </div>
-												</div>
-											</div>
-											<!-- <a href="javascript:void()">
-												<div class="panel-footer">
-	                        <span class="pull-left">Change Settings</span>
-	                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-	                        <div class="clearfix"></div>
-	                      </div>
-	                    </a> -->	
-										</div>
-									</div><!-- /.col-lg-3 col-md-6 -->
-									<div class="col-lg-3 col-md-6">
-										<div class="panel panel-red">
-											<div class="panel-heading">
-												<div class="row">
-													<div class="col-xs-3">
-                          	<i class="fa fa-calendar fa-5x"></i>
-                          </div>
-                          <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo $smstr->semester; ?></div>
-                            <div style="font-size: 16px;">Semester</div>
-                          </div>
-												</div>
-											</div><!-- /.col-lg-3 col-md-6 -->
-											<!-- <a href="javascript:void()">
-												<div class="panel-footer">
-	                        <span class="pull-left">Change Settings</span>
-	                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-	                        <div class="clearfix"></div>
-	                      </div>
-	                    </a> -->	
-										</div>
-									</div><!-- /.col-lg-3 col-md-6 -->
+									
 								</div><!-- /.row -->
 							</div><!-- /.col-lg-12 col-md-12 col-xs-12 -->
 						</div><!-- /.row -->

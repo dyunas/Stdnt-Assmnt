@@ -34,17 +34,16 @@ class Login extends MX_Controller {
 		{
 			if ($this->session->userdata('user_type') == 'Admin')
 			{
-				redirect('/admin/dashboard');
+				redirect('/admin');
 			}
 			else
 			{
-				redirect('/student/dashboard');
+				redirect('/student');
 			}
 		}
 		else
 		{
-			$this->load->view('templates/header.php');
-			$this->load->view('Index.php');
+			redirect(site_url('login'));
 		}
 	}
 }

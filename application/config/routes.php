@@ -65,6 +65,7 @@ $route['logout'] = 'Logout/Index';
 /*---Admin Routes---*/
 //Dashboard
 $route['admin/dashboard'] = 'Admin_Dboard/Dashboard/Index';
+$route['admin'] = 'Admin_Dboard/Dashboard/Index';
 
 //Account Manager
 $route['admin/acct_mngr'] = 'Account_Manager/Account_manager/Index';
@@ -76,5 +77,9 @@ $route['admin/course_mngr'] = 'Course_Manager/Course_manager/Index';
 $route['admin/student_rcrd'] = 'Student_Records/Student_records/Index';
 
 //School Year and Semester
-$route['admin/school_year'] = 'Yr_Semester/School_year/Index';
+$route['admin/settings/school_year'] = 'Yr_Semester/School_year/Index';
+/*---End Admin Routes---*/
+
+//School Year and Semester
+$route['admin/settings/fee_mngr'] = 'Fee_manager/Fee_manager/Index';
 /*---End Admin Routes---*/
