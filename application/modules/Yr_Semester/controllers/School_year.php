@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class School_year extends MX_Controller {
+class School_year extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('Login/Login_model');
-		$this->load->model('Yr_Semester/Yr_sem_model');
+		$this->load->model('Yr_Semester/Yr_sem_model', 'yr_sem');
 	}
 
 	public function Index()
@@ -19,11 +19,45 @@ class School_year extends MX_Controller {
 			$data = array(
 				'title' => 'S.Y and Semester Editor',
 				'usr' => $this->Login_model->get_user_info(),
-				'schl_yr' => $this->Yr_sem_model->get_schoolyr_info(),
-				'smstr' => $this->Yr_sem_model->get_semester_info(),
+				'schl_yr' => $this->yr_sem->get_schoolyr_info(),
+				'smstr' => $this->yr_sem->get_semester_info(),
 			);
-			
+
 			$this->template->load($data, null, 'Index', 'Yr_Semester');
+		}
+	}
+
+	public function Update_sem()
+	{
+		if($this->input->is_ajax_request())
+		{
+			$var = $this->input->get('code');
+
+			if ($this->yr_sem->update_sem($var))
+			{
+				$this->session->set_flashdata('error','Semester Updated');
+			}
+			else
+			{
+				$this->session->set_flashdata('error_2', 'Error updating semester, try again later.');
+			}
+		}
+	}
+
+	public function Update_sy()
+	{
+		if($this->input->is_ajax_request())
+		{
+			$var = $this->input->get('code');
+
+			if ($this->yr_sem->update_sy($var))
+			{
+				$this->session->set_flashdata('error','School Year Updated');
+			}
+			else
+			{
+				$this->session->set_flashdata('error_2', 'Error updating school year, try again later.');
+			}
 		}
 	}
 }

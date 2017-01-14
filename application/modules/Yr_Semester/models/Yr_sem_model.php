@@ -28,6 +28,34 @@ class Yr_sem_model extends CI_Model {
 			return FALSE;
 		}
 	}
+
+	public function update_sem($var)
+	{
+		$this->db->set('semester', $var);
+
+		if ($this->db->update('tbl_semester'))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	public function update_sy($var)
+	{
+		$this->db->set('school_yr', $var);
+
+		if ($this->db->update('tbl_schlyear'))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 }
 
 /* End of file Yr_sem_model.php */

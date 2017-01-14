@@ -21,6 +21,9 @@
 		<!-- dataTables -->
 		<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url("assets/css/dataTables.bootstrap.css"); ?>">
 
+		<!-- ionIcons -->
+		<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url("assets/ionicons/css/ionicons.css"); ?>">
+
 		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="assets/css/ace-part2.min.css" />
 		<![endif]-->

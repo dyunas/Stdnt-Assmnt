@@ -49,7 +49,7 @@
             						</label><!-- block clearfix -->
           						  <div class="space"></div><!-- space -->
             						<div class="clearfix">
-            						  <button type="submit" name="submit" class="width-35 pull-right btn btn-sm btn-danger">
+            						  <button type="submit" name="submit" class="width-35 pull-right btn btn-sm btn-danger" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Loading">
             						    <i class="ace-icon fa fa-key"></i>
             						    <span class="bigger-110">Login</span>
             						  </button>
@@ -145,8 +145,11 @@
   </script>
 
   <!-- inline scripts related to this page -->
-  <script src="<?php echo site_url('assets/js/fuelux.wizard.min.js'); ?>"></script>
-  <script src="<?php echo site_url('assets/js/jquery.validate.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/js/fuelux.wizard.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/js/jquery.validate.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/js/ace-elements.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/js/ace.min.js'); ?>"></script>
 
   <script type="text/javascript">
     jQuery(function($)
@@ -208,13 +211,15 @@
       });
 
     jQuery(function($) {
-      $('#btn-login-dark').on('click', function(e) {
-        $('body').attr('class', 'login-layout');
-        $('#id-text2').attr('class', 'white');
-        $('#id-company-text').attr('class', 'red');   
-        e.preventDefault();
-      });
+      $('#loadingBtn').on(ace.click_event, function () {
+          var btn = $(this);
+          btn.button('loading');
+
+          setTimeout(function () {
+            btn.button('reset');
+          }, 2000)
+        });
     });
   </script>
 </section>
-</body><!-- login-layout -->
+<!-- login-layout -->

@@ -31,7 +31,24 @@
 								</small>
 							</h1>
 						</div><!-- /.page-header -->
-
+						<?php if($this->session->flashdata('error')): ?>
+              <span class="help-block">
+                <?php echo '<div class="alert alert-success">
+			      			<button type="button" class="close" data-dismiss="alert">
+						  			<i class="ace-icon fa fa-times"></i>
+									</button>
+									'.$this->session->flashdata('error').'</div>'; ?>
+      			  </span>
+            <?php endif; ?>
+						<?php if($this->session->flashdata('error_2')): ?>
+              <span class="help-block">
+                <?php echo '<div class="alert alert-danger">
+			      			<button type="button" class="close" data-dismiss="alert">
+						  			<i class="ace-icon fa fa-times"></i>
+									</button>
+									'.$this->session->flashdata('error_2').'</div>'; ?>
+      			  </span>
+            <?php endif; ?>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-xs-12">
 								<div class="row">
@@ -111,8 +128,8 @@
           </div>
           <div class='col-md-4'>
             <select id='sem'>
-              <option value="1st">1st Sem</option>
-              <option value="2nd">2nd Sem</option>
+              <option value="1st" <?php echo ($smstr->semester == '1st') ? 'selected' : ''; ?>>1st Sem</option>
+              <option value="2nd" <?php echo ($smstr->semester == '2nd') ? 'selected' : ''; ?>>2nd Sem</option>
             </select>
           </div>
           <div class='col-md-4'></div>
@@ -144,23 +161,24 @@
             <label for='sy'>School Year:</label>
           </div>
           <div class='col-md-4'>
-            <select id='sem'>
-              <option value="2016-2017">2016-2017</option>
-              <option value="2015-2016">2015-2016</option>
-              <option value="2014-2015">2014-2015</option>
+            <select id='sy'>
+              <option value="2016-2017" <?php echo ($schl_yr->school_yr == '2016-2017') ? 'selected' : ''; ?>>2016-2017</option>
+              <option value="2015-2016" <?php echo ($schl_yr->school_yr == '2015-2016') ? 'selected' : ''; ?>>2015-2016</option>
+              <option value="2014-2015" <?php echo ($schl_yr->school_yr == '2014-2015') ? 'selected' : ''; ?>>2014-2015</option>
             </select>
           </div>
           <div class='col-md-4'></div>
         </div>
         <div class='row' style="margin:20px">
           <div class='col-md-12 text-right' style=''>
-            <button class='btn btn-md btn-danger' id="cnfChngeSem"><i class="ace-icon fa fa-check"></i> Update</button>
+            <button class='btn btn-md btn-danger' id="cnfChngeSY"><i class="ace-icon fa fa-check"></i> Update</button>
           </div>
         </div>
         </div>
       </div>
     </div>
   </div>
+
 
 
 	<!-- basic scripts -->
@@ -206,10 +224,17 @@
 			$('#cnfChngeSem').click(function(e){
         var status = $('#sem').val();
 
-        $.get("<?php echo site_url();?>",{code:status},function(data){    
+        $.get("<?php echo site_url('admin/settings/school_year/sem/update');?>",{code:status},function(data){
           });
         location.reload();
-      })
+      });
+      $('#cnfChngeSY').click(function(e){
+        var status = $('#sy').val();
+
+        $.get("<?php echo site_url('admin/settings/school_year/sy/update');?>",{code:status},function(data){
+          });
+        location.reload();
+      });
 		});
 	</script>
 </body>

@@ -71,12 +71,15 @@ $route['admin'] = 'Admin_Dboard/Dashboard/Index';
 $route['admin/acct_mngr'] = 'Account_Manager/Account_manager/Index';
 
 //Course Manager
+$route['admin/course_mngr/add'] = 'Course_Manager/Course_manager/Add_course';
 $route['admin/course_mngr'] = 'Course_Manager/Course_manager/Index';
 
 //Student Record
 $route['admin/student_rcrd'] = 'Student_Records/Student_records/Index';
 
 //School Year and Semester
+$route['admin/settings/school_year/sy/update'] = 'Yr_Semester/School_year/Update_sy';
+$route['admin/settings/school_year/sem/update'] = 'Yr_Semester/School_year/Update_sem';
 $route['admin/settings/school_year'] = 'Yr_Semester/School_year/Index';
 /*---End Admin Routes---*/
 
