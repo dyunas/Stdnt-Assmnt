@@ -53,11 +53,11 @@ class Course_manager extends MY_Controller {
 
 			if ($this->course->add_course($data[0], $data[1]))
 			{
-				$this->session->set_flashdata('error','Course Added');
+				return TRUE;
 			}
 			else
 			{
-				$this->session->set_flashdata('error_2', 'Error updating semester, try again later.');
+				return FALSE;
 			}
 		}
 	}
