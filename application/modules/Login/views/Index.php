@@ -163,40 +163,40 @@
       });
 
       $('#reset-pw-form').validate({
-      errorElement: 'div',
-      errorClass: 'help-block',
-      focusInvalid: false,
-      ignore: "",
-      rules: {
-        user_id: {
-          required: true,
-        }
-      },
-      messages: {
-        user_id: {
-          required: "Please enter your User ID"
-        }
-      },
+        errorElement: 'div',
+        errorClass: 'help-block',
+        focusInvalid: false,
+        ignore: "",
+        rules: {
+          user_id: {
+            required: true,
+          }
+        },
+        messages: {
+          user_id: {
+            required: "Please enter your User ID"
+          }
+        },
 
-      highlight: function (e) {
-        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-      },
-      
-      success: function (e) {
-        $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
-      $(e).remove();
-      },
-      
-      errorPlacement: function (error, element) {
-        error.insertAfter(element.parent());
-      },
-      
-      submitHandler: function (form) {
-        $(form).ajaxSubmit();
-      },
-      invalidHandler: function (form) {
-      }
-    });
+        highlight: function (e) {
+          $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        },
+        
+        success: function (e) {
+          $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+        $(e).remove();
+        },
+        
+        errorPlacement: function (error, element) {
+          error.insertAfter(element.parent());
+        },
+        
+        submitHandler: function (form) {
+          $(form).ajaxSubmit();
+        },
+        invalidHandler: function (form) {
+        }
+      });
   });
   </script>
 

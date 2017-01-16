@@ -34,6 +34,24 @@
 
 
 						<div class="row">
+							<?php if($this->session->flashdata('error')): ?>
+              <span class="help-block">
+              	<?php echo '<div class="alert alert-success">
+			      	  <button type="button" class="close" data-dismiss="alert">
+						  		<i class="ace-icon fa fa-times"></i>
+								</button>
+								'.$this->session->flashdata('error').'</div><!-- alert -->'; ?>
+      			  </span>
+              <?php endif; ?>
+							<?php if($this->session->flashdata('error_2')): ?>
+              <span class="help-block">
+              	<?php echo '<div class="alert alert-danger">
+			      	  <button type="button" class="close" data-dismiss="alert">
+						  		<i class="ace-icon fa fa-times"></i>
+								</button>
+								'.$this->session->flashdata('error_2').'</div><!-- alert -->'; ?>
+      			  </span>
+              <?php endif; ?>
 							<div class="col-lg-3 col-md-4 col-xs-4 pull-right">
 								<a href="#modal-form" role="button" data-toggle="modal" class="btn btn-danger btn-sm pull-right"><i class="fa fa-plus"></i> Add new course</a>
 							</div>
@@ -56,9 +74,6 @@
 												<td><?php echo $item->course_code; ?></td>
 												<td>
 													<div class="hidden-sm hidden-xs action-buttons">
-														<a class="blue" href="#">
-															<i class="ace-icon fa fa-search-plus bigger-130"></i>
-														</a>
 														<a class="green" href="#">
 															<i class="ace-icon fa fa-pencil bigger-130"></i>
 														</a>
@@ -74,13 +89,6 @@
 															</button>
 
 															<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-																<li>
-																	<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-																		<span class="blue">
-																			<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
 																<li>
 																	<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
 																		<span class="green">
@@ -120,22 +128,22 @@
 
 									<div class="modal-body">
 										<div class="row">
-											<div class="col-lg-12 col-md-12 col-xs-12 col-sm-7">
+											<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 col-xs-12">
 												<?php //echo form_open('', 'class="form-horizontal" role="form"'); ?>
-												<fieldset class="form-horizontal col-lg-12 col-md-12">
+												<fieldset class="form-horizontal" id="add_form">
 													<div class="form-group">
-														<label for="courseName" class="col-lg-4 col-mg-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Course Name:</span></label>
-														<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-															<input type="text" name="courseName" id="courseName" placeholder="Course Name" />
+														<label for="courseName" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Course Name:</span></label>
+														<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+															<input type="text" class="form-control" name="courseName" id="courseName" placeholder="Course Name" />
 														</div>
 													</div>
 
 													<div class="space-4"></div>
 
 													<div class="form-group">
-														<label for="courseCode" class="col-lg-4 col-mg-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Course Code:</span></label>
-														<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-															<input type="text" name="courseCode" id="courseCode" placeholder="First Name" />
+														<label for="courseCode" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Course Code:</span></label>
+														<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+															<input type="text" class="form-control" name="courseCode" id="courseCode" placeholder="Course Code" />
 														</div>
 													</div>
 												</fieldset>
@@ -144,7 +152,7 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button class="btn btn-sm btn-danger addCourse" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Loading">
+										<button class="btn btn-sm btn-danger addCourse" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Adding">
 											<i class="ace-icon fa fa-plus"></i>
 											Add course
 										</button>
@@ -195,6 +203,8 @@
 	<![endif]-->
 	<script src="<?php echo base_url('assets/js/jquery-ui.custom.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/bootbox.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/fuelux.wizard.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/js/jquery.validate.min.js'); ?>"></script>
 
 	<!-- ace scripts -->
 	<script src="<?php echo base_url('assets/js/ace-elements.min.js'); ?>"></script>
@@ -204,6 +214,7 @@
 	<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/dataTables.bootstrap.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/dataTables.min.js'); ?>"></script>
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#course_tbl').dataTable();
@@ -231,8 +242,50 @@
         var code = courseName+'/'+courseCode;
 
         $.get("<?php echo site_url('admin/course_mngr/add');?>",{code:code},function(data){
-        			window.location.reload();
-          });
+        	window.location.reload();
+        });
+      });
+
+      $('#add_form').validate({
+        errorElement: 'div',
+        errorClass: 'help-block',
+        focusInvalid: false,
+        ignore: "",
+        rules: {
+          courseName: {
+            required: true,
+          }
+          courseCode: {
+          	required: true
+          }
+        },
+        messages: {
+          courseName: {
+            required: "Please specify course name"
+          },
+          courseCode: {
+          	required: "Please specify course code"
+          }
+        },
+
+        highlight: function (e) {
+          $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        },
+        
+        success: function (e) {
+          $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+        $(e).remove();
+        },
+        
+        errorPlacement: function (error, element) {
+          error.insertAfter(element.parent());
+        },
+        
+        submitHandler: function (form) {
+          $(form).ajaxSubmit();
+        },
+        invalidHandler: function (form) {
+        }
       });
     });
 	</script>
