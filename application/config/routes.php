@@ -84,5 +84,12 @@ $route['admin/settings/school_year'] = 'Yr_Semester/School_year/Index';
 /*---End Admin Routes---*/
 
 //School Year and Semester
+$route['admin/settings/fee_mngr/add'] = 'Fee_manager/Fee_manager/Add_fee';
 $route['admin/settings/fee_mngr'] = 'Fee_manager/Fee_manager/Index';
 /*---End Admin Routes---*/
+
+//Payment Scheme
+$route['admin/settings/pymnt_schm/del/(:any)'] = 'Payment_scheme/Payment_scheme/Delete_scheme/$1';
+$route['admin/settings/pymnt_schm/update'] = 'Payment_scheme/Payment_scheme/Update_scheme';
+$route['admin/settings/pymnt_schm/add'] = 'Payment_scheme/Payment_scheme/Add_scheme';
+$route['admin/settings/pymnt_schm'] = 'Payment_scheme/Payment_scheme/Index';

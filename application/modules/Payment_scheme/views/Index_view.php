@@ -7,9 +7,9 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
-							<a href="<?php echo site_url('admin/dashboard'); ?>">Dashboard</a>
+							<a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a>
 						</li>
-						<li>Fee Manager</li>
+						<li>Payment Scheme</li>
 					</ul><!-- /.breadcrumb -->
 
 					<!-- <div class="nav-search" id="nav-search">
@@ -25,7 +25,7 @@
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								Fee Manager
+								Payment Scheme
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
 								</small>
@@ -60,7 +60,7 @@
 								<br/>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-xs-12">
-										<table id="fees_tbl" class="table table-striped table-bordered table-hover">
+										<table id="scheme_tbl" class="table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
 													<th>Payment Name</th>
@@ -69,17 +69,17 @@
 												</tr>
 											</thead>
 											<tbody>
-											<?php if ($fees): ?>
-												<?php foreach($fees as $item): ?>
+											<?php if ($schemes): ?>
+												<?php foreach($schemes as $item): ?>
 													<tr>
-														<td><?php echo $item->fee_name; ?></td>
-														<td><?php echo 'Php '.number_format($item->amount, 2); ?></td>
+														<td><?php echo $item->scheme_name; ?></td>
+														<td><?php echo $item->scheme_code; ?></td>
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
 																<a class="green" href="#modal-edit" role="button" data-toggle="modal">
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
-																<a href="javascript:();" class="red del_<?php echo $item->row_id;?>" data-id="<?php echo $item->fee_name; ?>" class="tooltip-error" data-rel="tooltip" title="Delete">
+																<a href="javascript:();" class="red del_<?php echo $item->row_id;?>" data-id="<?php echo $item->scheme_code; ?>" class="tooltip-error" data-rel="tooltip" title="Delete">
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
 															</div>
@@ -99,7 +99,7 @@
 																			</a>
 																		</li>
 																		<li>
-																			<a href="javascript:();" class="red del_<?php echo $item->row_id;?>" data-id="<?php echo $item->fee_name; ?>" class="tooltip-error" data-rel="tooltip" title="Delete">
+																			<a href="javascript:();" class="red del_<?php echo $item->row_id;?>" data-id="<?php echo $item->scheme_code; ?>" class="tooltip-error" data-rel="tooltip" title="Delete">
 																				<span class="red">
 																					<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																				</span>
@@ -130,7 +130,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="red bigger">Add New Fee</h4>
+						<h4 class="red bigger">Add New Course</h4>
 					</div>
 
 					<div class="modal-body">
@@ -139,18 +139,18 @@
 								<?php //echo form_open('', 'class="form-horizontal" role="form"'); ?>
 								<fieldset class="form-horizontal" id="add_form">
 									<div class="form-group">
-										<label for="feeName" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Fee Name:</span></label>
+										<label for="pymntSchm" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Scheme Name:</span></label>
 										<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-											<input type="text" class="form-control" name="fee_name" id="feeName" placeholder="Fee Name" />
+											<input type="text" class="form-control" name="payment_scheme" id="pymntSchm" placeholder="Payment Name" />
 										</div>
 									</div>
 
 									<div class="space-4"></div>
 
 									<div class="form-group">
-										<label for="feeAmnt" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Amount:</span></label>
+										<label for="pymntCde" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Scheme Code:</span></label>
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-											<input type="text" class="form-control" name="fee_amount" id="feeAmnt" placeholder="Amount" />
+											<input type="text" class="form-control" name="payment_code" id="pymntCde" placeholder="Payment Code" />
 										</div>
 									</div>
 								</fieldset>
@@ -159,9 +159,9 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-sm btn-danger addFee" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Adding">
+						<button class="btn btn-sm btn-danger addSchm" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Adding">
 							<i class="ace-icon fa fa-plus"></i>
-							Add Fee
+							Add Scheme
 						</button>
 						<button class="btn btn-sm" data-dismiss="modal">
 							<i class="ace-icon fa fa-times"></i>
@@ -170,7 +170,7 @@
 					</div>
 				</div>
 			</div>
-		</div><!-- /. end modal -->
+		</div>
 
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
 			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
@@ -210,6 +210,8 @@
 	<![endif]-->
 	<script src="<?php echo base_url('assets/js/jquery-ui.custom.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/bootbox.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/fuelux.wizard.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/js/jquery.validate.min.js'); ?>"></script>
 
 	<!-- ace scripts -->
 	<script src="<?php echo base_url('assets/js/ace-elements.min.js'); ?>"></script>
@@ -221,7 +223,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#fees_tbl').dataTable();
+			$('#scheme_tbl').dataTable();
 		});
 
 		jQuery(function($) {
@@ -238,11 +240,11 @@
 		    $(this).find('input[type=text]').val('');
 			});
 
-			$('.addFee').click(function(e){
-				var feeName = $('#feeName').val();
-				var feeAmnt = $('#feeAmnt').val();
+			$('.addSchm').click(function(e){
+				var scheme = $('#pymntSchm').val();
+				var scheme_code = $('#pymntCde').val();
 
-        $.get("<?php echo site_url('admin/settings/fee_mngr/add');?>",{name:feeName,amount:feeAmnt},function(data){
+        $.get("<?php echo site_url('admin/settings/pymnt_schm/add');?>",{name:scheme,code:scheme_code},function(data){
         	window.location.reload();
         });
       });
@@ -294,10 +296,10 @@
 	<script type="text/javascript">
 	  jQuery(function($) {
 	  	//Confirm Dialog
-	  	<?php foreach($fees as $item): ?>
+	  	<?php foreach($schemes as $item): ?>
 	  	$(".del_<?php echo $item->row_id; ?>").on(ace.click_event, function() {
 	  		bootbox.dialog({
-	  		  message: "Are you sure you want to delete this data <span style='text-transform:uppercase;'><?php echo $item->fee_name; ?></span>?",
+	  		  message: "Are you sure you want to delete this data <span class='text-transform:uppercase;'><?php echo $item->scheme_code; ?></span>?",
 	  		  title: "Confirm",
 	  		  buttons: {
 	  		    success: {
@@ -305,7 +307,7 @@
 	  		      className: "btn btn-danger bigger-110",
 	  		      callback: function() {
 	  		      	var id = $(".del_<?php echo $item->row_id;?>").attr('data-id');
-	  		        var link = "<?php echo site_url('admin/settings/fee_mngr/del/"+id+"'); ?>";
+	  		        var link = "<?php echo site_url('admin/settings/pymnt_schm/del/"+id+"'); ?>";
 	  		        
 	  		        document.location.assign(link);
 	  		      }

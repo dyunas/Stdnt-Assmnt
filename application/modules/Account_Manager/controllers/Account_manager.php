@@ -4,7 +4,7 @@ class Account_manager extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Login/Login_model', 'login');
+		//$this->load->model('Login/Login_model', 'login');
 		$this->load->model('Account_manager/Account_manager_model', 'acct_mngr');
 	}
 
