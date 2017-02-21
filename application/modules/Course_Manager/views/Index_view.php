@@ -28,6 +28,7 @@
 								Course Manager
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
+									Available Courses
 								</small>
 							</h1>
 						</div><!-- /.page-header -->
@@ -68,47 +69,53 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($courses as $item): ?>
-											<tr>
-												<td><?php echo $item->course_name; ?></td>
-												<td><?php echo $item->course_code; ?></td>
-												<td>
-													<div class="hidden-sm hidden-xs action-buttons">
-														<a class="green" href="#">
-															<i class="ace-icon fa fa-pencil bigger-130"></i>
-														</a>
-														<a class="red" href="#">
-															<i class="ace-icon fa fa-trash-o bigger-130"></i>
-														</a>
-													</div>
-
-													<div class="hidden-md hidden-lg">
-														<div class="inline pos-rel">
-															<button class="btn btn-minier btn-danger dropdown-toggle" data-toggle="dropdown" data-position="auto">
-																<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-															</button>
-
-															<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-																<li>
-																	<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-																		<span class="green">
-																			<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-																<li>
-																	<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-																		<span class="red">
-																			<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-															</ul>
+										<?php if ($courses): ?>
+											<?php foreach($courses as $item): ?>
+												<tr>
+													<td><?php echo $item->course_name; ?></td>
+													<td><?php echo $item->course_code; ?></td>
+													<td>
+														<div class="hidden-sm hidden-xs action-buttons">
+															<a class="red" href="#">
+																<i class="ace-icon fa fa-pencil bigger-130"></i>
+															</a>
+															<a class="red" href="#">
+																<i class="ace-icon fa fa-trash-o bigger-130"></i>
+															</a>
 														</div>
-													</div>
-												</td>
+
+														<div class="hidden-md hidden-lg">
+															<div class="inline pos-rel">
+																<button class="btn btn-minier btn-danger dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																	<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+																</button>
+
+																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																	<li>
+																		<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																			<span class="red">
+																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>
+																	<li>
+																		<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																			<span class="red">
+																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</td>
+												</tr>
+											<?php endforeach; ?>
+										<?php else: ?>
+											<tr>
+												<td colspan="3">No Courses Available</td>
 											</tr>
-										<?php endforeach; ?>
+										<?php endif; ?>
 									</tbody>
 								</table>
 							</div><!-- /.col-lg-12 col-md-12 col-xs-12 -->
@@ -129,7 +136,7 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 col-xs-12">
-								<?php //echo form_open('', 'class="form-horizontal" role="form"'); ?>
+							<?php //echo form_open('#', 'role="form"'); ?>
 								<fieldset class="form-horizontal" id="add_form">
 									<div class="form-group">
 										<label for="courseName" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Course Name:</span></label>
@@ -147,7 +154,7 @@
 										</div>
 									</div>
 								</fieldset>
-								<?php //echo form_close(); ?>
+							<?php //echo form_close(); ?>
 							</div>
 						</div>
 					</div>
@@ -213,7 +220,6 @@
 	<!-- dataTables scripts -->
 	<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/dataTables.bootstrap.min.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/js/dataTables.min.js'); ?>"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){

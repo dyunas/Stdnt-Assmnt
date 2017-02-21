@@ -34,7 +34,7 @@
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-xs-12">
 								<div class="row">
-									<div class="col-lg-3 col-md-6">
+									<div class="col-lg-6 col-md-6">
 										<div class="panel panel-red">
 											<div class="panel-heading">
 												<div class="row">
@@ -55,8 +55,8 @@
 	                      </div>
 	                    </a> -->	
 										</div>
-									</div><!-- /.col-lg-3 col-md-6 -->
-									<div class="col-lg-3 col-md-6">
+									</div><!-- /.col-lg-6 col-md-6 -->
+									<div class="col-lg-6 col-md-6">
 										<div class="panel panel-red">
 											<div class="panel-heading">
 												<div class="row">
@@ -77,7 +77,13 @@
 	                      </div>
 	                    </a> -->	
 										</div>
-									</div><!-- /.col-lg-3 col-md-6 -->
+									</div><!-- /.col-lg-6 col-md-6 -->
+								</div><!-- /.row -->
+
+								<div class="space-2"></div>
+
+								<div class="row">
+									
 								</div><!-- /.row -->
 							</div><!-- /.col-lg-12 col-md-12 col-xs-12 -->
 						</div><!-- /.row -->

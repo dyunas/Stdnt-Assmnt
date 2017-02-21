@@ -76,7 +76,7 @@
 														<td><?php echo 'Php '.number_format($item->amount, 2); ?></td>
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
-																<a class="green" href="#modal-edit" role="button" data-toggle="modal">
+																<a class="red" href="#modal-edit" role="button" data-toggle="modal">
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
 																<a href="javascript:();" class="red del_<?php echo $item->row_id;?>" data-id="<?php echo $item->fee_name; ?>" class="tooltip-error" data-rel="tooltip" title="Delete">
@@ -93,7 +93,7 @@
 																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 																		<li>
 																			<a href="#modal-edit" role="button" data-toggle="modal" class="tooltip-success" data-rel="tooltip" title="Edit">
-																				<span class="green">
+																				<span class="red">
 																					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																				</span>
 																			</a>

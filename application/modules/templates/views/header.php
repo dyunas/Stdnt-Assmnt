@@ -24,6 +24,9 @@
 		<!-- ionIcons -->
 		<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url("assets/ionicons/css/ionicons.css"); ?>">
 
+		<!-- datePicker -->
+		<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url("assets/css/datepicker.min.css"); ?>" />
+
 		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="assets/css/ace-part2.min.css" />
 		<![endif]-->

@@ -152,8 +152,7 @@
   <script src="<?php echo base_url('assets/js/ace.min.js'); ?>"></script>
 
   <script type="text/javascript">
-    jQuery(function($)
-    {
+    jQuery(function($){
       var $validation = false;
       $('#fuelux-wizard-container')
       .on('actionclicked.fu.wizard' , function(e, info){
@@ -197,7 +196,7 @@
         invalidHandler: function (form) {
         }
       });
-  });
+    });
   </script>
 
   <script type="text/javascript">

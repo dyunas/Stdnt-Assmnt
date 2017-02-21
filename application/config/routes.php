@@ -75,7 +75,12 @@ $route['admin/course_mngr/add'] = 'Course_Manager/Course_manager/Add_course';
 $route['admin/course_mngr'] = 'Course_Manager/Course_manager/Index';
 
 //Student Record
+$route['admin/student_rcrd/auth_enroll'] = 'Student_Records/Student_records/Auth_student_enrollment';
+$route['admin/student_rcrd/enroll'] = 'Student_Records/Student_records/Enroll_student';
+$route['admin/student_rcrd/view/(:any)'] = 'Student_Records/Student_records/View_record/$1';
 $route['admin/student_rcrd'] = 'Student_Records/Student_records/Index';
+$route['admin/student_rcrd/get_fee_amount'] = 'Student_Records/Student_records/Get_fee_amount';
+$route['admin/student_rcrd/get_payment_scheme'] = 'Student_Records/Student_records/Get_payment_scheme';
 
 //School Year and Semester
 $route['admin/settings/school_year/sy/update'] = 'Yr_Semester/School_year/Update_sy';
