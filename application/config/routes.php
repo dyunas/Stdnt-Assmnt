@@ -64,37 +64,41 @@ $route['logout'] = 'Logout/Index';
 
 /*---Admin Routes---*/
 //Dashboard
-$route['admin/dashboard'] = 'Admin_Dboard/Dashboard/Index';
-$route['admin'] = 'Admin_Dboard/Dashboard/Index';
+$route['admin/dashboard'] = 'Admin/Dashboard/Dashboard/Index';
+$route['admin'] = 'Admin/Dashboard/Dashboard/Index';
 
 //Account Manager
-$route['admin/acct_mngr'] = 'Account_Manager/Account_manager/Index';
+$route['admin/acct_mngr'] = 'Admin/Account_Manager/Account_manager/Index';
 
 //Course Manager
-$route['admin/course_mngr/add'] = 'Course_Manager/Course_manager/Add_course';
-$route['admin/course_mngr'] = 'Course_Manager/Course_manager/Index';
+$route['admin/course_mngr/add'] = 'Admin/Course_Manager/Course_manager/Add_course';
+$route['admin/course_mngr'] = 'Admin/Course_Manager/Course_manager/Index';
 
 //Student Record
-$route['admin/student_rcrd/auth_enroll'] = 'Student_Records/Student_records/Auth_student_enrollment';
-$route['admin/student_rcrd/enroll'] = 'Student_Records/Student_records/Enroll_student';
-$route['admin/student_rcrd/view/(:any)'] = 'Student_Records/Student_records/View_record/$1';
-$route['admin/student_rcrd'] = 'Student_Records/Student_records/Index';
-$route['admin/student_rcrd/get_fee_amount'] = 'Student_Records/Student_records/Get_fee_amount';
-$route['admin/student_rcrd/get_payment_scheme'] = 'Student_Records/Student_records/Get_payment_scheme';
+$route['admin/student_rcrd/auth_enroll'] = 'Admin/Student_Records/Student_records/Auth_student_enrollment';
+$route['admin/student_rcrd/enroll'] = 'Admin/Student_Records/Student_records/Enroll_student';
+$route['admin/student_rcrd/view/(:any)'] = 'Admin/Student_Records/Student_records/View_record/$1';
+$route['admin/student_rcrd'] = 'Admin/Student_Records/Student_records/Index';
+$route['admin/student_rcrd/get_fee_amount'] = 'Admin/Student_Records/Student_records/Get_fee_amount';
+$route['admin/student_rcrd/get_payment_scheme'] = 'Admin/Student_Records/Student_records/Get_payment_scheme';
 
 //School Year and Semester
-$route['admin/settings/school_year/sy/update'] = 'Yr_Semester/School_year/Update_sy';
-$route['admin/settings/school_year/sem/update'] = 'Yr_Semester/School_year/Update_sem';
-$route['admin/settings/school_year'] = 'Yr_Semester/School_year/Index';
+$route['admin/settings/school_year/sy/update'] = 'Admin/Yr_Semester/School_year/Update_sy';
+$route['admin/settings/school_year/sem/update'] = 'Admin/Yr_Semester/School_year/Update_sem';
+$route['admin/settings/school_year'] = 'Admin/Yr_Semester/School_year/Index';
 /*---End Admin Routes---*/
 
 //School Year and Semester
-$route['admin/settings/fee_mngr/add'] = 'Fee_manager/Fee_manager/Add_fee';
-$route['admin/settings/fee_mngr'] = 'Fee_manager/Fee_manager/Index';
-/*---End Admin Routes---*/
+$route['admin/settings/fee_mngr/add'] = 'Admin/Fee_manager/Fee_manager/Add_fee';
+$route['admin/settings/fee_mngr'] = 'Admin/Fee_manager/Fee_manager/Index';
 
 //Payment Scheme
-$route['admin/settings/pymnt_schm/del/(:any)'] = 'Payment_scheme/Payment_scheme/Delete_scheme/$1';
-$route['admin/settings/pymnt_schm/update'] = 'Payment_scheme/Payment_scheme/Update_scheme';
-$route['admin/settings/pymnt_schm/add'] = 'Payment_scheme/Payment_scheme/Add_scheme';
-$route['admin/settings/pymnt_schm'] = 'Payment_scheme/Payment_scheme/Index';
+$route['admin/settings/pymnt_schm/update'] = 'Admin/Payment_scheme/Payment_scheme/Update_scheme';
+$route['admin/settings/pymnt_schm/add'] = 'Admin/Payment_scheme/Payment_scheme/Add_scheme';
+$route['admin/settings/pymnt_schm'] = 'Admin/Payment_scheme/Payment_scheme/Index';
+/*---End Admin Routes---*/
+
+/*---Cashier Routes--*/
+$route['cashier/dashboard'] = 'Cashier';
+$route['cashier'] = 'Cashier';
+/*---End Cashier Routes---*/
