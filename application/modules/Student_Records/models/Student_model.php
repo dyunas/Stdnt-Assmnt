@@ -78,6 +78,40 @@ class Student_model extends CI_Model {
 		{
 			return $query->row();
 		}
+
+		return FALSE;
+	}
+
+	public function get_discount_info($stud_id)
+	{
+		$this->db->select('discount_fee, discount_prcnt');
+		$this->db->from('tbl_stud_discount_info');
+		$this->db->where('stud_id', $stud_id);
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0)
+		{
+			return $query->row();
+		}
+
+		return FALSE;
+	}
+
+	public function get_stud_pymnt_schme($stud_id)
+	{
+		$this->db->select('stud_pymnt_schm');
+		$this->db->from('tbl_stud_pymnt_schm');
+		$this->db->where('stud_id', $stud_id);
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0)
+		{
+			return $query->row();
+		}
+
+		return FALSE;
 	}
 
 	public function enroll_student()

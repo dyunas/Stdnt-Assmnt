@@ -41,6 +41,8 @@ class Student_records extends MY_Controller {
 				'stud_info' => $this->student->get_student_info($stud_id),
 				'gdn_info' => $this->student->get_student_gdn_info($stud_id),
 				'fees' => $this->student->get_assessment_info($stud_id),
+				'discount' => $this->student->get_discount_info($stud_id),
+				'schme' => $this->student->get_stud_pymnt_schme($stud_id),
 			);
 
 			$this->template->load($data, null, 'Student_record', 'Student_Records');
@@ -89,18 +91,26 @@ class Student_records extends MY_Controller {
 
 	public function Get_fee_amount()
 	{
-		$fee = $this->input->get('id');
-		$result = $this->assessment->get_fees($fee);
-
-		if ($result)
+		if ($this->input->is_ajax_request())
 		{
-			echo $result;
+			$fee = $this->input->get('id');
+			$result = $this->assessment->get_fees($fee);
+
+			if ($result)
+			{
+				echo $result;
+			}
+		}
+		else
+		{
+			exit('No direct script access allowed');
 		}
 	}
 
 	public function Get_payment_scheme()
 	{
-		if ($this->input->is_ajax_request()) {
+		if ($this->input->is_ajax_request())
+		{
 		  $scheme = $this->input->get('scheme');
 		  $totalFees = $this->input->get('totalFees');
 
