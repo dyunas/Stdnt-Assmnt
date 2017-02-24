@@ -13,15 +13,15 @@ class Login extends MX_Controller {
 		{
 			if ($this->session->userdata('user_type') == 'Admin')
 			{
-				redirect(site_url('admin'));
+				redirect(site_url('admin/dashboard'));
 			}
 			else if ($this->session->userdata('user_type') == 'Cashier')
 			{
-				redirect(site_url('cashier'));
+				redirect(site_url('cashier/dashboard'));
 			}
 			else
 			{
-				redirect(site_url('registrar'));
+				redirect(site_url('registrar/dashboard'));
 			}
 		}
 		else
@@ -38,15 +38,15 @@ class Login extends MX_Controller {
 		{
 			if ($this->session->userdata('user_type') == 'Admin')
 			{
-				redirect(site_url('admin'));
+				redirect(site_url('admin/dashboard'));
 			}
 			else if ($this->session->userdata('user_type') == 'Cashier')
 			{
-				redirect(site_url('cashier'));
+				redirect(site_url('cashier/dashboard'));
 			}
 			else
 			{
-				redirect(site_url('registrar'));
+				redirect(site_url('registrar/dashboard'));
 			}
 		}
 		else

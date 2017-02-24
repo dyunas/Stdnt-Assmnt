@@ -46,7 +46,7 @@ class Login_model extends CI_Model {
 	{
 		$this->db->where('user_id', $this->session->userdata('user_id'));
 
-		if ($this->session->userdata('user_type') == 'Admin')
+		if ($this->session->userdata('user_type') == 'Admin' OR $this->session->userdata('user_type') == 'Cashier' OR $this->session->userdata('user_type') == 'Registrar')
 		{
 			$this->db->from('tbl_admin_info');
 

@@ -4,7 +4,7 @@ class Student_model extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Assessment/Assessment_model', 'assessment');
+		$this->load->model('Admin/Assessment/Assessment_model', 'assessment');
 	}
 
 	public function get_student_info($stud_id = FALSE)
