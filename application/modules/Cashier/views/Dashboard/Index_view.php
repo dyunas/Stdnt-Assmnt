@@ -21,85 +21,50 @@
 					</div> --><!-- /.nav-search -->
 				</div><!-- /.breadcrumbs -->
 
-					<div class="page-content">
-						<div class="page-header">
-							<h1>
-								Student Records
-								<small>
-									<i class="ace-icon fa fa-angle-double-right"></i>
-								</small>
-							</h1>
-						</div><!-- /.page-header -->
+				<div class="page-content">
+					<div class="page-header">
+						<h1>
+							View Student Record
+							<small>
+								<i class="ace-icon fa fa-angle-double-right"></i>
+							</small>
+						</h1>
+					</div><!-- /.page-header -->
 
-						<div class="row">
-							<div class="col-lg-12 col-md-12 col-xs-12">
-								<div class="row">
-									<table class="table table-condensed table-bordered" id="stud_rec">
-										<thead>
-											<tr>
-												<th style="text-align: center;">Student ID</th>
-												<th>Student Name</th>
-												<th style="text-align: center">Course</th>
-												<th style="text-align: center">Year</th>
-												<th style="text-align: center">Status</th>
-												<th style="text-align: center">Action</th>
-											</tr>
-										</thead>
-										<tbody>
-										<?php if ($stud_records): ?>
-											<?php foreach($stud_records as $record): ?>
-											<tr>
-												<td style="text-align: center"><?php echo $record->stud_id ?></td>
-												<td><?php echo $record->stud_name ?></td>
-												<td style="text-align: center"><?php echo $record->stud_course ?></td>
-												<?php $year = ['1st Year', '2nd Year', '3rd Year', '4th Year']; ?>
-												<td style="text-align: center"><?php echo $year[$record->stud_year] ?></td>
-												<td style="text-align: center"><?php echo $record->stud_status ?></td>
-												<td>
-													<div class="hidden-sm hidden-xs action-buttons">
-														<a class="red" href="<?php echo site_url('cashier/student_rcrd/view/'.$record->stud_id); ?>">
-															<i class="ace-icon fa fa-search-plus bigger-130"></i>
-														</a>
-														<a class="red" href="<?php echo site_url('cashier/student_rcrd/update/'.$record->stud_id); ?>">
-															<i class="ace-icon fa fa-pencil bigger-130"></i>
-														</a>
-													</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-xs-12">
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-xs-12">
+									<div class="form-inline">
+										<div class="input-group">
+											<!-- <span class="input-group-addon">
+												Student ID:
+											</span> -->
+											<input type="text" class="form-control search-query" name="stud_id" id="stud_id" value="" placeholder="Student ID" />
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-danger btn-sm" id="searchStudent">
+													<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+													Search
+												</button>
+											</span>
+										</div>
 
-													<div class="hidden-md hidden-lg">
-														<div class="inline pos-rel">
-															<button class="btn btn-minier btn-danger dropdown-toggle" data-toggle="dropdown" data-position="auto">
-																<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-															</button>
-
-															<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-																<li>
-																	<a href="<?php echo site_url('cashier/student_rcrd/view/'.$record->stud_id); ?>" class="tooltip-success" data-rel="tooltip" title="View">
-																		<span class="red">
-																			<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-																<li>
-																	<a href="<?php echo site_url('cashier/student_rcrd/update/'.$record->stud_id); ?>" class="tooltip-success" data-rel="tooltip" title="Edit">
-																		<span class="red">
-																			<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</div>
-													</div>
-												</td>
-											</tr>
-											<?php endforeach; ?>
-										<?php endif; ?>
-										</tbody>
-									</table><!-- /.table -->
-								</div><!-- /.row -->
-							</div><!-- /.col-lg-12 col-md-12 col-xs-12 -->
-						</div><!-- /.row -->
-					</div><!-- page-content -->
-				</div>
+										<button type="button" class="btn btn-danger btn-sm" id="clearResult">
+											<span class="ace-icon fa fa-undo icon-on-right bigger-110"></span>
+											Clear
+										</button>
+									</div>
+								</div><!-- /.col-lg-4 col-md-4 col-xs-12 -->
+							</div><!-- /.row -->
+							<hr/>
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-xs-12">
+									<div id="result"></div>
+								</div><!-- /.col-lg-12 col-md-12 col-xs-12 -->
+							</div><!-- /.row -->
+						</div><!-- /.col-lg-12 col-md-12 col-xs-12 -->
+					</div><!-- /.row -->
+				</div><!-- page-content -->
 			</div><!-- main-content-inner -->
 		</div><!-- main-content -->
 
@@ -145,13 +110,112 @@
 	<!-- ace scripts -->
 	<script src="<?php echo base_url('assets/js/ace-elements.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/ace.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery.maskedinput.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/autoNumeric.min.js'); ?>"></script>
 
 	<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/dataTables.bootstrap.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jQuery.print.js'); ?>"></script>
 
 	<script type="text/javascript">
 		jQuery(function($) {
-			$('#stud_rec').dataTable();
+			//$('#stud_rec').dataTable();
+
+			//Search student
+			$('#searchStudent').on('click', function(data){
+				var stud_id = $('#stud_id').val();
+				$.ajax({
+				  type: 'GET',
+				  url: '<?php echo site_url('cashier/get_student_record'); ?>',
+				  data: { stud_id: stud_id},
+				  beforeSend:function(){
+				    // this is where we append a loading image
+				    $('#result').html('<div class="loading"><img src="<?php echo base_url('assets/img/loading.gif') ?>"; alt="Loading..." />Please wait...</div>');
+				  },
+				  success:function(data){
+				    // successful request; do something with the data
+				    //$('#result').empty();
+			      $('#result').html(data);
+			      $('#hstry').dataTable();
+				  },
+				  error:function(){
+				    // failed request; give feedback to user
+				    $('#result').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+				  }
+				});
+			});
+
+			$('#clearResult').on('click', function(data){
+				$('#stud_id').val('');
+				$('#result').empty();
+			});
+
+			$('#stud_id').mask('99-9999-99');
+
+			$(document).on('click', 'a.manage', function(){
+				var tag = $(this).attr('id');
+				var stud_id = $(this).attr('data-id');
+				var stud_year = $(this).attr('data-year');
+				var stud_sem = $(this).attr('data-sem');
+				var scheme = $(this).attr('data-scheme');
+				
+				//console.log(tag+'/'+stud_id+'/'+stud_year+'/'+stud_sem+'/'+scheme);
+
+				$.ajax({
+				  type: 'GET',
+				  url: '<?php echo site_url('cashier/get_student_payment'); ?>',
+				  data: { 
+				  				tag: tag, 
+				  				stud_id: stud_id,
+				  				year: stud_year,
+				  				sem: stud_sem,
+				  				scheme: scheme 
+				  			},
+				  beforeSend:function(){
+				    // this is where we append a loading image
+				    $('.modal-body').html('<div class="loading"><img src="<?php echo base_url('assets/img/loading.gif') ?>"; alt="Loading..." />Please wait...</div>');
+				  },
+				  success:function(data){
+				    // successful request; do something with the data
+				    //$('#result').empty();
+			      $('.modal-body').html(data);
+			      $('#amount_pd').autoNumeric('init');
+			      $('#amount_pd').autoNumeric('set');
+				  },
+				  error:function(){
+				    // failed request; give feedback to user
+				    $('.modal-body').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+				  }
+				});
+			});
+
+			$(document).on('blur', '#amount_pd', function(){
+				$("#amnt_pd").attr('value', $(this).autoNumeric('get'));
+				$("#amount").html($(this).autoNumeric('get'));
+				var amount_pd = $("#amnt_pd").val();
+				var amount_due = $("#amount_due").val();
+				var total = parseFloat(amount_pd);
+				var balance = parseFloat(amount_due - amount_pd);
+
+				$('#totalRes').html(total);
+				$('#totalRes').autoNumeric('init');
+	      $('#totalRes').autoNumeric('set', total);
+
+				$('#balRes').html(balance);
+				$('#balRes').autoNumeric('init');
+	      $('#balRes').autoNumeric('set', balance);
+			});
+
+			$(document).on('click', '#procPrint', function(){
+				$('#amount').css('display','block');
+				$('#amount_pd').attr('type','hidden');
+
+				$('#printThis').print({
+					globalStyles: true,
+          mediaPrint: true,
+          doctype: '<!doctype html>'
+				});
+			});
 		});
 	</script>
 </body>

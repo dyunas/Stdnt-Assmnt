@@ -103,39 +103,6 @@
 										<div class="space-2"></div>
 
 										<fieldset>
-											<h4>Additional Information:</h4>
-											<table class="table table-condensed">
-												<tbody>
-													<tr>
-														<td>Guardian's Name:</td>
-														<td><?php echo $gdn_info->stud_gdn_name; ?></td>
-														<td colspan="4"></td>
-													</tr>
-													<tr>
-														<td>Cell Number:</td>
-														<td>(+63) <?php echo $gdn_info->stud_gdn_cnum; ?></td>
-														<td>Tel. Number:</td>
-														<td><?php echo $gdn_info->stud_gdn_tnum; ?></td>
-														<td colspan="2"></td>
-													</tr>
-													<tr>
-														<td>Address:</td>
-														<td colspan="2"><?php echo $gdn_info->stud_gdn_addr_ln1; ?></td>
-														<td>City/Municipality:</td>
-														<td><?php echo $gdn_info->stud_gdn_addr_ln2; ?></td>
-													</tr>
-													<tr>
-														<td>Province:</td>
-														<td><?php echo $gdn_info->stud_gdn_addr_ln3; ?></td>
-														<td>Zip Code:</td>
-														<td><?php echo $gdn_info->stud_gdn_addr_ln4; ?></td>
-														<td colspan="2"></td>
-													</tr>
-												</tbody>
-											</table>
-										</fieldset><!-- /.additional information -->
-
-										<fieldset>
 											<h4>Student Assessment:</h4>
 											<table class="table table-condensed">
 												<?php $year = ['', '1st Year', '2nd Year', '3rd Year']; ?>
@@ -175,7 +142,7 @@
 												<div class="tab-content">
 													<div id="summary" class="tab-pane fade active in">
 														<div class="row">
-															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 																<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 																	<table class="table table-condensed">
 																		<tbody>

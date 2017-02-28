@@ -99,7 +99,9 @@ $route['admin/settings/pymnt_schm'] = 'Admin/Payment_scheme/Payment_scheme/Index
 /*---End Admin Routes---*/
 
 /*---Cashier Routes--*/
-$route['cashier/student_rcrd/view/(:any)'] = 'Cashier/Dashboard/Dashboard/View_record/$1';
+//$route['cashier/student_rcrd/view/(:any)'] = 'Cashier/Dashboard/Dashboard/View_record/$1';
 $route['cashier/dashboard'] = 'Cashier/Dashboard/Dashboard/Index';
 $route['cashier'] = 'Cashier/Dashboard/Dashboard/Index';
+$route['cashier/get_student_record'] = 'Cashier/Student_Records/Student_records/Get_student_record';
+$route['cashier/get_student_payment'] = 'Cashier/Student_Records/Student_records/Get_student_payment';
 /*---End Cashier Routes---*/

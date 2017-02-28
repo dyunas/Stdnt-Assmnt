@@ -83,12 +83,12 @@
 
 															  <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 															  	<div class="clearfix">
-																  <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="stud_gender">
-																  	<option value="">Select gender</option>
-																  	<option value="Male">Male</option>
-																  	<option value="Female">Female</option>
-																  </select>
-																</div>
+																	  <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="stud_gender">
+																	  	<option value="">Select gender</option>
+																	  	<option value="Male">Male</option>
+																	  	<option value="Female">Female</option>
+																	  </select>
+																	</div>
 															  </div>
 															</div><!-- form-group -->
 														</div><!-- /.second-column -->

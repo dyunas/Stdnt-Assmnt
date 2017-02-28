@@ -37,11 +37,6 @@ class Dashboard extends MY_Controller {
 			$data = array(
 				'title' => 'Student Record',
 				'usr' => $this->login->get_user_info(),
-				'stud_info' => $this->student->get_student_info($stud_id),
-				'gdn_info' => $this->student->get_student_gdn_info($stud_id),
-				'fees' => $this->student->get_assessment_info($stud_id),
-				'discount' => $this->student->get_discount_info($stud_id),
-				'schme' => $this->student->get_stud_pymnt_schme($stud_id),
 			);
 
 			$this->template->load($data, null, 'View_record', 'Cashier/Dashboard');

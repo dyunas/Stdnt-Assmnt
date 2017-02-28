@@ -248,8 +248,26 @@ class Student_model extends CI_Model {
 
 						if ($query)
 						{
-							$this->session->set_flashdata('error', 'New Student added to the database');
-							return TRUE;
+							$disc_data = array(
+								'stud_id' => $stud_id,
+								'stud_year' => $this->input->post('stud_year'),
+								'stud_sem' => $this->input->post('stud_semester'),
+								'discount_fee' => $this->input->post('f_discount'),
+								'discount_prcnt' => $this->input->post('dscnt')
+								);
+
+							$query = $this->db->insert('tbl_stud_discount_info', $disc_data);
+
+							if ($query)
+							{
+								$this->session->set_flashdata('error', 'New Student added to the database');
+								return TRUE;
+							}
+							else
+							{
+								$this->session->set_flashdata('error_2', 'Error enrolling student. Please try again.');
+								return FALSE;
+							}
 						}
 						else
 						{
