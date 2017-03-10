@@ -8,7 +8,7 @@ class Payment_scheme_model extends CI_Model {
 
 	public function get_payment_scheme()
 	{
-		$this->db->select('row_id, scheme_name, scheme_code');
+		$this->db->select('row_id, scheme_name, scheme_code, status');
 		$this->db->from('tbl_pymnt_schm');
 		$this->db->order_by('row_id','desc');
 
@@ -114,6 +114,28 @@ class Payment_scheme_model extends CI_Model {
 		else
 		{
 			$this->session->set_flashdata('error_2', 'Error deleting record, please try again.');
+			return FALSE;
+		}
+	}
+
+	public function toggle_availability($code, $status)
+	{
+		if ($status == 'Enabled')
+		{
+			$this->db->set('status', 'Disabled');
+		}
+		else
+		{
+			$this->db->set('status', 'Enabled');
+		}
+
+		$this->db->where('row_id', $code);
+		if($this->db->update('tbl_pymnt_schm'))
+		{
+			return TRUE;
+		}
+		else
+		{
 			return FALSE;
 		}
 	}

@@ -71,12 +71,13 @@ $route['admin'] = 'Admin/Dashboard/Dashboard/Index';
 $route['admin/acct_mngr'] = 'Admin/Account_Manager/Account_manager/Index';
 
 //Course Manager
+$route['admin/course_mngr/toggler'] = 'Admin/Course_Manager/Course_manager/Toggler_availability';
 $route['admin/course_mngr/add'] = 'Admin/Course_Manager/Course_manager/Add_course';
 $route['admin/course_mngr'] = 'Admin/Course_Manager/Course_manager/Index';
 
 //Student Record
-$route['admin/student_rcrd/auth_enroll'] = 'Admin/Student_Records/Student_records/Auth_student_enrollment';
-$route['admin/student_rcrd/enroll'] = 'Admin/Student_Records/Student_records/Enroll_student';
+$route['admin/student_rcrd/get_student_assessment_info'] = 'Admin/Student_Records/Student_records/Get_student_assessment_info';
+$route['admin/student_rcrd/update_assessment/(:any)'] = 'Admin/Student_Records/Student_records/Update_student_assessment/$1';
 $route['admin/student_rcrd/view/(:any)'] = 'Admin/Student_Records/Student_records/View_record/$1';
 $route['admin/student_rcrd'] = 'Admin/Student_Records/Student_records/Index';
 $route['admin/student_rcrd/get_fee_amount'] = 'Admin/Student_Records/Student_records/Get_fee_amount';
@@ -89,10 +90,12 @@ $route['admin/settings/school_year'] = 'Admin/Yr_Semester/School_year/Index';
 /*---End Admin Routes---*/
 
 //School Year and Semester
+$route['admin/settings/fee_mngr/toggler'] = 'Admin/Fee_manager/Fee_manager/Toggler_availability';
 $route['admin/settings/fee_mngr/add'] = 'Admin/Fee_manager/Fee_manager/Add_fee';
 $route['admin/settings/fee_mngr'] = 'Admin/Fee_manager/Fee_manager/Index';
 
 //Payment Scheme
+$route['admin/settings/pymnt_schm/toggler'] = 'Admin/Payment_scheme/Payment_scheme/Toggler_availability';
 $route['admin/settings/pymnt_schm/update'] = 'Admin/Payment_scheme/Payment_scheme/Update_scheme';
 $route['admin/settings/pymnt_schm/add'] = 'Admin/Payment_scheme/Payment_scheme/Add_scheme';
 $route['admin/settings/pymnt_schm'] = 'Admin/Payment_scheme/Payment_scheme/Index';
@@ -104,4 +107,17 @@ $route['cashier/dashboard'] = 'Cashier/Dashboard/Dashboard/Index';
 $route['cashier'] = 'Cashier/Dashboard/Dashboard/Index';
 $route['cashier/get_student_record'] = 'Cashier/Student_Records/Student_records/Get_student_record';
 $route['cashier/get_student_payment'] = 'Cashier/Student_Records/Student_records/Get_student_payment';
+$route['cashier/update_payment'] = 'Cashier/Student_Records/Student_records/Update_student_payment';
+/*---End Cashier Routes---*/
+
+/*---Registrar Routes--*/
+// Dashboard
+$route['registrar/dashboard'] = 'Registrar/Dashboard/Dashboard/Index';
+$route['registrar'] = 'Registrar/Dashboard/Dashboard/Index';
+
+// Student Record
+$route['registrar/student_rcrd/view/(:any)'] = 'Registrar/Student_Records/Student_records/View_record/$1';
+$route['registrar/student_rcrd/auth_enroll'] = 'Registrar/Student_Records/Student_records/Auth_student_enrollment';
+$route['registrar/student_rcrd/enroll'] = 'Registrar/Student_Records/Student_records/Enroll_student';
+$route['registrar/student_rcrd'] = 'Registrar/Student_records/Student_records/Index';
 /*---End Cashier Routes---*/

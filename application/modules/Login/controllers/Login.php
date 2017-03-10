@@ -4,7 +4,6 @@ class Login extends MX_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Login/Login_model');
 	}
  
 	public function Index()
@@ -34,7 +33,7 @@ class Login extends MX_Controller {
 
 	public function Auth_login()
 	{
-		if ($this->Login_model->check_user_credentials())
+		if ($this->login->check_user_credentials())
 		{
 			if ($this->session->userdata('user_type') == 'Admin')
 			{

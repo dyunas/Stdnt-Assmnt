@@ -8,7 +8,7 @@ class Fee_manager_model extends CI_Model {
 
 	public function get_fees_tbl()
 	{
-		$this->db->select('row_id, fee_name, amount');
+		$this->db->select('row_id, fee_name, amount, status');
 		$this->db->from('tbl_fees');
 
 		$query = $this->db->get();
@@ -60,21 +60,43 @@ class Fee_manager_model extends CI_Model {
 		}
 	}
 
-	public function delete_fee($fee_name)
+	public function toggle_availability($code, $status)
 	{
-		$this->db->where('fee_name', $fee_name);
-
-		if ($this->db->delete('tbl_fees'))
+		if ($status == 'Enabled')
 		{
-			$this->session->set_flashdata('error', 'Fee deleted');
+			$this->db->set('status', 'Disabled');
+		}
+		else
+		{
+			$this->db->set('status', 'Enabled');
+		}
+
+		$this->db->where('row_id', $code);
+		if($this->db->update('tbl_fees'))
+		{
 			return TRUE;
 		}
 		else
 		{
-			$this->session->set_flashdata('error_2', 'Error deleting fee, please try again.');
 			return FALSE;
 		}
 	}
+
+	// public function delete_fee($fee_name)
+	// {
+	// 	$this->db->where('fee_name', $fee_name);
+
+	// 	if ($this->db->delete('tbl_fees'))
+	// 	{
+	// 		$this->session->set_flashdata('error', 'Fee deleted');
+	// 		return TRUE;
+	// 	}
+	// 	else
+	// 	{
+	// 		$this->session->set_flashdata('error_2', 'Error deleting fee, please try again.');
+	// 		return FALSE;
+	// 	}
+	// }
 }
 
 /* End of file Fee_manager_model.php */

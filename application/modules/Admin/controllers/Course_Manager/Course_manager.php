@@ -60,6 +60,28 @@ class Course_manager extends MY_Controller {
 			}
 		}
 	}
+
+	public function Toggler_availability()
+	{
+		if ($this->input->is_ajax_request())
+		{
+			$code = $this->input->get('code');
+			$status = $this->input->get('status');
+
+			if ($this->course->toggle_availability($code, $status))
+			{
+				echo 'true';
+			}
+			else
+			{
+				echo 'false';
+			}
+		}
+		else
+		{
+			exit('No direct script access allowed');
+		}
+	}
 }
 
 /* End of file Course_manager.php */

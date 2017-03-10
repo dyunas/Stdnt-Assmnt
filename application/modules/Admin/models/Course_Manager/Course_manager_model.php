@@ -97,6 +97,28 @@ class Course_manager_model extends CI_Model {
 			return TRUE;
 		}
 	}
+
+	public function toggle_availability($code,$status)
+	{
+		if ($status == 'Available')
+		{
+			$this->db->set('status', 'Unavailable');
+		}
+		else
+		{
+			$this->db->set('status', 'Available');
+		}
+
+		$this->db->where('course_code', $code);
+		if($this->db->update('tbl_course'))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 }
 
 /* End of file Course_manager_model.php */

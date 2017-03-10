@@ -27,6 +27,7 @@ class Assessment_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from('tbl_course');
+		$this->db->where('status', 'Available');
 
 		$query = $this->db->get();
 
@@ -57,6 +58,7 @@ class Assessment_model extends CI_Model {
 		{
 			$this->db->select('row_id, fee_name, amount');
 			$this->db->from('tbl_fees');
+			$this->db->where('status', 'Enabled');
 
 			$query = $this->db->get();
 
@@ -88,7 +90,7 @@ class Assessment_model extends CI_Model {
 		}
 	}
 
-	public function get_fee_amt($id, $units)
+	public function get_fee_amt($id)
 	{
 		$this->db->select('amount');
 		$this->db->where('row_id', $id);

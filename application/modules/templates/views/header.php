@@ -43,3 +43,16 @@
 		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
   </head>
+  <style type="text/css">
+  	#cover {
+	    background: url("<?php echo base_url('assets/img/ring-alt.gif')?>") no-repeat center center #000;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    height: 100%;
+	    width: 100%;
+	    z-index: 999999;
+	    opacity: 0.5;
+	    display: none;
+		}
+  </style>

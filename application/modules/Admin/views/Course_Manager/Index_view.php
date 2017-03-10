@@ -65,7 +65,8 @@
 										<tr>
 											<th>Course Name</th>
 											<th>Course Code</th>
-											<th></th>
+											<th>Status</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -74,17 +75,19 @@
 												<tr>
 													<td><?php echo $item->course_name; ?></td>
 													<td><?php echo $item->course_code; ?></td>
+													<td id="status<?php echo $item->course_code; ?>"><?php echo $item->status; ?>
 													<td>
 														<div class="hidden-sm hidden-xs action-buttons">
 															<a class="red" href="#">
 																<i class="ace-icon fa fa-pencil bigger-130"></i>
 															</a>
-															<a class="red" href="#">
-																<i class="ace-icon fa fa-trash-o bigger-130"></i>
+															<a class="toggler red" href="#" data-id="<?php echo $item->course_code; ?>" data-status="<?php echo $item->status; ?>">
+																<i class="toggler-icon ace-icon fa bigger-130" id="<?php echo $item->course_code; ?>"></i>
+																<input type="hidden" class="iconica" data-id="<?php echo $item->course_code; ?>" id="icon<?php echo $item->course_code; ?>" value="<?php echo $item->status; ?>">
 															</a>
 														</div>
 
-														<div class="hidden-md hidden-lg">
+														<!-- <div class="hidden-md hidden-lg">
 															<div class="inline pos-rel">
 																<button class="btn btn-minier btn-danger dropdown-toggle" data-toggle="dropdown" data-position="auto">
 																	<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
@@ -101,13 +104,13 @@
 																	<li>
 																		<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
 																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																				<i class="ace-icon fa bigger-120"></i>
 																			</span>
 																		</a>
 																	</li>
 																</ul>
 															</div>
-														</div>
+														</div> -->
 													</td>
 												</tr>
 											<?php endforeach; ?>
@@ -252,47 +255,71 @@
         });
       });
 
-      // $('#add_form').validate({
-      //   errorElement: 'div',
-      //   errorClass: 'help-block',
-      //   focusInvalid: false,
-      //   ignore: "",
-      //   rules: {
-      //     courseName: {
-      //       required: true,
-      //     }
-      //     courseCode: {
-      //     	required: true
-      //     }
-      //   },
-      //   messages: {
-      //     courseName: {
-      //       required: "Please specify course name"
-      //     },
-      //     courseCode: {
-      //     	required: "Please specify course code"
-      //     }
-      //   },
+			$('a[class^=toggler]').on('click', function(e){
+				e.preventDefault();
+				var code = $(this).attr('data-id');
+				var status = $('#icon'+code).val();
+				
+				$.ajax({
+				  type: 'GET',
+				  url: '<?php echo site_url('admin/course_mngr/toggler'); ?>',
+				  data: { 
+				  				code: code,
+				  				status: status
+				  			},
+				  beforeSend:function(){
+				    // this is where we append a loading image
+				    $('#cover').fadeIn();
+				  },
+				  success:function(data){
+				  	if (data == 'true')
+				  	{
+				  		if (status == 'Available') {
+				  			$('#'+code).removeClass('fa-remove').addClass('fa-check');
+				  			$('#status'+code).empty();
+				  			$('#status'+code).append('Disabled');
+				  			$('#icon'+code).val('Disabled');
+					    	$('#cover').fadeOut();
+				  		}
+				  		else {
+				  			$('#'+code).removeClass('fa-check').addClass('fa-remove');
+				  			$('#status'+code).empty();
+				  			$('#status'+code).append('Enabled');
+				  			$('#icon'+code).val('Enabled');
+					    	$('#cover').fadeOut();
+				  		}
+				  	}
+				  	else
+				  	{
+				  		bootbox.dialog({
+							  message: "<p style='font-size:16px;'>Something went wrong. Please try again.</p>",
+							  title: "<span style='font-weight: bold;font-size:18px;'><i class='fa fa-times-circle'></i> Error updating</span>",
+							  buttons: {
+							    cancel: {
+							      label: "<i class='fa fa-close'></i> Close",
+							      className: "btn btn-default"
+							    }
+							  }
+							});
+							$('#cover').fadeOut();
+				  	}
+				  },
+				  error:function(){
+				    // failed request; give feedback to user
+				   	
+				  }
+				});
+			});
 
-      //   highlight: function (e) {
-      //     $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-      //   },
-        
-      //   success: function (e) {
-      //     $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
-      //   $(e).remove();
-      //   },
-        
-      //   errorPlacement: function (error, element) {
-      //     error.insertAfter(element.parent());
-      //   },
-        
-      //   submitHandler: function (form) {
-      //     $(form).ajaxSubmit();
-      //   },
-      //   invalidHandler: function (form) {
-      //   }
-      // });
+			$('.iconica').each(function(){
+				var id = $(this).attr('data-id');
+				if ($(this).val() == 'Available') {
+					$('#'+id).removeClass('fa-check').addClass('fa-remove');
+				}
+				else{
+					$('#'+id).removeClass('fa-remove').addClass('fa-check');
+				}
+			});
     });
 	</script>
 </body>

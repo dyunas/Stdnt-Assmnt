@@ -7,9 +7,9 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
-							<a href="<?php echo site_url('admin/dashboard'); ?>">Dashboard</a>
+							<a href="<?php echo site_url('registrar/dashboard'); ?>">Dashboard</a>
 						</li>
-						<li><a href="<?php echo site_url('admin/student_rcrd'); ?>">Student's Record</a></li>
+						<li><a href="<?php echo site_url('registrar/student_rcrd'); ?>">Student's Record</a></li>
 						<li><?php echo $stud_info->stud_id; ?></li>
 					</ul><!-- /.breadcrumb -->
 
@@ -134,9 +134,8 @@
 											</table>
 										</fieldset><!-- /.additional information -->
 
-										<?php $pymnt_scheme = $this->student->get_stud_pymnt_schme($stud_info->stud_id); ?>
 										<fieldset>
-											<h4>Student Assessment: <?php echo ($pymnt_scheme) ? '<span class="small pull-right"><a href="#modal-form" role="button" data-toggle="modal" id="updteAssmntBtn" data-id="'.$stud_info->stud_id.'" class="btn btn-sm btn-danger"><i class="fa fa-pencil"></i></a></span>' : ''; ?></h4>
+											<h4>Student Assessment:</h4>
 											<table class="table table-condensed">
 												<?php $year = ['', '1st Year', '2nd Year', '3rd Year', '4th Year']; ?>
 												<?php $sem = ['1st Sem.' => 1, '2nd Sem.' => 2]; ?>
@@ -158,7 +157,8 @@
 										<div class="space-2"></div>
 
 										<div class="row">
-										<?php if($pymnt_scheme): ?>
+										<?php $pymnt_scheme = $this->student->get_stud_pymnt_schme($stud_info->stud_id); ?>
+										<?php if ($pymnt_scheme): ?>
 											<div class="tabbable">
 												<ul class="nav nav-tabs" id="myTab">
 													<?php foreach($pymnt_scheme as $scheme): ?>
@@ -236,7 +236,7 @@
 																		</table>
 																	</div>
 																	<div class="row">
-																		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																		<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
 																			<table class="table table-collapsed table-condensed">
 																				<tbody>
 																					<tr>
@@ -252,7 +252,7 @@
 																		</div>
 																		<?php ?>
 																			<div class="row">
-																				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																				<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
 																	        <h4>Payables for the whole term</h4>
 																	        <table class="table table-condensed">
 																	        	<thead>
@@ -402,148 +402,21 @@
 													</div>
 												</div><!-- /.tab-content -->
 											</div><!-- /.tabbable -->
-										<?php else: ?>
-											<div class="tabbable">
-												<ul class="nav nav-tabs" id="myTab">
-													<li class="active">
-														<a data-toggle="tab" href="<?php echo '#'.$stud_info->stud_course.'-'.$stud_info->stud_year.'-'.$sem[$stud_info->stud_sem]; ?>" aria-expanded="true">
-															<?php echo $stud_info->stud_course.'-'.$year[$stud_info->stud_year].'-'.$stud_info->stud_sem; ?>
-														</a>
-													</li>
-												</ul>
-												<div class="tab-content">
-													<div id="<?php echo $stud_info->stud_course.'-'.$stud_info->stud_year.'-'.$sem[$stud_info->stud_sem]; ?>" class="tab-pane active fade in">
-														<?php echo form_open(site_url('admin/student_rcrd/update_assessment/'.$stud_info->stud_id), 'role="form" class="form-horizontal" id="assessment_form"'); ?>
-														<input type="hidden" name="stud_course" value="<?php echo $stud_info->stud_course; ?>">
-														<input type="hidden" name="stud_year" value="<?php echo $stud_info->stud_year; ?>">
-														<input type="hidden" name="stud_semester" value="<?php echo $stud_info->stud_sem; ?>">
-														<div class="row">
-															<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-																<fieldset>
-																	<legend class="medium">Summary of Assessment</legend>
-																	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-																		<table class="table table-condensed">
-																			<tbody>
-																				<?php $x = 1; ?>
-																				<?php if ($fees): ?>
-																				<?php foreach($fees as $item): ?>
-																					<tr>
-																						<td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-																							<label>
-																								<input name="form-field-checkbox" class="fees ace ace-checkbox-2" id="feeCheck<?php echo $x; ?>" data-id="<?php echo $x; ?>" type="checkbox" />
-																								<span class="lbl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $item->fee_name; ?></span>
-																							</label>
-																							<input type="hidden" name="fee_name[]" id="fee_name<?php echo $x ?>" value="<?php echo $item->row_id; ?>">
-																							<input type="hidden" name="f_name[]" id="fName<?php echo $x ?>" value="">
-																						</td>
-																						<?php if ($item->fee_name == 'Tuition Fee'): ?>
-																							<td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-																								Units
-																								<input type="text" style="width:50px;text-align: right;" class="units" name="units" value="" id="units" data-id="<?php echo $x; ?>" maxlength="2" disabled/>
-																							</td>
-																						<?php else: ?>
-																							<td class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></td>
-																						<?php endif; ?>
-																						<td style="text-align: right;"><span id="feeAmount<?php echo $x; ?>"></span><input type="hidden" id="feeAmnt<?php echo $x; ?>" class="fee-amount" name="fees[]" value="" /></td>
-																					</tr>
-																					<?php $x++ ?>
-																				<?php endforeach; ?>
-																				<?php endif; ?>
-																			</tbody>
-																			<tfoot>
-																				<tr>
-																					<td style="font-weight: bold;">Discount:</td>
-																					<td>
-																						<div class="input-group">
-																							<input type="textbox" id="dscnt" name="dscnt" class="discount input-xs col-xs-3 col-sm-3 col-md-3 col-lg-3 form-control" value="" maxlength="3" style="text-align:right;"/>
-																							<span class="input-group-addon">
-																								%
-																							</span>
-																						</div>
-																					</td>
-																					<td></td>
-																				</tr>
-																				<tr>
-																					<input type="hidden" name="tuition_fee" id="tuition_fee" value="" />
-																					<input type="hidden" name="misc_fee" id="misc_fee" value="" />
-																					<td colspan="2" style="font-weight: bold;font-size: 14px;"><em>AMOUNT:</em></td>
-																					<td style="text-align: right;font-style: italic;"><span id="amount"></span><input type="hidden" name="f_amount" id="pymnt" value=""></td>
-																				</tr>
-																				<tr>
-																					<td colspan="2" style="font-weight: bold;font-size: 14px;"><em>Discount:</em></td>
-																					<td style="text-align: right;font-style: italic;"><span id="disc"></span><input type="hidden" name="f_discount" id="discount" value=""></td>
-																				</tr>
-																				<tr>
-																					<td colspan="2" style="font-weight: bold;font-size: 14px;"><em>TOTAL AMOUNT:</em></td>
-																					<td style="text-align: right;font-style: italic;"><span id="totAmount"></span><input type="hidden" name="ft_amount" id="total_amount" value=""></td>
-																				</tr>
-																			</tfoot>
-																		</table>
-																	</div>
-																	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-																		<div class="row">
-																			<div class="form-group">
-																			  <label class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2 no-padding-right" for="stud_pymnt_schm">Payment Scheme:</label>
-
-																			  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-																			  	<div class="clearfix">
-																					  <select class="form-control input-xxlarge" name="stud_pymnt_schm" id="pymntSchm">
-																					  	<option value="">Select Payment Scheme</option>
-																					  	<?php foreach($scheme as $item): ?>
-																					  	<option value="<?php echo $item->scheme_code; ?>"><?php echo $item->scheme_code; ?></option>
-																					  	<?php endforeach; ?>
-																					  </select>
-																					</div>
-																			  </div>
-																			</div><!-- form-group -->
-																		</div>
-																		<div class="row">
-																			<div class="form-group">
-																			  <label class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2 no-padding-right" for="stud_pymnt_method">Payment Method:</label>
-
-																			  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-																			  	<div class="clearfix">
-																					  <select class="form-control input-xxlarge" name="stud_pymnt_method">
-																					  	<option value="">Select Payment Method</option>
-																					  	<option value="Over the Counter">Over the Counter</option>
-																					  	<!-- <option value="Online Payment">Online Payment</option> -->
-																					  </select>
-																					</div>
-																			  </div>
-																			</div><!-- form-group -->
-																		</div>
-																		<div class="row">
-																			<div id="payables"></div>
-																		</div>
-																	</div>
-																</fieldset>
-															</div>
-														</div>
-														<div class="row">
-														  <div class="col-md-4">
-														  	<button class="btn btn-danger btn-sm" id="cancel" data-loading-text="<i class='ion-loading-c'></i> Please wait...">
-																  <i class="ace-icon fa fa-check bigger-110"></i>
-																  Update Assessment
-																</button>
-														  </div><!-- col-md-offset-3 -->
-														</div><!-- /.form-buttons -->
-														<?php echo form_close(); ?>
-													</div>
-												</div>
-											</div><!-- /.tabbable -->
 										<?php endif; ?>
 										</div>
 
 										<div class="row">
-											<div class="space-2"></div>
-											<div class="clearfix form-actions">
-											  <div class="pull-right">
-											  	<a href="<?php echo site_url('admin/student_rcrd'); ?>" class="btn btn-danger" id="cancel" data-loading-text="<i class='ion-loading-c'></i> Please wait...">
-													  <i class="ace-icon fa fa-arrow-left bigger-110"></i>
-													  Go Back
-													</a>
-											  </div><!-- col-md-offset-3 -->
-											</div><!-- clearfix -->
+											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												<div class="space-2"></div>
+												<div class="clearfix form-actions">
+												  <div class="col-md-offset-3 col-md-9">
+												  	<a href="<?php echo site_url('registrar/student_rcrd'); ?>" class="btn btn-danger" id="cancel" data-loading-text="<i class='ion-loading-c'></i> Please wait...">
+														  <i class="ace-icon fa fa-arrow-left bigger-110"></i>
+														  Go Back
+														</a>
+												  </div><!-- col-md-offset-3 -->
+												</div><!-- clearfix -->
+											</div>
 										</div><!-- /.form-buttons -->
 									</div><!-- /.col-lg-12 col-md-12 col-xs-12 -->
 								</div><!-- /.row -->
@@ -553,32 +426,6 @@
 				</div>
 			</div><!-- main-content-inner -->
 		</div><!-- main-content -->
-
-		<div id="modal-form" class="modal" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="red bigger">Update Student Assessment</h4>
-					</div>
-				<?php echo form_open(site_url('admin/student_rcrd/update_assessment/'.$stud_info->stud_id), 'role="form" class="form-horizontal"'); ?>
-					<div class="modal-body">
-						<!--insert result here-->
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-sm btn-danger addSchm" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Adding">
-							<i class="ace-icon fa fa-check"></i>
-							Update
-						</button>
-						<button class="btn btn-sm" data-dismiss="modal">
-							<i class="ace-icon fa fa-times"></i>
-							Cancel
-						</button>
-					</div>
-				<?php echo form_close(); ?>
-				</div>
-			</div>
-		</div>
 
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
 			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
@@ -634,244 +481,7 @@
 		jQuery(function($) {
 			$('#hstry').dataTable();
 
-			function number_format (number, decimals, dec_point, thousands_sep) {
-		    // Strip all characters but numerical ones.
-		    number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
-		    var n = !isFinite(+number) ? 0 : +number,
-		        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-		        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-		        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-		        s = '',
-		        toFixedFix = function (n, prec) {
-		            var k = Math.pow(10, prec);
-		            return '' + Math.round(n * k) / k;
-		        };
-		    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-		    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-		    if (s[0].length > 3) {
-		        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-		    }
-		    if ((s[1] || '').length < prec) {
-		        s[1] = s[1] || '';
-		        s[1] += new Array(prec - s[1].length + 1).join('0');
-		    }
-		    return s.join(dec);
-			}
-
 			$('.tab-content').find('div').first().addClass('active in');
-
-	    //datepicker plugin
-			//link
-			$('.date-picker').datepicker({
-				autoclose: true,
-				todayHighlight: true
-			})
-			//show datepicker when clicking on the icon
-			.next().on(ace.click_event, function(){
-				$(this).prev().focus();
-			});
-
-			var updteAssmntBtn = $('#updteAssmntBtn');
-
-			updteAssmntBtn.on('click', function(e){
-				var studID = updteAssmntBtn.attr('data-id');
-
-				$.ajax({
-				  type: 'GET',
-				  url: '<?php echo site_url('admin/student_rcrd/get_student_assessment_info'); ?>',
-				  data: { 
-				  				studID: studID
-				  			},
-				  beforeSend:function(){
-				    // this is where we append a loading image
-				    $('.modal-body').html('<div class="loading"><img src="<?php echo base_url('assets/img/loading.gif') ?>"; alt="Loading..." />Please wait...</div>');
-				  },
-				  success:function(data){
-				    // successful request; do something with the data
-				    //$('.modal-body').empty();
-			      $('.modal-body').html(data);
-				  },
-				  error:function(){
-				    // failed request; give feedback to user
-				    $('.modal-body').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
-				  }
-				});
-			});
-
-			$('#modal-form').on('shown.bs.modal', function () {
-		    $(this).find('.modal-dialog')
-		    .css(
-		    	{
-		    		width:'1024px',
-            height:'auto', 
-			      'max-height':'100%'
-			    }
-			  );
-			});
-
-			var payment = 0;
-			var tuition_fee = 0;
-			var misc_fee = 0;
-			$('#tuition_fee').val(parseFloat(tuition_fee));
-			$('#misc_fee').val(parseFloat(misc_fee));
-
-			$(document).on('change', '[class^=fees]', function(){
-				var id = $(this).attr('data-id');
-				var feeRow = $('#fee_name'+id).val();
-
-				if ($(this).is(':checked')) {
-					$.get('<?php echo site_url("admin/student_rcrd/get_fee_amount") ?>', {id:feeRow}, function(data){
-						if (id == 1) {
-							$('#units').prop('disabled', false);
-							$('#units').on('change', function(){
-								var misc = $('#misc_fee').val();
-								var tuition = data * $(this).val();
-								payment = parseFloat(misc) + (data * $(this).val());
-								$('#feeAmount'+id).html('Php '+ number_format(tuition, 2,'.', ','));
-								$('#feeAmnt'+id).val(parseFloat(tuition));
-								$('#fName'+id).val(feeRow);
-								$('#amount').html('Php '+ number_format(payment, 2,'.', ','));
-								$('#tuition_fee').val(parseFloat(tuition));
-								$('#pymnt').val(parseFloat(payment));
-							});
-						}
-						else {
-							payment += parseFloat(data);
-							misc_fee += parseFloat(data);
-							$('#misc_fee').val(parseFloat(misc_fee));
-							$('#feeAmount'+id).html('Php '+ number_format(data, 2,'.', ','));
-							$('#feeAmnt'+id).val(parseFloat(data));
-							$('#fName'+id).val(feeRow);
-							$('#amount').html('Php '+ number_format(payment, 2,'.', ','));
-							$('#pymnt').val(parseFloat(payment));
-						}
-					});
-				}
-				else {
-					if (id == 1) {
-						$('#feeAmount'+id).empty();
-						$('#feeAmnt'+id).val(parseFloat(0));
-						$('#fName'+id).val('');
-						var tuition_fee = $('#tuition_fee').val();
-						payment -= parseFloat(tuition_fee);
-						$('#amount').html('Php '+ number_format(payment, 2,'.', ','));
-						$('#pymnt').val(parseFloat(payment));
-						$('#tuition_fee').val(0);
-						$('#units').val('');
-						$('#misc_fee').val(parseFloat(payment));
-						$('#units').prop('disabled', true);
-					}
-					else {
-						$('#feeAmount'+id).empty();
-						$('#feeAmnt'+id).val(parseFloat(0));
-						$('#fName'+id).val('');
-						$.get('<?php echo site_url("admin/student_rcrd/get_fee_amount") ?>', {id:feeRow}, function(data){
-							payment -= parseFloat(data);
-							misc_fee -= parseFloat(data);
-							$('#amount').html('Php '+ number_format(payment, 2,'.', ','));
-							$('#pymnt').val(parseFloat(payment));
-							$('#misc_fee').val(parseFloat(misc_fee));
-						});
-					}
-				}
-			});
-
-			$(document).on('blur', '#dscnt', function(){
-				var discount = $(this).val();
-
-				if (discount > 0){
-					var payment = $('#pymnt').val();
-					var total_amount = parseFloat(payment) - (parseFloat(payment) * (parseFloat(discount) / 100));
-					var total_discount = parseFloat(payment) * (parseFloat(discount) / 100);
-
-					$('#totAmount').html('Php '+ number_format(total_amount, 2,'.', ','));
-					$('#disc').html('Php '+ number_format(total_discount, 2,'.', ','));
-					$('#discount').val(parseFloat(total_discount));
-					$('#total_amount').val(parseFloat(total_amount));
-				}
-				else {
-					var payment = $('#pymnt').val();
-					$('#totAmount').html('Php '+ number_format(payment, 2,'.', ','));
-					$('#disc').html('Php '+ number_format(total_discount, 2,'.', ','));
-					$('#discount').val(parseFloat(total_discount));
-					$('#total_amount').val(parseFloat(payment));
-				}
-			});
-
-			$(document).on('change', '#pymntSchm', function(){
-				var scheme = $(this).val();
-				var total_fees = $('#total_amount').val();
-
-				if (total_fees) {
-					$.ajax({
-					  type: 'GET',
-					  url: '<?php echo site_url('admin/student_rcrd/get_payment_scheme'); ?>',
-					  data: { scheme: scheme, totalFees: total_fees },
-					  // beforeSend:function(){
-					  //   // this is where we append a loading image
-					  //   $('#ajax-panel').html('<div class="loading"><img src="/images/loading.gif" alt="Loading..." /></div>');
-					  // },
-					  success:function(data){
-					    // successful request; do something with the data
-					    $('#payables').empty();
-				      $('#payables').append(data);
-					  },
-					  error:function(){
-					    // failed request; give feedback to user
-					    $('#payables').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
-					  }
-					});
-				}
-				else {
-					var html = '<h4>You must have a valid assessment.</h4>';
-					$('#pymntSchm').val('');
-					$('#payables').empty();
-		      $('#payables').append(html);
-				}
-			});
-
-			$('#assessment_form').validate({
-			  errorElement: 'div',
-			  errorClass: 'help-block',
-			  focusInvalid: false,
-			  ignore: "",
-			  rules: {
-			    stud_pymnt_schm: {
-			    	required: true,
-			    },
-			    stud_pymnt_method: {
-			    	required: true,
-			    }
-			  },
-
-			  highlight: function (e) {
-			    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-			  },
-			  
-			  success: function (e) {
-			    $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
-			  $(e).remove();
-			  },
-			  
-			  errorPlacement: function (error, element) {
-			    error.insertAfter(element.parent());
-			  },
-			  
-			  submitHandler: function (form) {
-			    $(form).ajaxSubmit();
-			  },
-			  invalidHandler: function (form) {
-			  }
-			});
-
-			$('#loadingBtn').on(ace.click_event, function () {
-	      var btn = $(this);
-	      btn.button('loading');
-
-	      setTimeout(function () {
-	        btn.button('reset');
-	      }, 2000)
-	    });
 
 	    $('#cancel').on(ace.click_event, function () {
 	      var btn = $(this);

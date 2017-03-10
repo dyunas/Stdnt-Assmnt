@@ -1,4 +1,5 @@
 <body class="no-skin">
+	<div id="cover"></div>
 	<div id="navbar" class="navbar navbar-red">
 		<script type="text/javascript">
 		  try{ace.settings.check('navbar' , 'fixed')}catch(e){}

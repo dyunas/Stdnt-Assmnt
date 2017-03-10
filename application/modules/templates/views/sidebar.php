@@ -104,7 +104,7 @@
 				try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
 			</script>
 		</div>
-	<?php else:?>
+	<?php elseif ($this->session->userdata('user_type') == 'Registrar'): ?>
 		<script type="text/javascript">
 			try{ace.settings.check('main-container' , 'fixed')}catch(e){}
 		</script>
@@ -112,6 +112,23 @@
 			<script type="text/javascript">
 				try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 			</script>
+
+			<ul class="nav nav-list">
+				<li class="<?php echo (site_url($this->uri->segment(1).'/'.$this->uri->segment(2)) == site_url('registrar/dashboard')) ? 'active' : '' ; ?>">
+					<a href="<?php echo site_url('registrar/dashboard'); ?>">
+						<i class="menu-icon fa fa-home"></i>
+						<span class="menu-text">Dashboard</span>
+					</a>
+					<b class="arrow"></b>
+				</li>
+				<li class="<?php echo (site_url($this->uri->segment(1).'/'.$this->uri->segment(2)) == site_url('registrar/student_rcrd')) ? 'active' : '' ; ?>">
+					<a href="<?php echo site_url('registrar/student_rcrd'); ?>">
+						<i class="menu-icon fa fa-list"></i>
+						<span class="menu-text">Student's Record</span>
+					</a>
+					<b class="arrow"></b>
+				</li>
+			</ul><!-- /.nav-list -->
 
 			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 				<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>

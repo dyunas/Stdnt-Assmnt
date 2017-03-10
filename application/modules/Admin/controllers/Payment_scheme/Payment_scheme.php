@@ -75,6 +75,35 @@ class Payment_scheme extends MY_Controller {
 		}
 	}
 
+	public function Toggler_availability()
+	{
+		if ($this->session->userdata('user_type') != 'Admin')
+		{
+			redirect(site_url());
+		}
+		else
+		{
+			if ($this->input->is_ajax_request())
+			{
+				$code = $this->input->get('code');
+				$status = $this->input->get('status');
+
+				if ($this->scheme->toggle_availability($code, $status))
+				{
+					echo 'true';
+				}
+				else
+				{
+					echo 'false';
+				}
+			}
+			else
+			{
+				exit('No direct script access allowed');
+			}
+		}
+	}
+
 	// public function Delete_scheme($scheme_code)
 	// {
 	// 	if ($this->session->userdata('user_type') != 'Admin')

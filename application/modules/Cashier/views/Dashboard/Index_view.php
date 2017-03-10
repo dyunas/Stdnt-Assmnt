@@ -119,7 +119,29 @@
 
 	<script type="text/javascript">
 		jQuery(function($) {
-			//$('#stud_rec').dataTable();
+			function number_format (number, decimals, dec_point, thousands_sep) {
+		    // Strip all characters but numerical ones.
+		    number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+		    var n = !isFinite(+number) ? 0 : +number,
+		        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+		        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+		        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+		        s = '',
+		        toFixedFix = function (n, prec) {
+		            var k = Math.pow(10, prec);
+		            return '' + Math.round(n * k) / k;
+		        };
+		    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+		    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+		    if (s[0].length > 3) {
+		        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+		    }
+		    if ((s[1] || '').length < prec) {
+		        s[1] = s[1] || '';
+		        s[1] += new Array(prec - s[1].length + 1).join('0');
+		    }
+		    return s.join(dec);
+			}
 
 			//Search student
 			$('#searchStudent').on('click', function(data){
@@ -136,7 +158,17 @@
 				    // successful request; do something with the data
 				    //$('#result').empty();
 			      $('#result').html(data);
+			      $('.tab-content').find('div').first().addClass('active in');
 			      $('#hstry').dataTable();
+
+			      $('input[class^=bal]').each(function(){
+			      	var id = $(this).attr('data-id');
+
+			      	if ($(this).val() == 0){
+			      		$('#'+id).prop('disabled', true);
+			      		$('#'+id).attr("disabled","disabled");
+			      	}
+			      });
 				  },
 				  error:function(){
 				    // failed request; give feedback to user
@@ -155,6 +187,7 @@
 			$(document).on('click', 'a.manage', function(){
 				var tag = $(this).attr('id');
 				var stud_id = $(this).attr('data-id');
+				var stud_course = $(this).attr('data-course');
 				var stud_year = $(this).attr('data-year');
 				var stud_sem = $(this).attr('data-sem');
 				var scheme = $(this).attr('data-scheme');
@@ -167,6 +200,7 @@
 				  data: { 
 				  				tag: tag, 
 				  				stud_id: stud_id,
+				  				stud_course: stud_course,
 				  				year: stud_year,
 				  				sem: stud_sem,
 				  				scheme: scheme 
@@ -191,19 +225,28 @@
 
 			$(document).on('blur', '#amount_pd', function(){
 				$("#amnt_pd").attr('value', $(this).autoNumeric('get'));
-				$("#amount").html($(this).autoNumeric('get'));
+				$("#amount").html('Php '+number_format($(this).val(), 2, '.', ','));
 				var amount_pd = $("#amnt_pd").val();
 				var amount_due = $("#amount_due").val();
-				var total = parseFloat(amount_pd);
-				var balance = parseFloat(amount_due - amount_pd);
+				var prev_pd = $('#prev_pd').val();
+				if (prev_pd > 0){
+					prev_pd = $('#prev_pd').val();
+				}
+				else {
+					prev_pd = parseFloat(0);
+				}
+				var total = parseFloat(amount_pd) + parseFloat(prev_pd);
+				var balance = parseFloat(amount_due) - parseFloat(total);
 
 				$('#totalRes').html(total);
 				$('#totalRes').autoNumeric('init');
 	      $('#totalRes').autoNumeric('set', total);
+	      $('#total').val(total);
 
 				$('#balRes').html(balance);
 				$('#balRes').autoNumeric('init');
 	      $('#balRes').autoNumeric('set', balance);
+	      $('#balance').val(balance);
 			});
 
 			$(document).on('click', '#procPrint', function(){
@@ -216,6 +259,84 @@
           doctype: '<!doctype html>'
 				});
 			});
+
+			$(document).on('click', '#updtBtn', function(){
+				var stud_id = $('#stud_id').val();
+				var course = $('#course').val();
+				var stud_year = $('#stud_year').val();
+				var semester = $('#semester').val();
+				var scheme = $('#scheme').val();
+				var trans_date = '<?php echo date('Y-m-d'); ?>'
+				var pymnt_for = $('#pymnt_for').val();
+				var amount = $('#amnt_pd').val(); 
+				var receipt_no = $('#receipt_no').val();
+				var cashier_id = $('#cashier_id').val();
+				var bal = $('#balance').val();
+				var total = 'Php '+number_format($('#total').val(), 2, '.', ',');
+				var balance = 'Php '+number_format($('#balance').val(), 2, '.', ',');
+
+				// alert(stud_id+'/'+course+'/'+stud_year+'/'+semester+'/'+scheme+'/'+trans_date+'/'+pymnt_for+'/'+amount+'/'+receipt_no+'/'+cashier_id);
+
+				$.ajax({
+				  type: 'GET',
+				  url: '<?php echo site_url('cashier/update_payment'); ?>',
+				  data:
+				  { 
+				  	stud_id: stud_id,
+				 		course: course,
+				 		stud_year: stud_year,
+				 		semester: semester,
+				 		scheme: scheme,
+				 		trans_date: trans_date,
+				 		pymnt_for: pymnt_for,
+				 		amount: amount,
+				 		receipt_no: receipt_no,
+				 		cashier_id: cashier_id,
+				 	},
+				  beforeSend:function(){
+				    // this is where we append a loading image
+				    $('#cover').css('display','block');
+				  },
+				  success:function(data){
+				    // successful request; do something with the data
+			    	$('#'+pymnt_for+'_total').html(total);
+						$('#'+pymnt_for+'_bal').html(balance);
+						var tag = $('#tag').val();
+						if (parseFloat(bal) == 0){
+							$('#'+tag).prop('disabled', true);
+		      		$('#'+tag).attr("disabled","disabled");
+						}
+						var year = ['', '1st Year', '2nd Year', '3rd Year', '4th Year'];
+						var tblRow = '<tr>'+
+														'<td style="text-align: center;"><?php echo date('m-d-Y'); ?></td>'+
+														'<td style="text-align: center;">'+course+'</td>'+
+														'<td style="text-align: center;">'+year[stud_year]+'</td>'+
+														'<td style="text-align: center;">'+semester+'</td>'+
+														'<td style="text-align: center;">'+pymnt_for+'</td>'+
+														'<td style="text-align: center;">'+number_format('Php '+amount, 2, '.', ',')+'</td>'+
+														'<td style="text-align: center;">'+receipt_no+'</td>'+
+														'<td style="text-align: center;">'+cashier_id+'</td>'+
+													'</tr>';
+
+						$('#hstry tbody').prepend(tblRow);
+						$('#cover').css('display','none');
+				  },
+				  error:function(){
+				    // failed request; give feedback to user
+				    $('#cover').css('display','none');
+				    bootbox.dialog({
+				      message: "<p style='font-size:16px;'>Error updating student payment. Please try again later.</p>",
+				      title: "<span style='font-size:18px;font-weight:bold;'><i class='fa fa-info-circle'></i>	Something went wrong</span>",
+				      buttons: {
+				        cancel: {
+				          label: "Ok",
+				          className: "btn btn-default"
+				        }
+				      }
+				    });
+				  }
+				});
+			})
 		});
 	</script>
 </body>

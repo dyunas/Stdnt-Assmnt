@@ -6,6 +6,7 @@ class Student_records extends MY_Controller {
 		parent::__construct();
 		$this->load->model('Admin/Student_Records/Student_model', 'student');
 		$this->load->model('Admin/Assessment/Assessment_model', 'assessment');
+		$this->load->model('Cashier/Student_Records/Student_records_model', 'stud_assessment');
 	}
 
 	public function Index()
@@ -39,52 +40,11 @@ class Student_records extends MY_Controller {
 				'usr' => $this->login->get_user_info(),
 				'stud_info' => $this->student->get_student_info($stud_id),
 				'gdn_info' => $this->student->get_student_gdn_info($stud_id),
-				'fees' => $this->student->get_assessment_info($stud_id),
-				'discount' => $this->student->get_discount_info($stud_id),
-				'schme' => $this->student->get_stud_pymnt_schme($stud_id),
+				'fees' => $this->assessment->get_fees(),
+				'scheme' => $this->assessment->get_payment_scheme()
 			);
 
 			$this->template->load($data, null, 'Student_record', 'Admin/Student_Records');
-		}
-	}
-
-	public function Enroll_student()
-	{
-		if ($this->session->userdata('user_type') != 'Admin')
-		{
-			redirect(site_url());
-		}
-		else
-		{
-			$data = array(
-				'title' => 'Student\'s Record',
-				'usr' => $this->login->get_user_info(),
-				'course' => $this->assessment->get_courses(),
-				'semester' => $this->assessment->get_semester(),
-				'fees' => $this->assessment->get_fees(),
-				'scheme' => $this->assessment->get_payment_scheme(),
-			);
-
-			$this->template->load($data, null, 'Enroll_student', 'Admin/Student_Records');
-		}
-	}
-
-	public function Auth_student_enrollment()
-	{
-		if ($this->session->userdata('user_type') != 'Admin')
-		{
-			redirect(site_url());
-		}
-		else
-		{			
-			if ($this->student->enroll_student())
-			{
-				redirect(site_url('admin/student_rcrd'));
-			}
-			else
-			{
-				redirect(site_url('admin/student_rcrd/enroll'));
-			}
 		}
 	}
 
@@ -246,6 +206,47 @@ class Student_records extends MY_Controller {
 		else
 		{
 			exit('No direct script access allowed');
+		}
+	}
+
+	public function Get_student_assessment_info()
+	{
+		if ($this->input->is_ajax_request())
+		{
+			$stud_id = $this->input->get('studID');
+
+			$data = array(
+				'stud_info' => $this->student->get_student_info($stud_id),
+				'course' => $this->assessment->get_courses(),
+				'semester' => $this->assessment->get_semester(),
+				'fees' => $this->assessment->get_fees(),
+				'scheme' => $this->assessment->get_payment_scheme(),
+				);
+
+			return $result = $this->load->view('Student_Records/Update_student_assessment_view', $data);
+		}
+		else
+		{
+			exit('No direct script access allowed');
+		}
+	}
+
+	public function Update_student_assessment($stud_id)
+	{
+		if ($this->session->userdata('user_type') != 'Admin')
+		{
+			redirect(site_url());
+		}
+		else
+		{
+			if ($this->student->update_student_assessment($stud_id))
+			{
+				redirect(site_url('admin/student_rcrd/view/'.$stud_id));
+			}
+			else
+			{
+				redirect(site_url('admin/student_rcrd/view/'.$stud_id));
+			}
 		}
 	}
 }

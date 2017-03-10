@@ -65,6 +65,7 @@
 												<tr>
 													<th>Payment Name</th>
 													<th>Payment Code</th>
+													<th>Status</th>
 													<th></th>
 												</tr>
 											</thead>
@@ -74,17 +75,19 @@
 													<tr>
 														<td><?php echo $item->scheme_name; ?></td>
 														<td><?php echo $item->scheme_code; ?></td>
+														<td id="status<?php echo $item->row_id; ?>"><?php echo $item->status; ?></td>
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
 																<a class="red" href="#modal-edit" role="button" data-toggle="modal">
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
-																<a href="javascript:();" class="red del_<?php echo $item->row_id;?>" data-id="<?php echo $item->scheme_code; ?>" class="tooltip-error" data-rel="tooltip" title="Delete">
-																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
+																<a class="toggler red" href="#" data-id="<?php echo $item->row_id; ?>" data-status="<?php echo $item->status; ?>">
+																	<i class="toggler-icon ace-icon fa bigger-130" id="<?php echo $item->row_id; ?>"></i>
+																	<input type="hidden" class="iconica" data-id="<?php echo $item->row_id; ?>" id="icon<?php echo $item->row_id; ?>" value="<?php echo $item->status; ?>">
 																</a>
 															</div>
 
-															<div class="hidden-md hidden-lg">
+															<!-- <div class="hidden-md hidden-lg">
 																<div class="inline pos-rel">
 																	<button class="btn btn-minier btn-danger dropdown-toggle" data-toggle="dropdown" data-position="auto">
 																		<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
@@ -107,7 +110,7 @@
 																		</li>
 																	</ul>
 																</div>
-															</div>
+															</div> -->
 														</td>
 													</tr>
 												<?php endforeach; ?><!-- /. end-loop -->
@@ -249,6 +252,72 @@
         });
       });
 
+      $('a[class^=toggler]').on('click', function(e){
+				e.preventDefault();
+				var code = $(this).attr('data-id');
+				var status = $('#icon'+code).val();
+				
+				$.ajax({
+				  type: 'GET',
+				  url: '<?php echo site_url('admin/settings/pymnt_schm/toggler'); ?>',
+				  data: { 
+				  				code: code,
+				  				status: status
+				  			},
+				  beforeSend:function(){
+				    // this is where we append a loading image
+				    $('#cover').fadeIn();
+				  },
+				  success:function(data){
+				  	if (data == 'true')
+				  	{
+				  		if (status == 'Enabled') {
+				  			$('#'+code).removeClass('fa-remove').addClass('fa-check');
+				  			$('#status'+code).empty();
+				  			$('#status'+code).append('Disabled');
+				  			$('#icon'+code).val('Disabled');
+					    	$('#cover').fadeOut();
+				  		}
+				  		else if (status == 'Disabled') {
+				  			$('#'+code).removeClass('fa-check').addClass('fa-remove');
+				  			$('#status'+code).empty();
+				  			$('#status'+code).append('Enabled');
+				  			$('#icon'+code).val('Enabled');
+					    	$('#cover').fadeOut();
+				  		}
+				  	}
+				  	else
+				  	{
+				  		bootbox.dialog({
+							  message: "<p style='font-size:16px;'>Something went wrong. Please try again.</p>",
+							  title: "<span style='font-weight: bold;font-size:18px;'><i class='fa fa-times-circle'></i> Error updating</span>",
+							  buttons: {
+							    cancel: {
+							      label: "<i class='fa fa-close'></i> Close",
+							      className: "btn btn-default"
+							    }
+							  }
+							});
+							$('#cover').fadeOut();
+				  	}
+				  },
+				  error:function(){
+				    // failed request; give feedback to user
+				   	
+				  }
+				});
+			});
+
+      $('.iconica').each(function(){
+				var id = $(this).attr('data-id');
+				if ($(this).val() == 'Enabled') {
+					$('#'+id).removeClass('fa-check').addClass('fa-remove');
+				}
+				else{
+					$('#'+id).removeClass('fa-remove').addClass('fa-check');
+				}
+			});
+
       // $('#add_form').validate({
       //   errorElement: 'div',
       //   errorClass: 'help-block',
@@ -291,35 +360,5 @@
       //   }
       // });
     });
-	</script>
-
-	<script type="text/javascript">
-	  jQuery(function($) {
-	  	//Confirm Dialog
-	  	<?php foreach($schemes as $item): ?>
-	  	$(".del_<?php echo $item->row_id; ?>").on(ace.click_event, function() {
-	  		bootbox.dialog({
-	  		  message: "Are you sure you want to delete this data <span class='text-transform:uppercase;'><?php echo $item->scheme_code; ?></span>?",
-	  		  title: "Confirm",
-	  		  buttons: {
-	  		    success: {
-	  		      label: "<i class='ace-icon fa fa-trash-o'></i> Delete",
-	  		      className: "btn btn-danger bigger-110",
-	  		      callback: function() {
-	  		      	var id = $(".del_<?php echo $item->row_id;?>").attr('data-id');
-	  		        var link = "<?php echo site_url('admin/settings/pymnt_schm/del/"+id+"'); ?>";
-	  		        
-	  		        document.location.assign(link);
-	  		      }
-	  		    },
-	  		    cancel: {
-	  		      label: "<i class='ace-icon fa fa-close'></i> Cancel",
-	  		      className: "btn btn-default bigger-110"
-	  		    }
-	  		  }
-	  		});
-	  	});
-	  	<?php endforeach; ?>
-	  });
 	</script>
 </body>

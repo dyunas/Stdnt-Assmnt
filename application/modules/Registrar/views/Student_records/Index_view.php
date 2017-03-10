@@ -7,7 +7,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
-							<a href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a>
+							<a href="<?php echo base_url('registrar/dashboard'); ?>">Dashboard</a>
 						</li>
 						<li>Student's Record</li>
 					</ul><!-- /.breadcrumb -->
@@ -53,9 +53,9 @@
 										'.$this->session->flashdata('error_2').'</div><!-- alert -->'; ?>
 		      			  </span>
 		              <?php endif; ?>
-									<!-- <div class="col-lg-3 col-md-4 col-xs-4 pull-right">
-										<a href="<?php echo site_url('admin/student_rcrd/enroll'); ?>" id="enrollBtn" data-loading-text="<i class='ion-loading-c'></i> Please wait..." class="btn btn-danger btn-sm pull-right"><i class="fa fa-plus"></i> Add Student</a>
-									</div> -->
+									<div class="col-lg-3 col-md-4 col-xs-4 pull-right">
+										<a href="<?php echo site_url('registrar/student_rcrd/enroll'); ?>" id="enrollBtn" data-loading-text="<i class='ion-loading-c'></i> Please wait..." class="btn btn-danger btn-sm pull-right"><i class="fa fa-plus"></i> Enroll Student</a>
+									</div>
 								</div>
 								<br/>
 								<div class="row">
@@ -83,7 +83,7 @@
 														<td style="text-align: center;"><?php echo $info->stud_status; ?></td>
 														<td style="text-align: center;">
 															<div class="hidden-sm hidden-xs action-buttons">
-																<a class="red" href="<?php echo site_url('admin/student_rcrd/view/'.$info->stud_id); ?>">
+																<a class="red" href="<?php echo site_url('registrar/student_rcrd/view/'.$info->stud_id); ?>">
 																	<i class="ace-icon fa fa-search-plus bigger-130"></i>
 																	View Record
 																</a>
@@ -97,7 +97,7 @@
 
 																	<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 																		<li>
-																			<a href="<?php echo site_url('admin/student_rcrd/view/'.$info->stud_id); ?>" class="tooltip-success" data-rel="tooltip" title="View">
+																			<a href="<?php echo site_url('registrar/student_rcrd/view/'.$info->stud_id); ?>" class="tooltip-success" data-rel="tooltip" title="View">
 																				<span class="red">
 																					<i class="ace-icon fa fa-search-plus bigger-120"></i>
 																				</span>

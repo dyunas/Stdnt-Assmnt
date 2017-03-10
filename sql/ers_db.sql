@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2017 at 12:51 PM
+-- Generation Time: Mar 02, 2017 at 03:27 PM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.3
 
@@ -213,6 +213,29 @@ INSERT INTO `tbl_stud_asmnt_info` (`row_id`, `stud_id`, `stud_year`, `stud_sem`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_stud_discount_info`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_stud_discount_info` (
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stud_id` char(11) NOT NULL,
+  `stud_year` int(11) NOT NULL,
+  `stud_sem` char(20) NOT NULL,
+  `discount_fee` double NOT NULL,
+  `discount_prcnt` int(3) NOT NULL,
+  PRIMARY KEY (`row_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `tbl_stud_discount_info`
+--
+
+INSERT INTO `tbl_stud_discount_info` (`row_id`, `stud_id`, `stud_year`, `stud_sem`, `discount_fee`, `discount_prcnt`) VALUES
+(1, '17-0001-32', 3, '2nd Sem.', 4026.5, 25);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_stud_gdn_info`
 --
 
@@ -328,6 +351,7 @@ CREATE TABLE IF NOT EXISTS `tbl_stud_pybles_mnth` (
   `stud_sem` char(20) NOT NULL,
   `stud_schm` char(20) NOT NULL,
   `pymnt_for` varchar(25) NOT NULL,
+  `amount` float NOT NULL,
   PRIMARY KEY (`row_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -374,6 +398,26 @@ CREATE TABLE IF NOT EXISTS `tbl_stud_units` (
 
 INSERT INTO `tbl_stud_units` (`row_id`, `stud_id`, `units`, `stud_year`, `semester`) VALUES
 (1, '17-0001-32', 24, '3', '2nd Sem.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_transactions`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_transactions` (
+  `row_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stud_id` char(11) NOT NULL,
+  `stud_course` char(10) NOT NULL,
+  `stud_year` char(10) NOT NULL,
+  `stud_semester` char(10) NOT NULL,
+  `trans_date` int(11) NOT NULL,
+  `trans_name` varchar(20) NOT NULL,
+  `trans_amount` float NOT NULL,
+  `trans_receipt_no` char(24) NOT NULL,
+  `cashier_id` char(11) NOT NULL,
+  PRIMARY KEY (`row_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

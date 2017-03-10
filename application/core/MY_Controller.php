@@ -9,7 +9,7 @@ class MY_Controller extends MX_Controller {
 
 	public function is_logged_in()
 	{
-		$this->load->model('Login/Login_model', 'login');
+		//$this->load->model('Login/Login_model', 'login');
 
 		if ($this->session->userdata('is_in'))
 		{
