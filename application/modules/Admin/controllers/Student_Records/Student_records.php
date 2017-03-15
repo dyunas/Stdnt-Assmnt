@@ -106,7 +106,7 @@ class Student_records extends MY_Controller {
 		    case 'INSTLMNT':
 		    	if ($totalFees > 0)
 		    	{
-		    		$upon = 2500;
+		    		$upon = 1500;
 		    		$payment = ($totalFees - $upon) / 3;
 
 	    			$html  = '<fieldset>';
@@ -148,13 +148,13 @@ class Student_records extends MY_Controller {
         break;
 		    case 'MNTHLY':
 	        $semester = $this->assessment->get_semester();
-	        $frst_hlf = array('June', 'July', 'August', 'September', 'October');
-	        $scnd_hlf = array('November', 'December', 'January', 'February', 'March');
+	        $frst_hlf = array('June', 'July', 'August', 'September', 'Finals');
+	        $scnd_hlf = array('November', 'December', 'January', 'February', 'Finals');
 
 	        if ($totalFees > 0)
 		    	{
-		    		$upon = 2500;
-		    		$payment = ($totalFees - $upon) / 4;
+		    		$upon = 1500;
+		    		$payment = ($totalFees - $upon) / 5;
 
 	    			$html  = '<fieldset>';
 		        $html .= '<legend>Payables for the whole term</legend>';
@@ -163,19 +163,27 @@ class Student_records extends MY_Controller {
 		        switch($semester->semester)
 		        {
 		        	case '1st':
+				        $html .= '<tr>';
+	        			$html .= '<td><input type="hidden" name="pymnt_for[]" value="upon" /><strong>Total Payment upon enrollment</strong></td>';
+	        			$html .= '<td><input type="hidden" name="pymnt_amnt[]" value="'.$upon.'" />Php '.number_format($upon, 2).'</td>';
+				        $html .= '</tr>';
 		        		for ($i = 0; $i < count($frst_hlf); $i++)
 		        		{		        			
 					        $html .= '<tr>';
-		        			$html .= '<td><input type="hidden" name="pymnt_for[]" value="'.$frst_hlf[$i].'" /><strong>Payment for the Month of '.$frst_hlf[$i].'</strong></td>';
+		        			$html .= '<td><input type="hidden" name="pymnt_for[]" value="'.$frst_hlf[$i].'" /><strong>Payment before the end of '.$frst_hlf[$i].'</strong></td>';
 		        			$html .= '<td><input type="hidden" name="pymnt_amnt[]" value="'.$payment.'" />Php '.number_format($payment, 2).'</td>';
 					        $html .= '</tr>';
 		        		}
 		        	break;
 		        	case '2nd':
+		        		$html .= '<tr>';
+	        			$html .= '<td><input type="hidden" name="pymnt_for[]" value="upon" /><strong>Total Payment upon enrollment</strong></td>';
+	        			$html .= '<td><input type="hidden" name="pymnt_amnt[]" value="'.$upon.'" />Php '.number_format($upon, 2).'</td>';
+				        $html .= '</tr>';
 		        		for ($i = 0; $i < count($scnd_hlf); $i++)
 		        		{
 		        			$html .= '<tr>';
-		        			$html .= '<td><input type="hidden" name="pymnt_for[]" value="'.$scnd_hlf[$i].'" /><strong>Payment for the Month of '.$scnd_hlf[$i].'</strong></td>';
+		        			$html .= '<td><input type="hidden" name="pymnt_for[]" value="'.$scnd_hlf[$i].'" /><strong>Payment before the end of '.$scnd_hlf[$i].'</strong></td>';
 		        			$html .= '<td><input type="hidden" name="pymnt_amnt[]" value="'.$payment.'" />Php '.number_format($payment, 2).'</td>';
 					        $html .= '</tr>';
 		        		}

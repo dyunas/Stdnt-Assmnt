@@ -261,6 +261,7 @@
 			});
 
 			$(document).on('click', '#updtBtn', function(){
+				var stud_status = $('#stud_status').val();
 				var stud_id = $('#stud_id').val();
 				var course = $('#course').val();
 				var stud_year = $('#stud_year').val();
@@ -282,6 +283,7 @@
 				  url: '<?php echo site_url('cashier/update_payment'); ?>',
 				  data:
 				  { 
+				  	stud_status: stud_status,
 				  	stud_id: stud_id,
 				 		course: course,
 				 		stud_year: stud_year,

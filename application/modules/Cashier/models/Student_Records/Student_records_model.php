@@ -58,24 +58,34 @@ class Student_records_model extends CI_Model {
 		}
 	}
 
-	public function update_student_payment($stud_id,$course,$stud_year,$semester,$scheme,$trans_date,$pymnt_for,$amount,$receipt_no,$cashier_id)
+	public function update_student_payment($stud_status,$stud_id,$course,$stud_year,$semester,$scheme,$trans_date,$pymnt_for,$amount,$receipt_no,$cashier_id)
 	{
-		$data = array (
-			'stud_id' => $stud_id,
-			'stud_course' => $course,
-			'stud_year' => $stud_year,
-			'stud_semester' => $semester,
-			'pymnt_scheme' => $scheme,
-			'trans_date' => $trans_date,
-			'trans_name' => $pymnt_for,
-			'trans_amount' => $amount,
-			'trans_receipt_no' => $receipt_no,
-			'cashier_id' => $cashier_id,
-			);
+		$this->db->set('stud_status', $stud_status);
+		$this->db->where('stud_id', $stud_id);
 
-		if ($this->db->insert('tbl_transactions', $data))
+		if ($this->db->update('tbl_stud_info'))
 		{
-			return TRUE;
+			$data = array (
+				'stud_id' => $stud_id,
+				'stud_course' => $course,
+				'stud_year' => $stud_year,
+				'stud_semester' => $semester,
+				'pymnt_scheme' => $scheme,
+				'trans_date' => $trans_date,
+				'trans_name' => $pymnt_for,
+				'trans_amount' => $amount,
+				'trans_receipt_no' => $receipt_no,
+				'cashier_id' => $cashier_id,
+				);
+
+			if ($this->db->insert('tbl_transactions', $data))
+			{
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
 		}
 		else
 		{

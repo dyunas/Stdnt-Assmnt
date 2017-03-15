@@ -93,9 +93,10 @@
 				</fieldset><!-- /.student assessment -->
 
 				<div class="row">
+					<?php $pymnt_scheme = $this->student->get_stud_pymnt_schme($stud_info->stud_id); ?>
+					<?php if ($pymnt_scheme): ?>
 					<div class="tabbable">
 						<ul class="nav nav-tabs" id="myTab">
-							<?php $pymnt_scheme = $this->student->get_stud_pymnt_schme($stud_info->stud_id); ?>
 							<?php foreach($pymnt_scheme as $scheme): ?>
 							<li <?php echo ($stud_info->stud_course == $scheme->stud_course AND $stud_info->stud_year == $scheme->stud_year AND $stud_info->stud_sem == $scheme->stud_sem) ? 'class="active"' : '' ?>>
 								<a data-toggle="tab" href="<?php echo '#'.$scheme->stud_course.'-'.$scheme->stud_year.'-'.$sem[$scheme->stud_sem]; ?>" aria-expanded="true">
@@ -228,7 +229,7 @@
 										        		<?php foreach ($fees as $item): ?>
 										        			<?php $total_payment = $this->stud_assessment->get_total_payment($stud_info->stud_id, $scheme->stud_course, $scheme->stud_year, $scheme->stud_sem, $scheme->stud_pymnt_schm, $item->pymnt_for); ?>
 										        			<tr>
-											         			<td><strong>Payment for the Month of <?php echo $item->pymnt_for; ?></strong></td>
+											         			<td><strong>Total Payment for <?php echo $item->pymnt_for; ?></strong></td>
 											         			<td style="text-align: center;">Php <?php echo number_format($item->amount, 2) ?></td>
 														        <td style="text-align: center;" id="<?php echo $item->pymnt_for.'_total'; ?>"><?php echo ($total_payment->trans_name == $item->pymnt_for) ? 'Php '.number_format($total_payment->total_amount, 2) : '(Php 0.00)'; ?></td>
 														        <td style="text-align: center;" id="<?php echo $item->pymnt_for,'_bal'; ?>"><?php echo ($total_payment->trans_name == $item->pymnt_for) ? 'Php '.number_format($item->amount - $total_payment->total_amount, 2) : 'Php '.number_format($item->amount, 2); ?>
@@ -284,6 +285,7 @@
 							</div>
 						</div><!-- /.tab-content -->
 					</div><!-- /.tabbable -->
+					<?php endif; ?>
 				</div><!-- /.row -->
 
 				<div class="space-2"></div>

@@ -94,6 +94,13 @@
 					</a>
 					<b class="arrow"></b>
 				</li>
+				<li class="<?php echo (site_url($this->uri->segment(1).'/'.$this->uri->segment(2)) == site_url('cashier/dailytrans')) ? 'active' : '' ; ?>">
+					<a href="<?php echo site_url('cashier/dailytrans'); ?>">
+						<i class="menu-icon fa fa-folder-open"></i>
+						<span class="menu-text">Daily Transactions</span>
+					</a>
+					<b class="arrow"></b>
+				</li>
 			</ul><!-- /.nav-list -->
 
 			<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

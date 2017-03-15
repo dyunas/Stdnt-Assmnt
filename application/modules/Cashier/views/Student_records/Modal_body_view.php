@@ -70,6 +70,7 @@
 								<input type="hidden" name="amout_due" id="amount_due" value="<?php echo $fees->upon_fee ?>" />
 								<input type="hidden" name="pymnt_for" id="pymnt_for" value="<?php echo 'upon' ?>" />
 								<input type="hidden" name="scheme" id="scheme" value="<?php echo $scheme ?>" />
+								<input type="hidden" name="stud_status" id="stud_status" value="Enrolled">
 							</tr>
 							<?php endif; ?>
 						<?php elseif ($scheme == 'INSTLMNT'): ?>
@@ -88,6 +89,7 @@
 								<input type="hidden" name="amout_due" id="amount_due" value="<?php echo $fees->upon_fee ?>" />
 								<input type="hidden" name="pymnt_for" id="pymnt_for" value="<?php echo 'upon' ?>" />
 								<input type="hidden" name="scheme" id="scheme" value="<?php echo $scheme ?>" />
+								<input type="hidden" name="stud_status" id="stud_status" value="Enrolled">
 							</tr>
 							<?php elseif ($tag == 'prelim'): ?>
 							<tr>
@@ -123,6 +125,7 @@
 									<input type="hidden" name="amout_due" id="amount_due" value="<?php echo $item->amount ?>" />
 									<input type="hidden" name="pymnt_for" id="pymnt_for" value="<?php echo $tag ?>" />
 									<input type="hidden" name="scheme" id="scheme" value="<?php echo $scheme ?>" />
+									<?php echo ($tag == 'upon') ? '<input type="text" name="stud_status" id="stud_status" value="Enrolled">' : ''; ?>
 								</tr>
 								<?php endif; ?>
 							<?php endforeach; ?>

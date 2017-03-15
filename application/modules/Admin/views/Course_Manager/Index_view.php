@@ -277,15 +277,15 @@
 				  		if (status == 'Available') {
 				  			$('#'+code).removeClass('fa-remove').addClass('fa-check');
 				  			$('#status'+code).empty();
-				  			$('#status'+code).append('Disabled');
-				  			$('#icon'+code).val('Disabled');
+				  			$('#status'+code).append('Unavailable');
+				  			$('#icon'+code).val('Unavailable');
 					    	$('#cover').fadeOut();
 				  		}
 				  		else {
 				  			$('#'+code).removeClass('fa-check').addClass('fa-remove');
 				  			$('#status'+code).empty();
-				  			$('#status'+code).append('Enabled');
-				  			$('#icon'+code).val('Enabled');
+				  			$('#status'+code).append('Available');
+				  			$('#icon'+code).val('Available');
 					    	$('#cover').fadeOut();
 				  		}
 				  	}

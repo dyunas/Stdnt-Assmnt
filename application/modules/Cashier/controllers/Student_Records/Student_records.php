@@ -74,7 +74,16 @@ class Student_records extends MY_Controller {
 	 		$receipt_no = $this->input->get('receipt_no');
 	 		$cashier_id = $this->input->get('cashier_id');
 
-	 		if ($this->stud_assessment->update_student_payment($stud_id,$course,$stud_year,$semester,$scheme,$trans_date,$pymnt_for,$amount,$receipt_no,$cashier_id))
+	 		if ($pymnt_for == 'upon')
+	 		{
+	 			$stud_status = $this->input->get('stud_status');
+	 		}
+	 		else
+	 		{
+	 			$stud_status = 'Enrolled';
+	 		}
+
+	 		if ($this->stud_assessment->update_student_payment($stud_status,$stud_id,$course,$stud_year,$semester,$scheme,$trans_date,$pymnt_for,$amount,$receipt_no,$cashier_id))
 	 		{
 	 			return $result = 'TRUE';
 	 		}
