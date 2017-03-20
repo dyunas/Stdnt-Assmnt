@@ -108,9 +108,11 @@ $route['cashier'] = 'Cashier/Dashboard/Dashboard/Index';
 $route['cashier/get_student_record'] = 'Cashier/Student_Records/Student_records/Get_student_record';
 $route['cashier/get_student_payment'] = 'Cashier/Student_Records/Student_records/Get_student_payment';
 $route['cashier/update_payment'] = 'Cashier/Student_Records/Student_records/Update_student_payment';
+$route['cashier/proc_other_payment'] = 'Cashier/Student_Records/Student_records/Process_other_payment';
 
 // View daily transactions
-$route['cashier/dailytrans'] = 'Cashier/Transactions/Transactions/Index';
+$route['cashier/transaction/get_transaction_tbl'] = 'Cashier/Transactions/Transactions/Get_transaction_tbl';
+$route['cashier/transactions'] = 'Cashier/Transactions/Transactions/Index';
 /*---End Cashier Routes---*/
 
 /*---Registrar Routes--*/

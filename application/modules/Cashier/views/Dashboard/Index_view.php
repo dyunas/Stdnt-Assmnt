@@ -106,6 +106,7 @@
 	<![endif]-->
 	<script src="<?php echo base_url('assets/js/jquery-ui.custom.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/bootbox.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery.validate.min.js'); ?>"></script>
 
 	<!-- ace scripts -->
 	<script src="<?php echo base_url('assets/js/ace-elements.min.js'); ?>"></script>
@@ -159,6 +160,7 @@
 				    //$('#result').empty();
 			      $('#result').html(data);
 			      $('.tab-content').find('div').first().addClass('active in');
+			      $('#otherPayments').dataTable();
 			      $('#hstry').dataTable();
 
 			      $('input[class^=bal]').each(function(){
@@ -198,7 +200,7 @@
 				  type: 'GET',
 				  url: '<?php echo site_url('cashier/get_student_payment'); ?>',
 				  data: { 
-				  				tag: tag, 
+				  				tag: tag,
 				  				stud_id: stud_id,
 				  				stud_course: stud_course,
 				  				year: stud_year,
@@ -207,21 +209,26 @@
 				  			},
 				  beforeSend:function(){
 				    // this is where we append a loading image
-				    $('.modal-body').html('<div class="loading"><img src="<?php echo base_url('assets/img/loading.gif') ?>"; alt="Loading..." />Please wait...</div>');
+				    $('#modalBody').html('<div class="loading"><img src="<?php echo base_url('assets/img/loading.gif') ?>"; alt="Loading..." />Please wait...</div>');
 				  },
 				  success:function(data){
 				    // successful request; do something with the data
 				    //$('#result').empty();
-			      $('.modal-body').html(data);
+			      $('#modalBody').html(data);
 			      $('#amount_pd').autoNumeric('init');
 			      $('#amount_pd').autoNumeric('set');
 				  },
 				  error:function(){
 				    // failed request; give feedback to user
-				    $('.modal-body').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+				    $('#modalBody').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
 				  }
 				});
 			});
+
+			$(document).on('blur', '#receipt_no', function(){
+				var rctNum = $(this);
+				$('#receipt').html(rctNum.val());
+			})
 
 			$(document).on('blur', '#amount_pd', function(){
 				$("#amnt_pd").attr('value', $(this).autoNumeric('get'));
@@ -249,13 +256,61 @@
 	      $('#balance').val(balance);
 			});
 
+			$(document).on('blur', '#or_num', function(){
+				var rctNum = $(this);
+				$('#ornum').html(rctNum.val());
+			});
+
+			$(document).on('blur', '#opymnt_for', function(){
+				var pymnt = $(this);
+				$('#opymnt').html(pymnt.val());
+			});
+
+			$(document).on('blur', '#oamount_pd', function(){
+				var amount = $(this);
+				$('#oamount').html('Php '+number_format(amount.val(), 2, '.', ','));
+			});
+
+			$(document).on('hidden.bs.modal', '#otherPymnt_modal', function(){
+		    $('#or_num').val('');
+				$('#opymnt_for').val('');
+				$('#oamount_pd').val('');
+				$('#ornum').css('display','none');
+				$('#opymnt').css('display','none');
+				$('#oamount').css('display','none');
+				$('#ornum').empty();
+				$('#opymnt').empty();
+				$('#oamount').empty();
+		    $('#or_num').attr('type','text');
+				$('#opymnt_for').attr('type','text');
+				$('#oamount_pd').attr('type','text');
+			});
+
 			$(document).on('click', '#procPrint', function(){
+				$('#receipt').css('display','block');
 				$('#amount').css('display','block');
+				$('#receipt_no').attr('type','hidden');
 				$('#amount_pd').attr('type','hidden');
 
 				$('#printThis').print({
 					globalStyles: true,
           mediaPrint: true,
+          doctype: '<!doctype html>'
+				});
+			});
+
+			$(document).on('click', '#procPrintOthers', function(){
+				$('#ornum').css('display','block');
+				$('#opymnt').css('display','block');
+				$('#oamount').css('display','block');
+				$('#or_num').attr('type','hidden');
+				$('#opymnt_for').attr('type','hidden');
+				$('#oamount_pd').attr('type','hidden');
+
+				$('#printThisOthers').print({
+					globalStyles: true,
+          mediaPrint: true,
+          manuallyCopyFormValues: false,
           doctype: '<!doctype html>'
 				});
 			});
@@ -269,7 +324,7 @@
 				var scheme = $('#scheme').val();
 				var trans_date = '<?php echo date('Y-m-d'); ?>'
 				var pymnt_for = $('#pymnt_for').val();
-				var amount = $('#amnt_pd').val(); 
+				var amount = $('#amnt_pd').val();
 				var receipt_no = $('#receipt_no').val();
 				var cashier_id = $('#cashier_id').val();
 				var bal = $('#balance').val();
@@ -338,7 +393,70 @@
 				    });
 				  }
 				});
-			})
+			});
+
+			$(document).on('click', '#procPymnt', function(){
+				var stud_id = $('#ostud_id').val();
+				var course = $('#ocourse').val();
+				var stud_year = $('#ostud_year').val();
+				var semester = $('#osemester').val();
+				var pymntFor = $('#opymnt_for').val();
+				var amount = $('#oamount_pd').val();
+				var or_num = $('#or_num').val();
+				var cashier = $('#cashier_id').val();
+
+				// alert(stud_id+'/'+course+'/'+stud_year+'/'+semester+'/'+or_num+'/'+pymntFor+'/'+amount+'/'+cashier);
+				$.ajax({
+					type: 'GET',
+					url: '<?php echo site_url('cashier/proc_other_payment'); ?>',
+					data:
+					{
+						stud_id: stud_id,
+						course: course,
+						stud_year: stud_year,
+						semester: semester,
+						pymntFor: pymntFor,
+						amount: amount,
+						or_num: or_num,
+						cashier: cashier
+					},
+					beforeSend:function(){
+				    // this is where we append a loading image
+				    $('#cover').css('display','block');
+				  },
+				  success:function(data){
+				    // successful request; do something with the data
+						var year = ['', '1st Year', '2nd Year', '3rd Year', '4th Year'];
+						var tblRow = '<tr>'+
+														'<td style="text-align: center;"><?php echo date('m-d-Y'); ?></td>'+
+														'<td style="text-align: center;">'+course+'</td>'+
+														'<td style="text-align: center;">'+year[stud_year]+'</td>'+
+														'<td style="text-align: center;">'+semester+'</td>'+
+														'<td style="text-align: center;">'+pymntFor+'</td>'+
+														'<td style="text-align: center;">'+number_format('Php '+amount, 2, '.', ',')+'</td>'+
+														'<td style="text-align: center;">'+or_num+'</td>'+
+														'<td style="text-align: center;">'+cashier+'</td>'+
+													'</tr>';
+
+						$('#otherPayments tbody').prepend(tblRow);
+						$('#cover').css('display','none');
+				  },
+				  error:function(){
+				    // failed request; give feedback to user
+				    $('#cover').css('display','none');
+				    bootbox.dialog({
+				      message: "<p style='font-size:16px;'>Error updating student payment. Please try again later.</p>",
+				      title: "<span style='font-size:18px;font-weight:bold;'><i class='fa fa-info-circle'></i>	Something went wrong</span>",
+				      buttons: {
+				        cancel: {
+				          label: "Ok",
+				          className: "btn btn-default"
+				        }
+				      }
+				    });
+				  }
+				})
+			});
 		});
 	</script>
 </body>

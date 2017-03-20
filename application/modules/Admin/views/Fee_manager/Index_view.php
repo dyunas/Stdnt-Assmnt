@@ -139,11 +139,11 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 col-xs-12">
-								<?php //echo form_open('', 'class="form-horizontal" role="form"'); ?>
-								<fieldset class="form-horizontal" id="add_form">
+								<?php echo form_open(site_url('admin/settings/fee_mngr/add'), 'class="form-horizontal" role="form" id="add_form"'); ?>
+								<fieldset class="form-horizontal">
 									<div class="form-group">
-										<label for="feeName" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Fee Name:</span></label>
-										<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+										<label for="feeName" class="col-lg-2 col-md-2 col-sm-2 col-xs-12"><span class="pull-right">Fee Name:</span></label>
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 											<input type="text" class="form-control" name="fee_name" id="feeName" placeholder="Fee Name" />
 										</div>
 									</div>
@@ -151,18 +151,17 @@
 									<div class="space-4"></div>
 
 									<div class="form-group">
-										<label for="feeAmnt" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull"><span class="pull-right">Amount:</span></label>
+										<label for="feeAmnt" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pull"><span class="pull-right">Amount:</span></label>
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 											<input type="text" class="form-control" name="fee_amount" id="feeAmnt" placeholder="Amount" />
 										</div>
 									</div>
 								</fieldset>
-								<?php //echo form_close(); ?>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-sm btn-danger addFee" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Adding">
+						<button type="submit" class="btn btn-sm btn-danger addFee" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Adding">
 							<i class="ace-icon fa fa-plus"></i>
 							Add Fee
 						</button>
@@ -171,6 +170,7 @@
 							Cancel
 						</button>
 					</div>
+					<?php echo form_close(); ?>
 				</div>
 			</div>
 		</div><!-- /. end modal -->
@@ -213,6 +213,7 @@
 	<![endif]-->
 	<script src="<?php echo base_url('assets/js/jquery-ui.custom.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/bootbox.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery.validate.min.js'); ?>"></script>
 
 	<!-- ace scripts -->
 	<script src="<?php echo base_url('assets/js/ace-elements.min.js'); ?>"></script>
@@ -241,14 +242,48 @@
 		    $(this).find('input[type=text]').val('');
 			});
 
-			$('.addFee').click(function(e){
-				var feeName = $('#feeName').val();
-				var feeAmnt = $('#feeAmnt').val();
+			// $('.addFee').click(function(e){
+			// 	var feeName = $('#feeName').val();
+			// 	var feeAmnt = $('#feeAmnt').val();
 
-        $.get("<?php echo site_url('admin/settings/fee_mngr/add');?>",{name:feeName,amount:feeAmnt},function(data){
-        	window.location.reload();
-        });
-      });
+	      // $.get("<?php echo site_url('admin/settings/fee_mngr/add');?>",{name:feeName,amount:feeAmnt},function(data){
+	      //   	window.location.reload();
+	      //   });
+	      // });
+
+	    $('#add_form').validate({
+	      errorElement: 'div',
+	      errorClass: 'help-block',
+	      focusInvalid: false,
+	      ignore: "",
+	      rules: {
+	        fee_name: {
+	          required: true,
+	        },
+	        fee_amount: {
+	          required: true,
+	        }
+	      },
+
+	      highlight: function (e) {
+	        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+	      },
+	      
+	      success: function (e) {
+	        $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+	      $(e).remove();
+	      },
+	      
+	      errorPlacement: function (error, element) {
+	        error.insertAfter(element.parent());
+	      },
+	      
+	      submitHandler: function (form) {
+	        $(form).ajaxSubmit();
+	      },
+	      invalidHandler: function (form) {
+	      }
+	    });
 
       $('a[class^=toggler]').on('click', function(e){
 				e.preventDefault();

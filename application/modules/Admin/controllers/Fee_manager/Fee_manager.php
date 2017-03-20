@@ -32,20 +32,14 @@ class Fee_manager extends MY_Controller {
 			redirect(site_url());
 		}
 		else
-		{
-			if ($this->input->is_ajax_request())
+		{	
+			if ($this->fee_mngr->insert_fee())
 			{
-				$name = $this->input->get('name');
-				$amount = $this->input->get('amount');
-				
-				if ($this->fee_mngr->insert_fee($name, $amount))
-				{
-					return TRUE;
-				}
-				else
-				{
-					return FALSE;
-				}
+				redirect(site_url('admin/settings/fee_mngr'));
+			}
+			else
+			{
+				redirect(site_url('admin/settings/fee_mngr'));
 			}
 		}
 	}

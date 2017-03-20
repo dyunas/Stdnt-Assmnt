@@ -94,10 +94,10 @@
 					</a>
 					<b class="arrow"></b>
 				</li>
-				<li class="<?php echo (site_url($this->uri->segment(1).'/'.$this->uri->segment(2)) == site_url('cashier/dailytrans')) ? 'active' : '' ; ?>">
-					<a href="<?php echo site_url('cashier/dailytrans'); ?>">
+				<li class="<?php echo (site_url($this->uri->segment(1).'/'.$this->uri->segment(2)) == site_url('cashier/transactions')) ? 'active' : '' ; ?>">
+					<a href="<?php echo site_url('cashier/transactions'); ?>">
 						<i class="menu-icon fa fa-folder-open"></i>
-						<span class="menu-text">Daily Transactions</span>
+						<span class="menu-text">Transactions</span>
 					</a>
 					<b class="arrow"></b>
 				</li>

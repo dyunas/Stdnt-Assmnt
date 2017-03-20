@@ -40,12 +40,12 @@ class Fee_manager_model extends CI_Model {
 		}
 	}
 
-	public function insert_fee($name, $amount)
+	public function insert_fee()
 	{
-		if ($this->check_name_validity($name))
+		if ($this->check_name_validity($this->input->post('fee_name')))
 		{
-			$this->db->set('fee_name', $name);
-			$this->db->set('amount', $amount);
+			$this->db->set('fee_name', $this->input->post('fee_name'));
+			$this->db->set('amount', $this->input->post('fee_amount'));
 
 			if ($this->db->insert('tbl_fees'))
 			{
@@ -57,6 +57,11 @@ class Fee_manager_model extends CI_Model {
 				$this->session->set_flashdata('error_2', 'Error adding fee, please try again.');
 				return FALSE;
 			}
+		}
+		else
+		{
+			$this->session->set_flashdata('error_2', 'Error adding fee. Fee already exists.');
+			return FALSE;
 		}
 	}
 

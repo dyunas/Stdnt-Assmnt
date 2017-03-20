@@ -16,7 +16,9 @@ class Student_records extends MY_Controller {
 			$stud_id = $this->input->get('stud_id');
 
 			$data = array(
+					'usr' => $this->login->get_user_info(),
 					'stud_info' => $this->student->get_student_info($stud_id),
+					'other_payments' => $this->stud_assessment->get_other_payments($stud_id),
 					'pymnt_history' => $this->stud_assessment->get_payment_history($stud_id),
 				);
 
@@ -84,6 +86,35 @@ class Student_records extends MY_Controller {
 	 		}
 
 	 		if ($this->stud_assessment->update_student_payment($stud_status,$stud_id,$course,$stud_year,$semester,$scheme,$trans_date,$pymnt_for,$amount,$receipt_no,$cashier_id))
+	 		{
+	 			return $result = 'TRUE';
+	 		}
+	 		else
+	 		{
+	 			return $result = 'FALSE';
+	 		}
+		}
+		else
+		{
+			exit('No direct script access allowed');
+		}
+	}
+
+	public function Process_other_payment()
+	{
+		if ($this->input->is_ajax_request())
+		{
+			$stud_id = $this->input->get('stud_id');
+	 		$course = $this->input->get('course');
+	 		$stud_year = $this->input->get('stud_year');
+	 		$semester = $this->input->get('semester');
+	 		$trans_date = date('Y-m-d');
+	 		$pymnt_for = $this->input->get('pymntFor');
+	 		$amount = $this->input->get('amount');
+	 		$receipt_no = $this->input->get('or_num');
+	 		$cashier_id = $this->input->get('cashier');
+
+	 		if ($this->stud_assessment->student_other_payment($stud_id,$course,$stud_year,$semester,$trans_date,$pymnt_for,$amount,$receipt_no,$cashier_id))
 	 		{
 	 			return $result = 'TRUE';
 	 		}

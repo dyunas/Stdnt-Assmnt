@@ -28,7 +28,7 @@
 							<td><?php echo $stud_info->stud_id; ?><input type="hidden" name="stud_id" id="stud_id" value="<?php echo $stud_info->stud_id; ?>"></td>
 							<td colspan="2"></td>
 							<td>Receipt No.:</td>
-							<td>123456789<input type="hidden" name="receipt_no" id="receipt_no" value="<?php echo '123456789'; ?>"></td>
+							<td><span style="display:none;" id="receipt"></span><input type="text" name="receipt_no" id="receipt_no" value=""></td>
 						</tr>
 						<tr>
 							<td>Name:</td>
