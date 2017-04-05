@@ -78,7 +78,7 @@
 													<td id="status<?php echo $item->course_code; ?>"><?php echo $item->status; ?>
 													<td>
 														<div class="hidden-sm hidden-xs action-buttons">
-															<a class="red" href="#">
+															<a class="editBtn red" href="#edit-form" data-id="<?php echo $item->course_code; ?>" role="button" data-toggle="modal">
 																<i class="ace-icon fa fa-pencil bigger-130"></i>
 															</a>
 															<a class="toggler red" href="#" data-id="<?php echo $item->course_code; ?>" data-status="<?php echo $item->status; ?>">
@@ -86,31 +86,6 @@
 																<input type="hidden" class="iconica" data-id="<?php echo $item->course_code; ?>" id="icon<?php echo $item->course_code; ?>" value="<?php echo $item->status; ?>">
 															</a>
 														</div>
-
-														<!-- <div class="hidden-md hidden-lg">
-															<div class="inline pos-rel">
-																<button class="btn btn-minier btn-danger dropdown-toggle" data-toggle="dropdown" data-position="auto">
-																	<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-																</button>
-
-																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-																	<li>
-																		<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-																			<span class="red">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																			</span>
-																		</a>
-																	</li>
-																	<li>
-																		<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-																			<span class="red">
-																				<i class="ace-icon fa bigger-120"></i>
-																			</span>
-																		</a>
-																	</li>
-																</ul>
-															</div>
-														</div> -->
 													</td>
 												</tr>
 											<?php endforeach; ?>
@@ -165,6 +140,39 @@
 						<button class="btn btn-sm btn-danger addCourse" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Adding">
 							<i class="ace-icon fa fa-plus"></i>
 							Add course
+						</button>
+						<button class="btn btn-sm" data-dismiss="modal">
+							<i class="ace-icon fa fa-times"></i>
+							Cancel
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="edit-form" class="modal" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="red bigger">Edit Course</h4>
+					</div>
+
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 col-xs-12">
+							<?php //echo form_open('#', 'role="form"'); ?>
+								<fieldset class="form-horizontal" id="edit_form">
+									<!-- append ajax result here -->
+								</fieldset>
+							<?php //echo form_close(); ?>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="editCourse btn btn-sm btn-danger" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Updating">
+							<i class="ace-icon fa fa-plus"></i>
+							Update course
 						</button>
 						<button class="btn btn-sm" data-dismiss="modal">
 							<i class="ace-icon fa fa-times"></i>
@@ -254,6 +262,56 @@
         	window.location.reload();
         });
       });
+
+      $('.editBtn').on('click', function(){
+      	var code = $(this).attr('data-id');
+
+      	$.ajax({
+      		type: 'GET',
+      		url: '<?php echo site_url('admin/course_mngr/get_course_info'); ?>',
+      		data: {
+      			code: code,
+      		},
+      		beforeSend:function(){
+      		  // this is where we append a loading image
+      		  $('#edit_form').html('<div class="loading"><img src="<?php echo base_url('assets/img/loading.gif') ?>"; alt="Loading..." />Please wait...</div>');      		
+      		},
+      		success:function(data){
+      			if (data != 'false')
+      			{
+      				$('#edit_form').html(data);
+      			}
+      			else
+      			{
+      				var message = 'No result';
+      				$('#edit_form').html(message);
+      			}
+      		},
+      		error:function(){
+      		  // failed request; give feedback to user	
+      		}
+      	});
+      });
+
+      $(document).on('click', '[class^=editCourse]', function(e){
+      	var courseName = $('#course_name').val();
+      	var courseCode = $('#course_code').val();
+      	var courseUpdate = $('#courseUpdate').val();
+      	var codeUpdate = $('#codeUpdate').val();
+      	var nameUpdate = $('#nameUpdate').val();
+
+      	// alert(courseName);
+      	$.get("<?php echo site_url('admin/course_mngr/update');?>",
+      		{
+      			courseName: courseName,
+      			courseCode: courseCode,
+      			codeUpdate: codeUpdate,
+      			nameUpdate: nameUpdate,
+      		},
+      		function(data){
+      		window.location.reload();
+      	});
+      })
 
 			$('a[class^=toggler]').on('click', function(e){
 				e.preventDefault();

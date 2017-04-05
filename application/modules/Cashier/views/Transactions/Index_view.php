@@ -58,7 +58,7 @@
 											Print
 										</button>
 
-										<button type="button" class="btn btn-danger btn-sm" id="print">
+										<button type="button" class="btn btn-danger btn-sm" id="exportBtn">
 											<span class="ace-icon fa fa-file-excel-o icon-on-right bigger-110"></span>
 											Export to Excel
 										</button>
@@ -174,6 +174,11 @@
 
 			$(document).on('click', '#print', function(){
 				$('#printThis').print();
+			});
+
+			$(document).on('click', '#exportBtn', function(){
+				var date = $('#trans_dte').val();
+				window.open('<?php echo site_url('cashier/transactions/export_to_excel'); ?>?date='+date);
 			});
 		});
 	</script>

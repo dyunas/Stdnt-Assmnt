@@ -41,7 +41,8 @@ class Student_records extends MY_Controller {
 				'stud_info' => $this->student->get_student_info($stud_id),
 				'gdn_info' => $this->student->get_student_gdn_info($stud_id),
 				'fees' => $this->assessment->get_fees(),
-				'scheme' => $this->assessment->get_payment_scheme()
+				'scheme' => $this->assessment->get_payment_scheme(),
+				'doc_info' => $this->student->get_student_documents($stud_id)
 			);
 
 			$this->template->load($data, null, 'Student_record', 'Admin/Student_Records');

@@ -28,6 +28,7 @@ class Course_manager_model extends CI_Model {
 			{
 				$this->db->set('course_name', $name);
 				$this->db->set('course_code', $code);
+				$this->db->set('status', 'Available');
 
 				$query = $this->db->insert('tbl_course');
 
@@ -39,6 +40,61 @@ class Course_manager_model extends CI_Model {
 				else
 				{
 					$this->session->set_flashdata('error_2', 'Error adding new course, please try again.');
+					return FALSE;
+				}
+			}
+			else
+			{
+				$this->session->set_flashdata('error_2', 'Course already exists');
+				return FALSE;
+			}
+		}
+		else
+		{
+			$this->session->set_flashdata('error_2', 'Code already in use');
+			return FALSE;
+		}
+	}
+
+	public function get_course_info($code)
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_course');
+		$this->db->where('course_code', $code);
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0)
+		{
+			return $query->row();
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	public function update_course($courseName, $courseCode, $nameUpdate, $codeUpdate)
+	{
+		if ($this->check_code($courseCode,$nameUpdate))
+		{
+			if ($this->check_name($courseName,$codeUpdate))
+			{
+				$this->db->set('course_name', $courseName);
+				$this->db->set('course_code', $courseCode);
+				$this->db->set('status', 'Available');
+				$this->db->where('course_code', $codeUpdate);
+
+				$query = $this->db->update('tbl_course');
+
+				if ($query)
+				{
+					$this->session->set_flashdata('error', 'Course Updated');
+					return TRUE;
+				}
+				else
+				{
+					$this->session->set_flashdata('error_2', 'Error updating course, please try again.');
 					return FALSE;
 				}
 			}
@@ -91,6 +147,58 @@ class Course_manager_model extends CI_Model {
 		if ($query->num_rows() > 0)
 		{
 			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+
+	public function check_code($code,$name)
+	{
+		$this->db->where('course_code', $code);
+		$this->db->from('tbl_course');
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0)
+		{
+			$row = $query->row();
+
+			if ($name == $row->course_name)
+			{
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+
+	public function check_name($name,$code)
+	{
+		$this->db->where('course_name', $name);
+		$this->db->from('tbl_course');
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0)
+		{
+			$row = $query->row();
+
+			if ($code == $row->course_code)
+			{
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
 		}
 		else
 		{

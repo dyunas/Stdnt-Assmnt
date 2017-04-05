@@ -41,6 +41,7 @@ class Student_records extends MY_Controller {
 				'usr' => $this->login->get_user_info(),
 				'stud_info' => $this->student->get_student_info($stud_id),
 				'gdn_info' => $this->student->get_student_gdn_info($stud_id),
+				'doc_info' => $this->student->get_student_documents($stud_id)
 			);
 
 			$this->template->load($data, null, 'Student_record', 'Registrar/Student_Records');
@@ -73,15 +74,49 @@ class Student_records extends MY_Controller {
 			redirect(site_url());
 		}
 		else
-		{			
-			if ($this->enroll_student->enroll_student())
-			{
-				redirect(site_url('registrar/student_rcrd'));
-			}
-			else
-			{
-				redirect(site_url('registrar/student_rcrd/enroll'));
-			}
+		{
+			// print_r($_FILES['profile_pic']);
+			$config['upload_path'] = 'assets/uploads/profile/';
+	    $config['file_name'] = md5(rand(0, 100)).'.jpg';
+	    $config['allowed_types'] = 'jpg|jpeg';
+	    $config['max_size']     = '0';
+	    $config['max_width'] = '0';
+	    $config['max_height'] = '0';
+
+	    $this->load->library('upload', $config);
+
+      if ($this->upload->do_upload('profile_pic'))
+      {
+        $file = $this->upload->data();
+
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = $file['full_path'];
+        $config['create_thumb'] = FALSE;
+        $config['maintain_ratio'] = FALSE;
+        $config['width']         = 180;
+        $config['height']       = 200;
+
+        $this->load->library('image_lib', $config);
+
+        $this->image_lib->resize();
+
+        echo $file['file_name'];
+        echo $file['full_path'];
+      }
+      else
+      {
+        // $error = $this->upload->display_errors();
+
+        echo 'Tanga tol!';
+      }
+			// if ($this->enroll_student->enroll_student())
+			// {
+			// 	redirect(site_url('registrar/student_rcrd'));
+			// }
+			// else
+			// {
+			// 	redirect(site_url('registrar/student_rcrd/enroll'));
+			// }
 		}
 	}
 }

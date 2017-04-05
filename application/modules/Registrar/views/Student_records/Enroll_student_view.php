@@ -59,11 +59,14 @@
 								<br/>
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-xs-12">
-									<?php echo form_open(site_url('registrar/student_rcrd/auth_enroll'), 'class="form-horizontal" role="form" id="student_form"'); ?>
+									<?php echo form_open_multipart(site_url('registrar/student_rcrd/auth_enroll'), 'class="form-horizontal" role="form" id="student_form"'); ?>
 										<fieldset>
 											<legend>Student Information:</legend>
 											<div class="row">
-												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+													<input type="file" name="profile_pic" />
+												</div><!-- /.col-lg-3 col-md-3 col-sm-3 col-xs-12 -->
+												<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 													<div class="row">
 														<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 															<div class="form-group">
@@ -205,11 +208,13 @@
 															</div><!-- form-group -->
 														</div><!-- /.second-column -->
 													</div><!-- /.fifth row -->
-												</div>
+												</div><!-- /.col-lg-9 col-md-9 col-sm-9 col-xs-12 -->
 											</div>
 										</fieldset><!-- /.student information -->
 
-										<div class="space-2"></div>
+										<br/>
+										<hr class="hr hr8 hr-dotted"/>
+										<br/>
 
 										<fieldset>
 											<legend>Additional Information:</legend>
@@ -314,6 +319,73 @@
 											</div>
 										</fieldset><!-- /.additional information -->
 
+										<br/>
+										<hr class="hr hr8 hr-dotted"/>
+										<br/>
+
+										<fieldset>
+											<legend>Documents Submitted:</legend>
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="row">
+														<div class="form-inline">
+															<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_nso" value="" class="docu ace ace-checkbox-2" type="checkbox" />
+																		<span class="lbl"> NSO Copy of Birth Certificate</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-4 col-md-4 col-sm-4 col-xs-12 -->
+
+															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_frm137" value="" class="docu ace ace-checkbox-2" type="checkbox" />
+																		<span class="lbl"> Form 137</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-2 col-md-2 col-sm-2 col-xs-12 -->
+
+															<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_moral" value="" class="docu ace ace-checkbox-2" type="checkbox" />
+																		<span class="lbl"> Certificate of Good Moral Character</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-5 col-md-5 col-sm-5 col-xs-12 -->
+														</div><!-- /.form-inline -->
+													</div><!-- /.row -->
+													<br/>
+													<div class="row">
+														<div class="form-inline">
+															<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_tor" value="" class="docu ace ace-checkbox-2" type="checkbox" />
+																		<span class="lbl"> Transcript of Records(if transferee)</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-5 col-md-5 col-sm-5 col-xs-12 -->
+															<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_cert_hon_dism" value="" class="docu ace ace-checkbox-2" type="checkbox" />
+																		<span class="lbl"> Certificate of Honourable Dismissal(if transferee)</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-5 col-md-5 col-sm-5 col-xs-12 -->
+														</div><!-- /.form-inline -->
+													</div><!-- /.row -->
+												</div><!-- /.col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+											</div>
+										</fieldset>
+
+										<br/>
+										<hr class="hr hr8 hr-dotted"/>
+										<br/>
+
 										<fieldset>
 											<legend>Student Assessment:</legend>
 											<div class="row">
@@ -370,7 +442,9 @@
 											</div>
 										</fieldset><!-- /.student assessment -->
 
-										<div class="space-2"></div>
+										<br/>
+										<hr class="hr hr8 hr-dotted"/>
+										<br/>
 
 										<div class="row">
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -477,6 +551,23 @@
 	    return s.join(dec);
 		}
 
+		//student photo
+		$('#student_form')
+		.find('input[type=file]').ace_file_input({
+			style:'well',
+			btn_choose:'Change avatar',
+			btn_change:null,
+			no_icon:'ace-icon fa fa-picture-o',
+			thumbnail:'large',
+			droppable:true,
+			
+			allowExt: ['jpg', 'jpeg', 'png', 'gif'],
+			allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+		})
+		.end().find('button[type=reset]').on(ace.click_event, function(){
+			$('#user-profile-3 input[type=file]').ace_file_input('reset_input');
+		});
+
     //datepicker plugin
 		//link
 		$('.date-picker').datepicker({
@@ -488,93 +579,102 @@
 			$(this).prev().focus();
 		});
 
+		$('[class^=docu]').on('click', function(){
+			if($(this).is(':checked')){
+				$(this).val('ok');
+			}
+			else {
+				$(this).val('');
+			}
+		});
+
 		$('#stud_bdate').mask('99/99/9999');
 
-    $('#student_form').validate({
-      errorElement: 'div',
-      errorClass: 'help-block',
-      focusInvalid: false,
-      ignore: "",
-      rules: {
-        stud_name: {
-          required: true,
-        },
-        stud_gender: {
-          required: true,
-        },
-        stud_bdate: {
-          required: true,
-        },
-        stud_cnum: {
-        	required: true,
-        },
-        stud_tnum: {
-        	required: true,
-        },
-        stud_email: {
-        	required: true,
-        	email: true
-        },
-        stud_addr_ln1: {
-        	required: true,
-        },
-        stud_addr_ln2: {
-        	required: true,
-        },
-        stud_addr_ln3: {
-        	required: true,
-        },
-        stud_addr_ln4: {
-        	required: true,
-        },
-        stud_gdn_name: {
-        	required: true,
-        },
-        stud_gdn_cnum: {
-        	required: true,
-        },
-        stud_gdn_tnum: {
-        	required: true,
-        },
-        stud_gdn_addr_ln1: {
-        	required: true,
-        },
-        stud_gdn_addr_ln2: {
-        	required: true,
-        },
-        stud_gdn_addr_ln3: {
-        	required: true,
-        },
-        stud_gdn_addr_ln4: {
-        	required: true,
-        },
-        stud_course: {
-        	required: true,
-        },
-        stud_year: {
-        	required: true,
-        }
-      },
+    // $('#student_form').validate({
+    //   errorElement: 'div',
+    //   errorClass: 'help-block',
+    //   focusInvalid: false,
+    //   ignore: "",
+    //   rules: {
+    //     stud_name: {
+    //       required: true,
+    //     },
+    //     stud_gender: {
+    //       required: true,
+    //     },
+    //     stud_bdate: {
+    //       required: true,
+    //     },
+    //     stud_cnum: {
+    //     	required: true,
+    //     },
+    //     stud_tnum: {
+    //     	required: true,
+    //     },
+    //     stud_email: {
+    //     	required: true,
+    //     	email: true
+    //     },
+    //     stud_addr_ln1: {
+    //     	required: true,
+    //     },
+    //     stud_addr_ln2: {
+    //     	required: true,
+    //     },
+    //     stud_addr_ln3: {
+    //     	required: true,
+    //     },
+    //     stud_addr_ln4: {
+    //     	required: true,
+    //     },
+    //     stud_gdn_name: {
+    //     	required: true,
+    //     },
+    //     stud_gdn_cnum: {
+    //     	required: true,
+    //     },
+    //     stud_gdn_tnum: {
+    //     	required: true,
+    //     },
+    //     stud_gdn_addr_ln1: {
+    //     	required: true,
+    //     },
+    //     stud_gdn_addr_ln2: {
+    //     	required: true,
+    //     },
+    //     stud_gdn_addr_ln3: {
+    //     	required: true,
+    //     },
+    //     stud_gdn_addr_ln4: {
+    //     	required: true,
+    //     },
+    //     stud_course: {
+    //     	required: true,
+    //     },
+    //     stud_year: {
+    //     	required: true,
+    //     }
+    //   },
 
-      highlight: function (e) {
-        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-      },
+    //   highlight: function (e) {
+    //     $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+    //   },
       
-      success: function (e) {
-        $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
-      	$(e).remove();
-      },
+    //   success: function (e) {
+    //     $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+    //   	$(e).remove();
+    //   },
       
-      errorPlacement: function (error, element) {
-        error.insertAfter(element.parent());
-      },
+    //   errorPlacement: function (error, element) {
+    //     error.insertAfter(element.parent());
+    //   },
       
-      submitHandler: function (form) {
-        $(form).ajaxSubmit();
-      },
-      invalidHandler: function (form) {
-      }
-    });
+    //   submitHandler: function (form) {
+    //     $(form).ajaxSubmit();
+    //   },
+    //   invalidHandler: function (form) {
+    //   }
+    // });
 
     $('#submit').on(ace.click_event, function () {
       var btn = $(this);

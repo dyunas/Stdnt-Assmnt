@@ -50,6 +50,24 @@ class Student_model extends CI_Model {
 		return FALSE;
 	}
 
+	public function get_student_documents($stud_id)
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_stud_documents');
+		$this->db->where('stud_id', $stud_id);
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0)
+		{
+			return $query->row();
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 	public function get_assessment_info($stud_id,$course,$year,$semester)
 	{
 		$where = array('stud_id' => $stud_id, 'stud_course' => $course, 'stud_year' => $year, 'stud_sem' => $semester);

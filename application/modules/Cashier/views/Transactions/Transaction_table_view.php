@@ -35,7 +35,7 @@
 			<th>Student</th>
 			<th>Cashier</th>
 			<th>Fee</th>
-			<th style="text-align: right">Amoun Paid</th>
+			<th style="text-align: right">Amount Paid</th>
 		</tr>
 	</thead>
 	<tbody>

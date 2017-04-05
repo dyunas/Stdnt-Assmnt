@@ -49,8 +49,27 @@ class Students_model extends CI_Model {
 
 				if ($query)
 				{
-					$this->session->set_flashdata('error', 'New Student enrolled to the database');
-					return TRUE;
+					$doc = array(
+						'stud_id' => $stud_id,
+						'stud_nso' => $this->input->post('stud_nso'),
+						'stud_frm137' => $this->input->post('stud_frm137'),
+						'stud_moral' => $this->input->post('stud_moral'),
+						'stud_tor' => $this->input->post('stud_tor'),
+						'stud_cert_hon_dism' => $this->input->post('stud_cert_hon_dism'),
+						);
+
+					$query = $this->db->insert('tbl_stud_documents', $doc);
+
+					if($query)
+					{
+						$this->session->set_flashdata('error', 'New Student enrolled to the database');
+						return TRUE;
+					}
+					else
+					{
+						$this->session->set_flashdata('error_2', 'Error enrolling student. Please try again.');
+						return FALSE;
+					}
 				}
 				else
 				{

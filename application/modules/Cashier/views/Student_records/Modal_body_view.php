@@ -1,18 +1,27 @@
+<style type="text/css">
+	.img-position {
+		/*float:left;*/
+		top: 12px;
+		left: 50px;
+		position: absolute;
+	}
+	@media print {
+		#print_head {
+			display: block!important;
+		}
+	}
+</style>
 <div class="row" id="printThis">
 	<div class="col-lg-12 col-md-12 col-xs-12">
 	<?php if ($stud_info): ?>
 		<div class="row">
-			<div class="col-lg-12 col-md-12 col-xs-12">
-				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-2">
-					<img src="<?php echo base_url('assets/images/cdsp_logo.png'); ?>" alt="CDSP-LOGO"/>
-				</div>
-				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-					<h4 style="text-align: center;">
-						Colegio de San Pedro<br/>
-						<small>Phase 1A, Pacita Complex 1, San Pedro, Laguna</small><br/>
-						<small>Tel. No.: 847-5535 / 529-1725 / 529-3905 / 869-0155</small>
-					</h4>
-				</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="print_head" style="display:none;">
+				<img src="<?php echo base_url('assets/images/cdsp_logo.png'); ?>" class="img-position">
+				<h3 class="center">
+					Colegio de San Pedro<br/>
+					<small>Phase 1A, Pacita Complex 1, San Pedro, Laguna</small><br/>
+					<small>Tel. No.: 847-5535 / 529-1725 / 529-3905 / 869-0155</small>
+				</h3>
 			</div>
 		</div>
 		<br/>

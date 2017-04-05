@@ -72,6 +72,8 @@ $route['admin/acct_mngr'] = 'Admin/Account_Manager/Account_manager/Index';
 
 //Course Manager
 $route['admin/course_mngr/toggler'] = 'Admin/Course_Manager/Course_manager/Toggler_availability';
+$route['admin/course_mngr/update'] = 'Admin/Course_Manager/Course_manager/Update_course';
+$route['admin/course_mngr/get_course_info'] = 'Admin/Course_Manager/Course_manager/Get_course_info';
 $route['admin/course_mngr/add'] = 'Admin/Course_Manager/Course_manager/Add_course';
 $route['admin/course_mngr'] = 'Admin/Course_Manager/Course_manager/Index';
 
@@ -111,6 +113,7 @@ $route['cashier/update_payment'] = 'Cashier/Student_Records/Student_records/Upda
 $route['cashier/proc_other_payment'] = 'Cashier/Student_Records/Student_records/Process_other_payment';
 
 // View daily transactions
+$route['cashier/transactions/export_to_excel'] = 'Cashier/Transactions/Export_to_excel/Export_daily_transaction';
 $route['cashier/transaction/get_transaction_tbl'] = 'Cashier/Transactions/Transactions/Get_transaction_tbl';
 $route['cashier/transactions'] = 'Cashier/Transactions/Transactions/Index';
 /*---End Cashier Routes---*/

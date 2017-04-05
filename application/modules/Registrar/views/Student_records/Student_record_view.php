@@ -134,6 +134,70 @@
 											</table>
 										</fieldset><!-- /.additional information -->
 
+										<div class="space-2"></div>
+
+										<fieldset>
+											<legend>Documents Submitted:</legend>
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="row">
+														<div class="form-inline">
+															<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_nso" class="docu ace ace-checkbox-2" type="checkbox" <?php echo ($doc_info->stud_nso) ? 'checked' : ''; ?> disabled />
+																		<span class="lbl"> NSO Copy of Birth Certificate</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-4 col-md-4 col-sm-4 col-xs-12 -->
+
+															<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_frm137" class="docu ace ace-checkbox-2" type="checkbox" <?php echo ($doc_info->stud_frm137) ? 'checked' : ''; ?> disabled />
+																		<span class="lbl"> Form 137</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-2 col-md-2 col-sm-2 col-xs-12 -->
+
+															<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_moral" class="docu ace ace-checkbox-2" type="checkbox" <?php echo ($doc_info->stud_moral) ? 'checked' : ''; ?> disabled />
+																		<span class="lbl"> Certificate of Good Moral Character</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-5 col-md-5 col-sm-5 col-xs-12 -->
+														</div><!-- /.form-inline -->
+													</div><!-- /.row -->
+													<br/>
+													<div class="row">
+														<div class="form-inline">
+															<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_tor" class="docu ace ace-checkbox-2" type="checkbox" <?php echo ($doc_info->stud_tor) ? 'checked' : ''; ?> disabled />
+																		<span class="lbl"> Transcript of Records(if transferee)</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-5 col-md-5 col-sm-5 col-xs-12 -->
+															<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+																<div class="checkbox">
+																	<label>
+																		<input name="stud_cert_hon_dism" class="docu ace ace-checkbox-2" type="checkbox" <?php echo ($doc_info->stud_cert_hon_dism) ? 'checked' : ''; ?> disabled />
+																		<span class="lbl"> Certificate of Honourable Dismissal(if transferee)</span>
+																	</label>
+																</div>
+															</div><!-- /.col-lg-5 col-md-5 col-sm-5 col-xs-12 -->
+														</div><!-- /.form-inline -->
+													</div><!-- /.row -->
+												</div><!-- /.col-lg-12 col-md-12 col-sm-12 col-xs-12 -->
+											</div>
+										</fieldset>
+
+										<div class="space-2"></div>
+										<br/>
+
 										<fieldset>
 											<h4>Student Assessment:</h4>
 											<table class="table table-condensed">

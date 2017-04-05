@@ -59,6 +59,58 @@ class Course_manager extends MY_Controller {
 				return FALSE;
 			}
 		}
+		else
+		{
+			exit('No direct script access allowed');
+		}
+	}
+
+	public function Get_course_info()
+	{
+		if ($this->input->is_ajax_request())
+		{
+			$code = $this->input->get('code');
+
+			$result = $this->course->get_course_info($code);
+
+			if ($result)
+			{
+				$data = array('info' => $result);
+				return $res = $this->load->view('Admin/Course_manager/Edit_course_view', $data);
+			}
+			else
+			{
+				return 'false';
+			}
+		}
+		else
+		{
+			exit('No direct script access allowed');
+		}
+	}
+
+	public function Update_course()
+	{
+		if ($this->input->is_ajax_request())
+		{
+			$courseName = $this->input->get('courseName');
+			$courseCode = $this->input->get('courseCode');
+			$nameUpdate = $this->input->get('nameUpdate');
+			$codeUpdate = $this->input->get('codeUpdate');
+
+			if ($this->course->update_course($courseName, $courseCode, $nameUpdate, $codeUpdate))
+			{
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+		else
+		{
+			exit('No direct script access allowed');
+		}
 	}
 
 	public function Toggler_availability()

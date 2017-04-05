@@ -34,6 +34,7 @@
 
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-xs-12">
+							<!-- <button class="btn btn-primary" id="gritter-center">Center</button> -->
 								<div class="row">
 									<?php if($this->session->flashdata('error')): ?>
 		              <span class="help-block">
@@ -164,6 +165,7 @@
 	<!-- ace scripts -->
 	<script src="<?php echo base_url('assets/js/ace-elements.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/ace.min.js'); ?>"></script>
+	<!-- <script src="<?php echo base_url('assets/js/jquery.gritter.min.js'); ?>"></script> -->
 
 	<!-- dataTables scripts -->
 	<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
@@ -181,5 +183,15 @@
         btn.button('reset');
       }, 2000)
     });
+
+   //  $('#gritter-center').on(ace.click_event, function(){
+	  //   $.gritter.add({
+	  //   	title: 'This is a centered notification',
+	  //   	text: 'Just add a "gritter-center" class_name to your $.gritter.add or globally to $.gritter.options.class_name',
+	  //   	class_name: 'gritter-success gritter-center'
+	  //   });
+	    
+	  //   return false;
+	  // });
   });
 </script>

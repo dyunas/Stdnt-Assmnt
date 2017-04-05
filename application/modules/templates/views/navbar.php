@@ -33,12 +33,6 @@
 
 						<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 							<li>
-								<a href="<?php echo base_url('admin/acct_settings'); ?>">
-									<i class="ace-icon fa fa-cog"></i>
-									Settings
-								</a>
-							</li>
-							<li>
 								<a href="<?php echo base_url('admin/profile'); ?>">
 									<i class="ace-icon fa fa-user"></i>
 									Profile
