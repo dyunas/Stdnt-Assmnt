@@ -78,10 +78,10 @@
 														<td id="status<?php echo $item->row_id; ?>"><?php echo $item->status; ?></td>
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
-																<a class="red" href="#modal-edit" role="button" data-toggle="modal">
+																<a class="red" href="#modal-edit" data-rel="tooltip" data-placement="bottom" title="Edit" role="button" data-toggle="modal">
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
-																<a class="toggler red" href="#" data-id="<?php echo $item->row_id; ?>" data-status="<?php echo $item->status; ?>">
+																<a class="toggler red" href="#" data-rel="tooltip" data-placement="bottom" title="Toggle" data-id="<?php echo $item->row_id; ?>" data-status="<?php echo $item->status; ?>">
 																	<i class="toggler-icon ace-icon fa bigger-130" id="<?php echo $item->row_id; ?>"></i>
 																	<input type="hidden" class="iconica" data-id="<?php echo $item->row_id; ?>" id="icon<?php echo $item->row_id; ?>" value="<?php echo $item->status; ?>">
 																</a>

@@ -58,7 +58,11 @@
 								</div>
 								<br/>
 								<div class="row">
-									<div class="col-lg-12 col-md-12 col-xs-12">
+									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+										<img src="<?php echo base_url('assets/uploads/profile/'.$stud_info->stud_avatar); ?>" />
+									</div><!-- /.col-lg-3 col-md-3 col-sm-3 col-xs-12 -->
+
+									<div class="col-lg-9 col-md-9 col-xs-12">
 										<fieldset>
 											<h4>Student Information:</h4>
 											<table class="table table-condensed">
@@ -100,7 +104,10 @@
 										</fieldset><!-- /.student information -->
 
 										<div class="space-2"></div>
-
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-xs-12">
 										<fieldset>
 											<h4>Additional Information:</h4>
 											<table class="table table-condensed">
@@ -473,7 +480,7 @@
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 												<div class="space-2"></div>
 												<div class="clearfix form-actions">
-												  <div class="col-md-offset-3 col-md-9">
+												  <div class="pull-right">
 												  	<a href="<?php echo site_url('registrar/student_rcrd'); ?>" class="btn btn-danger" id="cancel" data-loading-text="<i class='ion-loading-c'></i> Please wait...">
 														  <i class="ace-icon fa fa-arrow-left bigger-110"></i>
 														  Go Back

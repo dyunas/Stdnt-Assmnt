@@ -240,6 +240,32 @@ class Student_records extends MY_Controller {
 		}
 	}
 
+	public function Get_student_assessment()
+	{
+		if ($this->input->is_ajax_request())
+		{
+			$stud_id = $this->input->get('studID');
+
+			$data = array(
+				'stud_info' => $this->student->get_student_info($stud_id),
+				'course' => $this->assessment->get_courses(),
+				'semester' => $this->assessment->get_semester(),
+				'fees' => $this->student->get_assessment_info($this->input->get('studID'), $this->input->get('course'), $this->input->get('yr'), $this->input->get('sem')),
+				'scheme' => $this->assessment->get_payment_scheme(),
+				'ccourse' => $this->input->get('course'),
+				'cyear' => $this->input->get('yr'),
+				'csem' => $this->input->get('sem'),
+				'cscheme' => $this->student->get_stud_schme($this->input->get('studID'), $this->input->get('course'), $this->input->get('yr'), $this->input->get('sem'))
+				);
+
+			return $result = $this->load->view('Student_Records/Edit_student_assessment_view', $data);
+		}
+		else
+		{
+			exit('No direct script access allowed');
+		}
+	}
+
 	public function Update_student_assessment($stud_id)
 	{
 		if ($this->session->userdata('user_type') != 'Admin')

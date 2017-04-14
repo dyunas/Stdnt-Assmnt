@@ -6,7 +6,7 @@ class Students_model extends CI_Model {
 		parent::__construct();
 	}
 
-	public function enroll_student()
+	public function enroll_student($avatar)
 	{
 		$stud_id = $this->get_stud_id($this->input->post('stud_year'));
 
@@ -14,6 +14,7 @@ class Students_model extends CI_Model {
 		{
 			$stud_data = array(
 				'stud_id' => $stud_id,
+				'stud_avatar' => $avatar,
 				'stud_name' => $this->input->post('stud_name'),
 				'stud_status' => 'floating',
 				'stud_course' => $this->input->post('stud_course'),

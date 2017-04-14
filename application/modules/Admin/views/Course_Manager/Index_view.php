@@ -78,10 +78,10 @@
 													<td id="status<?php echo $item->course_code; ?>"><?php echo $item->status; ?>
 													<td>
 														<div class="hidden-sm hidden-xs action-buttons">
-															<a class="editBtn red" href="#edit-form" data-id="<?php echo $item->course_code; ?>" role="button" data-toggle="modal">
+															<a class="editBtn red" href="#edit-form" data-rel="tooltip" data-placement="bottom" title="Edit" data-id="<?php echo $item->course_code; ?>" role="button" data-toggle="modal">
 																<i class="ace-icon fa fa-pencil bigger-130"></i>
 															</a>
-															<a class="toggler red" href="#" data-id="<?php echo $item->course_code; ?>" data-status="<?php echo $item->status; ?>">
+															<a class="toggler red" href="#" data-rel="tooltip" data-placement="bottom" title="Toggle" data-id="<?php echo $item->course_code; ?>" data-status="<?php echo $item->status; ?>">
 																<i class="toggler-icon ace-icon fa bigger-130" id="<?php echo $item->course_code; ?>"></i>
 																<input type="hidden" class="iconica" data-id="<?php echo $item->course_code; ?>" id="icon<?php echo $item->course_code; ?>" value="<?php echo $item->status; ?>">
 															</a>

@@ -76,7 +76,7 @@ class Student_records extends MY_Controller {
 		else
 		{
 			// print_r($_FILES['profile_pic']);
-			$config['upload_path'] = 'assets/uploads/profile/';
+			$config['upload_path'] = './assets/uploads/profile/';
 	    $config['file_name'] = md5(rand(0, 100)).'.jpg';
 	    $config['allowed_types'] = 'jpg|jpeg';
 	    $config['max_size']     = '0';
@@ -100,23 +100,19 @@ class Student_records extends MY_Controller {
 
         $this->image_lib->resize();
 
-        echo $file['file_name'];
-        echo $file['full_path'];
+        if ($this->enroll_student->enroll_student($file['file_name']))
+        {
+        	redirect(site_url('registrar/student_rcrd'));
+        }
+        else
+        {
+        	redirect(site_url('registrar/student_rcrd/enroll'));
+        }
       }
       else
       {
-        // $error = $this->upload->display_errors();
-
-        echo 'Tanga tol!';
+      	// error!
       }
-			// if ($this->enroll_student->enroll_student())
-			// {
-			// 	redirect(site_url('registrar/student_rcrd'));
-			// }
-			// else
-			// {
-			// 	redirect(site_url('registrar/student_rcrd/enroll'));
-			// }
 		}
 	}
 }

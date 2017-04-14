@@ -34,6 +34,30 @@
 
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-xs-12">
+								<div class="row">
+									<?php if($this->session->flashdata('error')): ?>
+		              <span class="help-block">
+		              	<?php echo '<div class="alert alert-success">
+					      	  <button type="button" class="close" data-dismiss="alert">
+								  		<i class="ace-icon fa fa-times"></i>
+										</button>
+										'.$this->session->flashdata('error').'</div><!-- alert -->'; ?>
+		      			  </span>
+		              <?php endif; ?>
+									<?php if($this->session->flashdata('error_2')): ?>
+		              <span class="help-block">
+		              	<?php echo '<div class="alert alert-danger">
+					      	  <button type="button" class="close" data-dismiss="alert">
+								  		<i class="ace-icon fa fa-times"></i>
+										</button>
+										'.$this->session->flashdata('error_2').'</div><!-- alert -->'; ?>
+		      			  </span>
+		              <?php endif; ?>
+									<div class="col-lg-3 col-md-4 col-xs-4 pull-right">
+										<a href="<?php echo site_url('admin/acct_mngr/new_account'); ?>" id="newacctBtn" data-loading-text="<i class='ion-loading-c'></i> Please wait..." class="btn btn-danger btn-sm pull-right"><i class="fa fa-plus"></i> New Account</a>
+									</div>
+								</div>
+								<br/>
 								<table id="account_tbl" class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
@@ -55,13 +79,13 @@
 												<td><?php echo $item->user_type; ?></td>
 												<td>
 													<div class="hidden-sm hidden-xs action-buttons">
-														<a class="red" href="#">
+														<a class="red" data-rel="tooltip" data-placement="bottom" title="View" href="<?php echo site_url('admin/acct_mngr/'.$item->user_id); ?>">
 															<i class="ace-icon fa fa-search-plus bigger-130"></i>
 														</a>
-														<a class="red" href="#">
+														<a class="red" data-rel="tooltip" data-placement="bottom" title="Edit" href="<?php echo site_url('admin/acct_mngr/edit/'.$item->user_id); ?>">
 															<i class="ace-icon fa fa-pencil bigger-130"></i>
 														</a>
-														<a class="red" href="#">
+														<a class="red" data-rel="tooltip" data-placement="bottom" title="Delete" href="<?php echo site_url('admin/acct_mngr/delete/'.$item->user_id); ?>">
 															<i class="ace-icon fa fa-trash-o bigger-130"></i>
 														</a>
 													</div>
@@ -74,21 +98,21 @@
 
 															<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 																<li>
-																	<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																	<a href="<?php echo site_url('admin/acct_mngr/'.$item->user_id); ?>" class="tooltip-error" data-rel="tooltip" title="View">
 																		<span class="red">
 																			<i class="ace-icon fa fa-search-plus bigger-120"></i>
 																		</span>
 																	</a>
 																</li>
 																<li>
-																	<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																	<a href="<?php echo site_url('admin/acct_mngr/edit/'.$item->user_id); ?>" class="tooltip-error" data-rel="tooltip" title="Edit">
 																		<span class="red">
 																			<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																		</span>
 																	</a>
 																</li>
 																<li>
-																	<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																	<a href="<?php echo site_url('admin/acct_mngr/delete/'.$item->user_id); ?>" class="tooltip-error" data-rel="tooltip" title="Delete">
 																		<span class="red">
 																			<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																		</span>

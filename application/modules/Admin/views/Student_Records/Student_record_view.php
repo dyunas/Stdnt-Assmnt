@@ -247,6 +247,9 @@
 													<?php	$fees = $this->student->get_assessment_info($stud_info->stud_id, $scheme->stud_course, $scheme->stud_year, $scheme->stud_sem);
 														$discount = $this->student->get_discount_info($stud_info->stud_id, $scheme->stud_course, $scheme->stud_year, $scheme->stud_sem); ?>
 														<div id="<?php echo $scheme->stud_course.'-'.$scheme->stud_year.'-'.$sem[$scheme->stud_sem]; ?>" class="tab-pane fade">
+														<div class="col-lg-3 col-md-4 col-xs-4 pull-right">
+															<a href="#edit-form" id="editAssmntBtn" role="button" data-toggle="modal" data-id="<?php echo $stud_info->stud_id; ?>" data-course="<?php echo $scheme->stud_course; ?>" data-yr="<?php echo $scheme->stud_year ?>" data-sem="<?php echo $scheme->stud_sem; ?>" data-scheme="" data-loading-text="<i class='ion-loading-c'></i> Please wait..." class="btn btn-danger btn-sm pull-right"><i class="fa fa-plus"></i> Edit</a>
+														</div>
 															<div class="row">
 																<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 																	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -642,6 +645,32 @@
 			</div>
 		</div>
 
+		<div id="edit-form" class="modal" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="red bigger">Edit Student Assessment</h4>
+					</div>
+				<?php echo form_open(site_url('admin/student_rcrd/edit_asmnt/'.$stud_info->stud_id), 'role="form" class="form-horizontal"'); ?>
+					<div class="modal-body" id="edit-result">
+						<!--insert result here-->
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-sm btn-danger addSchm" id="loadingBtn" data-loading-text="<i class='ion-loading-c'></i> Adding">
+							<i class="ace-icon fa fa-check"></i>
+							Edit
+						</button>
+						<button class="btn btn-sm" data-dismiss="modal">
+							<i class="ace-icon fa fa-times"></i>
+							Cancel
+						</button>
+					</div>
+				<?php echo form_close(); ?>
+				</div>
+			</div>
+		</div>
+
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
 			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 		</a>
@@ -734,6 +763,7 @@
 			});
 
 			var updteAssmntBtn = $('#updteAssmntBtn');
+			var editAssmntBtn = $('#editAssmntBtn');
 
 			updteAssmntBtn.on('click', function(e){
 				var studID = updteAssmntBtn.attr('data-id');
@@ -760,7 +790,51 @@
 				});
 			});
 
+			editAssmntBtn.on('click', function(e){
+				var studID = editAssmntBtn.attr('data-id');
+				var course = editAssmntBtn.attr('data-course');
+				var yr = editAssmntBtn.attr('data-yr');
+				var sem = editAssmntBtn.attr('data-sem');
+				var scheme = editAssmntBtn.attr('data-scheme');
+
+				$.ajax({
+				  type: 'GET',
+				  url: '<?php echo site_url('admin/student_rcrd/get_student_assessment'); ?>',
+				  data: { 
+				  				studID: studID,
+				  				course: course,
+				  				yr: yr,
+				  				sem: sem,
+				  				scheme: scheme
+				  			},
+				  beforeSend:function(){
+				    // this is where we append a loading image
+				    $('.modal-body').html('<div class="loading"><img src="<?php echo base_url('assets/img/loading.gif') ?>"; alt="Loading..." />Please wait...</div>');
+				  },
+				  success:function(data){
+				    // successful request; do something with the data
+				    //$('.modal-body').empty();
+						$('#edit-result').html(data);
+				  },
+				  error:function(){
+				    // failed request; give feedback to user
+				    $('.modal-body').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+				  }
+				});
+			});
+
 			$('#modal-form').on('shown.bs.modal', function () {
+		    $(this).find('.modal-dialog')
+		    .css(
+		    	{
+		    		width:'1024px',
+            height:'auto', 
+			      'max-height':'100%'
+			    }
+			  );
+			});
+
+			$('#edit-form').on('shown.bs.modal', function () {
 		    $(this).find('.modal-dialog')
 		    .css(
 		    	{

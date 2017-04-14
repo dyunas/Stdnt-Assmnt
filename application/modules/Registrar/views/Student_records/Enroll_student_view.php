@@ -565,8 +565,10 @@
 			allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
 		})
 		.end().find('button[type=reset]').on(ace.click_event, function(){
-			$('#user-profile-3 input[type=file]').ace_file_input('reset_input');
+			$('#student_form input[type=file]').ace_file_input('reset_input');
 		});
+
+		$('#student_form').find('input[type=file]').ace_file_input('show_file_list', [{type: 'image', name: $('#avatar').attr('src')}]);
 
     //datepicker plugin
 		//link
@@ -590,91 +592,91 @@
 
 		$('#stud_bdate').mask('99/99/9999');
 
-    // $('#student_form').validate({
-    //   errorElement: 'div',
-    //   errorClass: 'help-block',
-    //   focusInvalid: false,
-    //   ignore: "",
-    //   rules: {
-    //     stud_name: {
-    //       required: true,
-    //     },
-    //     stud_gender: {
-    //       required: true,
-    //     },
-    //     stud_bdate: {
-    //       required: true,
-    //     },
-    //     stud_cnum: {
-    //     	required: true,
-    //     },
-    //     stud_tnum: {
-    //     	required: true,
-    //     },
-    //     stud_email: {
-    //     	required: true,
-    //     	email: true
-    //     },
-    //     stud_addr_ln1: {
-    //     	required: true,
-    //     },
-    //     stud_addr_ln2: {
-    //     	required: true,
-    //     },
-    //     stud_addr_ln3: {
-    //     	required: true,
-    //     },
-    //     stud_addr_ln4: {
-    //     	required: true,
-    //     },
-    //     stud_gdn_name: {
-    //     	required: true,
-    //     },
-    //     stud_gdn_cnum: {
-    //     	required: true,
-    //     },
-    //     stud_gdn_tnum: {
-    //     	required: true,
-    //     },
-    //     stud_gdn_addr_ln1: {
-    //     	required: true,
-    //     },
-    //     stud_gdn_addr_ln2: {
-    //     	required: true,
-    //     },
-    //     stud_gdn_addr_ln3: {
-    //     	required: true,
-    //     },
-    //     stud_gdn_addr_ln4: {
-    //     	required: true,
-    //     },
-    //     stud_course: {
-    //     	required: true,
-    //     },
-    //     stud_year: {
-    //     	required: true,
-    //     }
-    //   },
+    $('#student_form').validate({
+      errorElement: 'div',
+      errorClass: 'help-block',
+      focusInvalid: false,
+      ignore: "",
+      rules: {
+        stud_name: {
+          required: true,
+        },
+        stud_gender: {
+          required: true,
+        },
+        stud_bdate: {
+          required: true,
+        },
+        stud_cnum: {
+        	required: true,
+        },
+        stud_tnum: {
+        	required: true,
+        },
+        stud_email: {
+        	required: true,
+        	email: true
+        },
+        stud_addr_ln1: {
+        	required: true,
+        },
+        stud_addr_ln2: {
+        	required: true,
+        },
+        stud_addr_ln3: {
+        	required: true,
+        },
+        stud_addr_ln4: {
+        	required: true,
+        },
+        stud_gdn_name: {
+        	required: true,
+        },
+        stud_gdn_cnum: {
+        	required: true,
+        },
+        stud_gdn_tnum: {
+        	required: true,
+        },
+        stud_gdn_addr_ln1: {
+        	required: true,
+        },
+        stud_gdn_addr_ln2: {
+        	required: true,
+        },
+        stud_gdn_addr_ln3: {
+        	required: true,
+        },
+        stud_gdn_addr_ln4: {
+        	required: true,
+        },
+        stud_course: {
+        	required: true,
+        },
+        stud_year: {
+        	required: true,
+        }
+      },
 
-    //   highlight: function (e) {
-    //     $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-    //   },
+      highlight: function (e) {
+        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+      },
       
-    //   success: function (e) {
-    //     $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
-    //   	$(e).remove();
-    //   },
+      success: function (e) {
+        $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+      	$(e).remove();
+      },
       
-    //   errorPlacement: function (error, element) {
-    //     error.insertAfter(element.parent());
-    //   },
+      errorPlacement: function (error, element) {
+        error.insertAfter(element.parent());
+      },
       
-    //   submitHandler: function (form) {
-    //     $(form).ajaxSubmit();
-    //   },
-    //   invalidHandler: function (form) {
-    //   }
-    // });
+      submitHandler: function (form) {
+        $(form).ajaxSubmit();
+      },
+      invalidHandler: function (form) {
+      }
+    });
 
     $('#submit').on(ace.click_event, function () {
       var btn = $(this);

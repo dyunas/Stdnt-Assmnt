@@ -207,7 +207,7 @@
 			{
 				type: "column",
 				showInLegend: true,
-				name: "S.Y. 2017",
+				name: "S.Y. 2016 - 2017",
 				toolTipContent:'<span style="color:#000">{name}</span>:&nbsp;{y}',
 				color: "green",
 				dataPoints: [
@@ -263,7 +263,7 @@
 			{
 				type: "column",
 				showInLegend: true,
-				name: "S.Y. 2015-2016",
+				name: "S.Y. 2016-2017",
 				// toolTipContent:'<span style="color:#000">{name}</span>:&nbsp;{y}',
 				// color: "red",
 				dataPoints: [

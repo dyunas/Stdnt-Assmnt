@@ -68,6 +68,9 @@ $route['admin/dashboard'] = 'Admin/Dashboard/Dashboard/Index';
 $route['admin'] = 'Admin/Dashboard/Dashboard/Index';
 
 //Account Manager
+$route['admin/acct_mngr/validate_new'] = 'Admin/Account_Manager/Account_manager/Validate_new_account';
+$route['admin/acct_mngr/new_account'] = 'Admin/Account_Manager/Account_manager/New_account';
+$route['admin/acct_mngr/(:any)'] = 'Admin/Account_Manager/Account_manager/View_account/$1';
 $route['admin/acct_mngr'] = 'Admin/Account_Manager/Account_manager/Index';
 
 //Course Manager
@@ -79,6 +82,7 @@ $route['admin/course_mngr'] = 'Admin/Course_Manager/Course_manager/Index';
 
 //Student Record
 $route['admin/student_rcrd/get_student_assessment_info'] = 'Admin/Student_Records/Student_records/Get_student_assessment_info';
+$route['admin/student_rcrd/get_student_assessment'] = 'Admin/Student_Records/Student_records/Get_student_assessment';
 $route['admin/student_rcrd/update_assessment/(:any)'] = 'Admin/Student_Records/Student_records/Update_student_assessment/$1';
 $route['admin/student_rcrd/view/(:any)'] = 'Admin/Student_Records/Student_records/View_record/$1';
 $route['admin/student_rcrd'] = 'Admin/Student_Records/Student_records/Index';

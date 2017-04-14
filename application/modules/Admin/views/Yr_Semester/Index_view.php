@@ -162,9 +162,9 @@
           </div>
           <div class='col-md-4'>
             <select id='sy'>
-              <option value="2016-2017" <?php echo ($schl_yr->school_yr == '2016-2017') ? 'selected' : ''; ?>>2016-2017</option>
-              <option value="2015-2016" <?php echo ($schl_yr->school_yr == '2015-2016') ? 'selected' : ''; ?>>2015-2016</option>
-              <option value="2014-2015" <?php echo ($schl_yr->school_yr == '2014-2015') ? 'selected' : ''; ?>>2014-2015</option>
+              <?php for($x = date('Y'); $x > 2014; $x--): ?>
+              <option value="<?php echo $x.'-'.($x + 1); ?>"><?php echo $x.'-'.($x + 1); ?></option>
+              <?php endfor; ?>
             </select>
           </div>
           <div class='col-md-4'></div>

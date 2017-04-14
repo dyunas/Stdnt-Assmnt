@@ -134,6 +134,26 @@ class Student_model extends CI_Model {
 		return FALSE;
 	}
 
+	public function get_stud_schme($stud_id, $course=NULL, $yr=NULL, $sem=NULL)
+	{
+		$this->db->select('*');
+		$this->db->from('tbl_stud_pymnt_schm');
+		$this->db->where('stud_id', $stud_id);
+		$this->db->where('stud_course', $course);
+		$this->db->where('stud_year', $yr);
+		$this->db->where('stud_sem', $sem);
+		$this->db->order_by('row_id', 'DESC');
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0)
+		{
+			return $query->result();
+		}
+
+		return FALSE;
+	}
+
 	public function update_student_assessment($stud_id)
 	{
 		$valid = $this->get_stud_pymnt_schme($stud_id);
