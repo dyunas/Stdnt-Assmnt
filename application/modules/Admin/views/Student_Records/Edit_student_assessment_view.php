@@ -11,12 +11,13 @@
 
 							  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 							  	<div class="clearfix">
-								  <select class="form-control input-xxlarge" id="stud_course" name="stud_course">
+								  <select class="form-control input-xxlarge" id="stud_course" name="" disabled>
 								  	<option value="">Choose a course</option>
 								  	<?php foreach($course as $item): ?>
 								  		<option value="<?php echo $item->course_code; ?>" <?php echo ($ccourse == $item->course_code) ? 'selected="selected"' : ''; ?>><?php echo $item->course_name; ?></option>
 								  	<?php endforeach; ?>
 								  </select>
+								  <input type="hidden" name="stud_course" value="<?php echo $ccourse; ?>">
 									</div>
 							  </div>
 							</div><!-- form-group -->
@@ -28,13 +29,14 @@
 
 							  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 							  	<div class="clearfix">
-									  <select class="form-control input-xxlarge" name="stud_year">
+									  <select class="form-control input-xxlarge" name="" disabled>
 									  	<option value="">Choose a Year</option>
 									  	<option value="1" <?php echo ($cyear == '1') ? 'selected="selected"' : ''; ?>>1st Year</option>
 									  	<option value="2" <?php echo ($cyear == '2') ? 'selected="selected"' : ''; ?>>2nd Year</option>
 									  	<option value="3" <?php echo ($cyear == '3') ? 'selected="selected"' : ''; ?>>3rd Year</option>
 									  	<option value="4" <?php echo ($cyear == '4') ? 'selected="selected"' : ''; ?>>4th Year</option>
 									  </select>
+									  <input type="hidden" name="stud_year" value="<?php echo $cyear; ?>">
 									</div>
 							  </div>
 							</div><!-- form-group -->
@@ -69,7 +71,7 @@
 													<tr>
 														<td class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 															<label>
-																<input name="form-field-checkbox" class="fees ace ace-checkbox-2" id="feeCheck<?php echo $x; ?>" data-id="<?php echo $x; ?>" type="checkbox" <?php echo ($item->fee_amount > 0) ? 'checked="checked"' : ''; ?> />
+																<input name="form-field-checkbox" class="fees ace ace-checkbox-2" id="feeCheck<?php echo $x; ?>" data-id="<?php echo $x; ?>" type="checkbox" <?php //echo ($item->fee_amount > 0) ? 'checked="checked"' : ''; ?> />
 																<span class="lbl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $item->fee_name; ?></span>
 															</label>
 															<input type="hidden" name="fee_name[]" id="fee_name<?php echo $x ?>" value="<?php echo $item->row_id; ?>">

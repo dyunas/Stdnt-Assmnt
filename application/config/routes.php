@@ -83,6 +83,7 @@ $route['admin/course_mngr'] = 'Admin/Course_Manager/Course_manager/Index';
 //Student Record
 $route['admin/student_rcrd/get_student_assessment_info'] = 'Admin/Student_Records/Student_records/Get_student_assessment_info';
 $route['admin/student_rcrd/get_student_assessment'] = 'Admin/Student_Records/Student_records/Get_student_assessment';
+$route['admin/student_rcrd/edit_asmnt/(:any)'] = 'Admin/Student_Records/Student_records/Edit_student_assessment/$1';
 $route['admin/student_rcrd/update_assessment/(:any)'] = 'Admin/Student_Records/Student_records/Update_student_assessment/$1';
 $route['admin/student_rcrd/view/(:any)'] = 'Admin/Student_Records/Student_records/View_record/$1';
 $route['admin/student_rcrd'] = 'Admin/Student_Records/Student_records/Index';

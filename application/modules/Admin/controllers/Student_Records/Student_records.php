@@ -250,7 +250,8 @@ class Student_records extends MY_Controller {
 				'stud_info' => $this->student->get_student_info($stud_id),
 				'course' => $this->assessment->get_courses(),
 				'semester' => $this->assessment->get_semester(),
-				'fees' => $this->student->get_assessment_info($this->input->get('studID'), $this->input->get('course'), $this->input->get('yr'), $this->input->get('sem')),
+				// 'fees' => $this->student->get_assessment_info($this->input->get('studID'), $this->input->get('course'), $this->input->get('yr'), $this->input->get('sem')),
+				'fees' => $this->assessment->get_fees(),
 				'scheme' => $this->assessment->get_payment_scheme(),
 				'ccourse' => $this->input->get('course'),
 				'cyear' => $this->input->get('yr'),
@@ -263,6 +264,25 @@ class Student_records extends MY_Controller {
 		else
 		{
 			exit('No direct script access allowed');
+		}
+	}
+
+	public function Edit_student_assessment($stud_id)
+	{
+		if ($this->session->userdata('user_type') != 'Admin')
+		{
+			redirect(site_url());
+		}
+		else
+		{
+			if ($this->student->edit_student_assessment($stud_id))
+			{
+				redirect(site_url('admin/student_rcrd/view/'.$stud_id));
+			}
+			else
+			{
+				redirect(site_url('admin/student_rcrd/view/'.$stud_id));
+			}
 		}
 	}
 
